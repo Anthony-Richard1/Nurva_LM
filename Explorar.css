@@ -1,0 +1,186 @@
+/* Cabeçalho */
+.navegacao {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 1em;
+    border: 0.20px solid #ffffffa0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-right: 1em;
+}
+  
+.menu-icon {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5em;
+}
+  
+  .menu-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+  }
+  
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+  
+.menu li {
+    margin-right: 1em;
+}
+  
+.menu a {
+    color: #fff;
+    text-decoration: none;
+}
+  
+.menu a.ativa {
+    color: #ccc;
+}
+  
+.perfil {
+    margin-left: 1em;
+}
+  
+.perfil img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Estilos globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Layout principal */
+main {
+    display: flex;
+    flex-grow: 1;
+}
+
+/* Centralizando o aside .lateral de cima para baixo */
+.lateral {
+    display: flex;
+    flex-direction: column;  /* Organiza os itens em coluna */
+    align-items: center;     /* Centraliza os itens horizontalmente */
+    justify-content: flex-start; /* Faz com que os itens comecem do topo */
+    padding: 20px;
+    background-color: #000000;
+    border-right: 5px solid #ffffff82;
+    height: 100vh;            /* Ocupa toda a altura da tela */
+}
+
+/* Estilizando os títulos */
+.lateral h2 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* Estilo das listas */
+.lateral ul {
+    list-style: none;         /* Remove as bolinhas */
+    padding: 0;
+    margin: 0 0 20px 0;       /* Margem entre as listas */
+    width: 100%;              /* Largura total do contêiner */
+    display: flex;
+    flex-direction: column;   /* Itens dispostos verticalmente */
+    align-items: center;      /* Centraliza os itens horizontalmente */
+}
+
+.lateral li {
+    color: white;
+    margin: 5px 0;            /* Espaçamento entre os itens da lista */
+}
+
+/* Estilo da barra de criar nova playlist */
+.barra-criar-playlist {
+    background-color: #808080;
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    width: auto;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;       /* Centraliza o texto dentro da div */
+}
+
+.barra-criar-playlist:hover {
+    background-color: #696969;
+    border-color: #fff;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+footer {
+    padding: 10px;
+    background-color: #181818;
+    text-align: center;
+}
+
+.barra-criar-playlist {
+    background-color: #161616;  /* Cor de fundo cinza */
+    color: white;               /* Cor do texto branca */
+    padding: 10px 20px;         /* Espaçamento interno */
+    border: 1px solid #ffffff82;     /* Borda fina de cor cinza claro */
+    border-radius: 25px;        /* Borda arredondada */
+    font-size: 16px;            /* Tamanho da fonte */
+    width: 300px;               /* Largura do campo */
+    text-align: center;         /* Centraliza o texto */
+    cursor: pointer;           /* Mostra o cursor de ponteiro ao passar o mouse */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Efeito suave no hover */
+}
+
+.barra-criar-playlist:hover {
+    background-color: #696969;  /* Cor de fundo mais escura quando passar o mouse */
+    border-color: #fff;         /* Borda branca ao passar o mouse */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        text-align: center;
+    }
+}
+@media (max-width: 480px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+}
