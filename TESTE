@@ -1,0 +1,199 @@
+
+
+
+
+/* Estilo do conteúdo principal */
+.content {
+    flex: 1;
+    background-color: #fff;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    position: relative;
+}
+
+
+
+.barra-pesquisa {
+    margin-top: 20px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.barra-pesquisa input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.perfil-usuario {
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+}
+
+.perfil-usuario img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.perfil-usuario .info-usuario {
+    display: flex;
+    flex-direction: column;
+}
+
+.perfil-usuario .info-usuario p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.perfil-usuario .info-usuario h3 {
+    font-size: 20px;
+    color: #f44336;
+}
+
+/* Estilo dos filtros */
+.filtros {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filtros button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.music-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.music-list li {
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    display: flex;
+    padding: 15px;
+    align-items: center;
+}
+
+.music-list img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.music-list .music-title {
+    font-size: 18px;
+}
+
+.music-list .artist-name {
+    font-size: 16px;
+    color: #777;
+}
+
+/* Estilo de música em alta */
+.trending {
+    margin-top: 30px;
+}
+
+.trending-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.music-card {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.music-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.music-card .music-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: -1;
+}
+
+.music-card h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.music-card p {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    .navegacao {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+    }
+
+    .navegacao .menu {
+        display: none;
+    }
+
+    .navegacao .menu-icon {
+        display: block;
+    }
+
+    .lateral {
+        display: none;
+    }
+
+    .content {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .music-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+    }
+
+    .trending {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .trending .music-card {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}

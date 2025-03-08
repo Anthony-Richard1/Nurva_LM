@@ -1,0 +1,118 @@
+/* Ajustando para telas menores */
+@media (max-width: 768px) {
+    .lateral {
+        width: 100%; /* Expande a lateral para telas menores */
+        position: relative; /* Evita sobreposição fixa */
+        height: auto; /* Ajusta conforme o conteúdo */
+        display: none; /* Esconde a lateral */
+    }
+    
+    /* .content ocupa toda a largura quando a lateral desaparecer */
+    .content {
+        width: 100%; /* Agora a content ocupa 100% da tela */
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    /* .navegacao fixa no topo em telas menores */
+    .navegacao {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: transparent; /* Remove o fundo branco */
+        z-index: 10; /* Garante que a navegação fique no topo */
+    }
+    
+    /* .barra-pesquisa, .filtros e .mais fixas em todas as telas */
+    .barra-pesquisa, .filtros, .mais {
+        position: fixed;
+        z-index: 9;
+    }
+    
+    /* Organizando a .music-list em uma coluna e 4 linhas em telas menores */
+    .music-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        gap: 10px;
+        width: 100%;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch; /* Suporte para rolagem suave no mobile */
+        margin-top: 20px; /* Coloca um espaçamento para a .music-list não colidir com outros elementos */
+    }
+
+    /* Responsividade para a .trending em telas menores */
+    .trending {
+        position: relative; /* Volta a posição ao fluxo normal do layout */
+        margin-top: 20px; /* Espaçamento entre a .trending e a .music-list */
+        width: 100%;
+        padding: 10px; /* Ajuste de padding para maior espaçamento */
+        aspect-ratio: 1 / 1; /* Garante que a proporção se mantenha quadrada */
+        height: auto; /* Permite a altura ser ajustada automaticamente */
+    }
+
+    /* Ajuste para telas muito pequenas (480px ou menos) */
+    @media (max-width: 480px) {
+        .trending {
+            margin-top: 10px; /* Menor espaçamento entre a .trending e a .music-list */
+            padding: 8px; /* Ajusta o padding para telas menores */
+        }
+        .music-list {
+            margin-top: 10px; /* Espaçamento menor entre a .trending e a .music-list */
+        }
+    }
+}
+
+/* Garantir que a .music-list não sobreponha a .trending */
+@media (max-width: 768px) {
+    .music-list {
+        margin-top: 160px; /* Garante que a .music-list não colida com a .trending */
+    }
+}
+
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    .navegacao {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+    }
+
+    .navegacao .menu {
+        display: none;
+    }
+
+    .navegacao .menu-icon {
+        display: block;
+    }
+
+    .lateral {
+        display: none;
+    }
+
+    .content {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .music-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+    }
+
+    .trending {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .trending .music-card {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
