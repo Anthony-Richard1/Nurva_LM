@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/Explorar.css">
+    <title>Nurva</title>
+</head>
+<body>
+
+    <nav class="navegacao"> 
+        <div class="container"><button class="menu-icon" aria-label="Abrir menu"> 
+            <svg viewbox="0 0 24 24"> <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" /> 
+            </svg> </button> 
+        <div class="logo"> <a href="#">Nurva</a> 
+        </div> 
+            <ul class="menu"> 
+                <li><a href="/inicio.html">Início</a></li> 
+                <li><a href="/explorer.html">Explorer</a></li> 
+                <li><a href="/biblioteca.html">Biblioteca</a></li> 
+                <li><a href="/comunidade.html">Comunidade</a></li> 
+                <li><a href="/conexoes.html">Conexões</a></li> 
+                <li><a href="#" class="ativa">Perfil</a></li> 
+            </ul> 
+        <div class="perfil"> 
+            <img src="IMG/usuario_anthony.jpg" alt="Foto de perfil do usuário"> 
+        </div> 
+        </div> 
+    </nav>
+
+    <main>
+        <aside class="lateral">
+            <h2>Conexões Ativas</h2>
+        
+            <ul class="connections-list">
+                <li class="connections" style="background-image: url('IMG/capa_Matue.png');">
+                    <div class="camada_escurecimento"></div> 
+                    <img src="IMG/usuario_bernardo.png" alt="Foto de Bernardo">
+                    <div class="connection-info">
+                        <strong>Bernardo</strong>
+                        <span>Ouvindo: Matuê</span>
+                    </div>
+                </li>
+            
+                <li class="connections" style="background-image: url('IMG/capa_newjeans.jpg');">
+                    <div class="camada_escurecimento"></div> 
+                    <img src="IMG/usuario_livia.jpg" alt="Foto de Lívia">
+                    <div class="connection-info">
+                        <strong>Lívia</strong>
+                        <span>Ouvindo: New Jeans</span>
+                    </div>
+                </li>
+            
+                <li class="connections" style="background-image: url('IMG/capa_tyler.jpg');">
+                    <div class="camada_escurecimento"></div> 
+                    <img src="IMG/usuario_gustavo.jpg" alt="Foto de Gustavo">
+                    <div class="connection-info">
+                        <strong>Gustavo</strong>
+                        <span>Ouvindo: Tyler, The Creator</span>
+                    </div>
+                </li>
+            
+                <li class="connections" style="background-image: url('IMG/capa_doliver.jpg');">
+                    <div class="camada_escurecimento"></div> 
+                    <img src="IMG/usuario_bruna.png" alt="Foto de Bruna">
+                    <div class="connection-info">
+                        <strong>Bruna</strong>
+                        <span>Ouvindo: Don Toliver</span>
+                    </div>
+                </li>
+            </ul>
+        
+            <h2>Playlists</h2>
+            <ul class="playlists">
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_matue.jpg" alt="Playlist 1">
+                        <img src="IMG/playlist_capa_djonga.jpg" alt="Playlist 2">
+                        <img src="IMG/playlist_capa_racionais.jpg" alt="Playlist 3">
+                        <img src="IMG/playlist_capa_yago.jpg" alt="Playlist 4">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Para animar pro vôlei</strong>
+                        <span>Criado por: Bernardo</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_billie.jpg" alt="Playlist 5">
+                        <img src="IMG/playlist_capa_lana.jpg" alt="Playlist 6">
+                        <img src="IMG/playlist_capa_tyler.jpg" alt="Playlist 7">
+                        <img src="IMG/playlist_capa_cazuza.jpg" alt="Playlist 8">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Para chorar no banho</strong>
+                        <span>Criado por: Lívia</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_michael.jpg" alt="Playlist 9">
+                        <img src="IMG/playlist_capa_beatles.jpg" alt="Playlist 10">
+                        <img src="IMG/playlist_capa_racionais.jpg" alt="Playlist 11">
+                        <img src="IMG/playlist_capa_amy.jpg" alt="Playlist 12">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Para estudar</strong>
+                        <span>Criado por: Gustavo</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_adele.jpg" alt="Playlist 13">
+                        <img src="IMG/playlist_capa_weenknd.jpg" alt="Playlist 14">
+                        <img src="IMG/playlist_capa_amy.jpg" alt="Playlist 15">
+                        <img src="IMG/playlist_capa_tyler.jpg" alt="Playlist 16">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Rap Nacional</strong>
+                        <span>Criado por: Bruna</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="barra-criar-playlist">+ Criar Nova Playlist</div>
+        </aside>
+        
+        
+        <section class="content" style="background-image: url('IMG/Background.png')">
+            <div class="mais">
+                <span class="texto-mais">Mais</span>
+            </div>
+        
+            <div class="barra-pesquisa">
+                <input type="text" placeholder="Pesquise músicas, artistas, álbuns e podcasts">
+            </div>
+        
+            <div class="perfil-usuario">
+                <img src="IMG/usuario_anthony.jpg" alt="Foto de perfil">
+                <div class="info-usuario">
+                    <p class="nome-usuario">Anthony Richard</p>
+                    <h3>Navegue novos mares</h3>
+                </div>
+            </div>
+        
+            <div class="filtros">
+                <button>Para Você</button>
+                <button>Rock</button>
+                <button>Hip-Hop</button>
+                <button>Pop</button>
+                <button>Jazz</button>
+                <button>Reggae</button>
+                <button>Eletrônica</button>
+                <button>Phonk</button>
+            </div>
+        
+            <ul class="music-list">
+                <li>
+                    <img src="IMG/mares_bk.jpg" alt="BK">
+                    <div>
+                        <p class="music-title">Quadros</p>
+                        <p class="artist-name">BK</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_djonga.jpg" alt="Djonga">
+                    <div>
+                        <p class="music-title">Hat-Trick</p>
+                        <p class="artist-name">Djonga</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_sain.jpg" alt="Sain">
+                    <div>
+                        <p class="music-title">Eu & Tu</p>
+                        <p class="artist-name">Sain</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_derek.jpg" alt="Derek">
+                    <div>
+                        <p class="music-title">Derek Jeter</p>
+                        <p class="artist-name">Derek</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_poetas.jpg" alt="Poetas">
+                    <div>
+                        <p class="music-title">Poetas no Topo 2</p>
+                        <p class="artist-name">Sant</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_pecaos.jpg" alt="Pecaos">
+                    <div>
+                        <p class="music-title">Dias de Luta</p>
+                        <p class="artist-name">Pecaos</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_froid.jpg" alt="Froid">
+                    <div>
+                        <p class="music-title">Lamentável Pt. 2</p>
+                        <p class="artist-name">Froid</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_tasha.jpg" alt="Tasha">
+                    <div>
+                        <p class="music-title">Tangível</p>
+                        <p class="artist-name">Tasha & Tracie</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_veigh.jpg" alt="Veigh">
+                    <div>
+                        <p class="music-title">Engana Dizendo Que Ama</p>
+                        <p class="artist-name">Veigh</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_oruam.jpg" alt="Oruam">
+                    <div>
+                        <p class="music-title">A Hora do Rush</p>
+                        <p class="artist-name">Oruam</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_ruy.jpg" alt="Ryu">
+                    <div>
+                        <p class="music-title">Flow Espacial</p>
+                        <p class="artist-name">Ryu, The Runner</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_kyan.jpg" alt="Kyan">
+                    <div>
+                        <p class="music-title">Mlk Chavoso</p>
+                        <p class="artist-name">Kyan</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_cabelinho.jpg" alt="Cabelinho">
+                    <div>
+                        <p class="music-title">X1</p>
+                        <p class="artist-name">Mc Cabelinho</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/alta_matue_02.jpg" alt="Matuê">
+                    <div>
+                        <p class="music-title">Máquina do Tempo</p>
+                        <p class="artist-name">Matuê</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_teto.jpg" alt="Teto">
+                    <div>
+                        <p class="music-title">PayPal</p>
+                        <p class="artist-name">Teto</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="IMG/mares_chefin.jpg" alt="BK">
+                    <div>
+                        <p class="music-title">212</p>
+                        <p class="artist-name">Chefin</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="trending">
+                <h2 class="trending-title">Em alta no momento</h2> 
+                <div class="music-card">
+                    <div class="music-bg"></div>
+                    <img src="IMG/alta_matue_02.jpg" alt="Matuê">
+                    <h3>LCrack com Mussilon</h3>
+                    <p>Matuê - 333</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-bg"></div>
+                    <img src="IMG/alta_matue_01.jpg" alt="Matuê">
+                    <h3>777-666</h3>
+                    <p>Matuê - Máquina do Tempo</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-bg"></div>
+                    <img src="IMG/alta_md.jpg" alt="MD Chefe">
+                    <h3>Rei Lacoste</h3>
+                    <p>MD Chefe</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-bg"></div>
+                    <img src="IMG/alta_md.jpg" alt="MD Chefe">
+                    <h3>Tiffany</h3>
+                    <p>MD Chefe</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-bg"></div>
+                    <img src="IMG/alta_md.jpg" alt="MD Chefe">
+                    <h3>Montblanc</h3>
+                    <p>MD Chefe feat. MC Cabelinho</p>
+                </div>
+            </div>
+            
+        
+        </section>
+        
+
+    </main>
+    
+</body>
+</html>

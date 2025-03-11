@@ -1,12 +1,510 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nurva</title>
+    <title>Nurva - Sua Plataforma de Música</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <h1>O Começo de tudo</h1>
-    
+    <!-- Barra de Navegação -->
+    <nav class="navegacao">
+        <div class="container">
+            <button class="menu-icon" aria-label="Abrir menu">
+                <svg viewbox="0 0 24 24">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                </svg>
+            </button>
+            <div class="logo">
+                <a href="index.html">Nurva</a>
+            </div>
+            <ul class="menu">
+                <li><a href="index.html" class="ativa">Início</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="biblioteca.html">Biblioteca</a></li>
+                <li><a href="comunidade.html">Comunidade</a></li>
+                <li><a href="conexoes.html">Conexões</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+            </ul>
+            <div class="perfil">
+                <img src="IMG/usuario_anthony.jpg" alt="Foto de perfil do usuário">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <!-- Sidebar (Barra Lateral) -->
+        <aside class="lateral">
+            <h2>Conexões Ativas</h2>
+            <ul class="connections-list">
+                <li class="connections" style="background-image: url('IMG/capa_Matue.png');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="IMG/usuario_bernardo.png" alt="Foto de Bernardo">
+                    <div class="connection-info">
+                        <strong>Bernardo</strong>
+                        <span>Ouvindo: Matuê - 777-666</span>
+                    </div>
+                </li>
+                <li class="connections" style="background-image: url('IMG/capa_newjeans.jpg');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="IMG/usuario_livia.jpg" alt="Foto de Lívia">
+                    <div class="connection-info">
+                        <strong>Lívia</strong>
+                        <span>Ouvindo: New Jeans - Hype Boy</span>
+                    </div>
+                </li>
+                <li class="connections" style="background-image: url('IMG/capa_tyler.jpg');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="IMG/usuario_gustavo.jpg" alt="Foto de Gustavo">
+                    <div class="connection-info">
+                        <strong>Gustavo</strong>
+                        <span>Ouvindo: Tyler, The Creator - Earfquake</span>
+                    </div>
+                </li>
+                <li class="connections" style="background-image: url('IMG/capa_doliver.jpg');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="IMG/usuario_bruna.png" alt="Foto de Bruna">
+                    <div class="connection-info">
+                        <strong>Bruna</strong>
+                        <span>Ouvindo: Don Toliver - No Pole</span>
+                    </div>
+                </li>
+            </ul>
+
+            <h2>Playlists</h2>
+            <ul class="playlists">
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_matue.jpg" alt="Playlist 1">
+                        <img src="IMG/playlist_capa_djonga.jpg" alt="Playlist 2">
+                        <img src="IMG/playlist_capa_racionais.jpg" alt="Playlist 3">
+                        <img src="IMG/playlist_capa_yago.jpg" alt="Playlist 4">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Playlist para se animar pro vôlei</strong>
+                        <span>Criada por Anthony Richard</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_billie.jpg" alt="Playlist 5">
+                        <img src="IMG/playlist_capa_lana.jpg" alt="Playlist 6">
+                        <img src="IMG/playlist_capa_tyler.jpg" alt="Playlist 7">
+                        <img src="IMG/playlist_capa_cazuza.jpg" alt="Playlist 8">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Playlist para chorar no banho</strong>
+                        <span>Criada por Anthony Richard</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_michael.jpg" alt="Playlist 9">
+                        <img src="IMG/playlist_capa_beatles.jpg" alt="Playlist 10">
+                        <img src="IMG/playlist_capa_racionais.jpg" alt="Playlist 11">
+                        <img src="IMG/playlist_capa_amy.jpg" alt="Playlist 12">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Playlist para estudar</strong>
+                        <span>Criada por Anthony Richard</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_adele.jpg" alt="Playlist 13">
+                        <img src="IMG/playlist_capa_weenknd.jpg" alt="Playlist 14">
+                        <img src="IMG/playlist_capa_amy.jpg" alt="Playlist 15">
+                        <img src="IMG/playlist_capa_tyler.jpg" alt="Playlist 16">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Rap Nacional</strong>
+                        <span>Criada por Bernardo</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="barra-criar-playlist">+ Criar Nova Playlist</div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <section class="content">
+            <!-- Área do Usuário e Pesquisa -->
+            <div class="header-area">
+                <div class="usuario-area">
+                    <img src="IMG/usuario_anthony.jpg" alt="Foto de perfil">
+                    <div class="info-usuario">
+                        <p class="nome-usuario">ANTHONY RICHARD</p>
+                        <h2 class="vibe-atual">Sua Vibe Atual</h2>
+                    </div>
+                </div>
+                <div class="barra-pesquisa">
+                    <input type="text" placeholder="Pesquise músicas, álbuns, artistas, podcasts">
+                </div>
+            </div>
+
+            <!-- Seção "Para Você" (destaque) -->
+            <div class="secao secao-destacada">
+                <div class="secao-header">
+                    <div>
+                        <h2 class="secao-titulo">Para Você</h2>
+                        <p class="secao-subtitulo">Baseado nas suas preferências</p>
+                    </div>
+                    <button class="mais-btn">
+                        <span>Mais</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="grid-cards">
+                    <!-- Card de Música: One Of The Girls -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_doliver.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">One Of The Girls</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">The Weeknd, JENNIE</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card de Artista: Metro Boomin -->
+                    <div class="artista grid-cards-item">
+                        <div class="ellipse-1"></div>
+                        <div class="circulo">
+                            <img src="IMG/capa_doliver.jpg" alt="Foto do artista" class="foto-artista">
+                        </div>
+                        <div class="nome-do-artista">Metro Boomin</div>
+                        <div class="inscritos">
+                            <div class="inscritos2">3,08 mi de inscritos</div>
+                        </div>
+                    </div>
+
+                    <!-- Card de Música: Supernatural -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_newjeans.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Supernatural</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">New jeans</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card de Música: Too Many Nights -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_doliver.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Too Many Nights</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">Metro Boomin, Don Toliver</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card de Música: Cherish (My Love) -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_newjeans.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Cherish (My Love)</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">ILLIT</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Música: Earfquake -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_tyler.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Earfquake</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">Tyler, The Creator</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção "Artistas Recomendados" -->
+            <div class="secao">
+                <div class="secao-header">
+                    <h2 class="secao-titulo">Artistas Recomendados</h2>
+                    <button class="mais-btn">
+                        <span>Mais</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="grid-cards">
+                    <!-- Card de Artista: The Weeknd -->
+                    <div class="artista grid-cards-item">
+                        <div class="ellipse-1"></div>
+                        <div class="circulo">
+                            <img src="IMG/playlist_capa_weenknd.jpg" alt="Foto do artista" class="foto-artista">
+                        </div>
+                        <div class="nome-do-artista">The Weeknd</div>
+                        <div class="inscritos">
+                            <div class="inscritos2">36,6 mi de inscritos</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Artista: Metro Boomin -->
+                    <div class="artista grid-cards-item">
+                        <div class="ellipse-1"></div>
+                        <div class="circulo">
+                            <img src="IMG/capa_doliver.jpg" alt="Foto do artista" class="foto-artista">
+                        </div>
+                        <div class="nome-do-artista">Metro Boomin</div>
+                        <div class="inscritos">
+                            <div class="inscritos2">3,08 mi de inscritos</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Artista: Tyler, The Creator -->
+                    <div class="artista grid-cards-item">
+                        <div class="ellipse-1"></div>
+                        <div class="circulo">
+                            <img src="IMG/capa_tyler.jpg" alt="Foto do artista" class="foto-artista">
+                        </div>
+                        <div class="nome-do-artista">Tyler, The Creator</div>
+                        <div class="inscritos">
+                            <div class="inscritos2">12,2 mi de inscritos</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Artista: New Jeans -->
+                    <div class="artista grid-cards-item">
+                        <div class="ellipse-1"></div>
+                        <div class="circulo">
+                            <img src="IMG/capa_newjeans.jpg" alt="Foto do artista" class="foto-artista">
+                        </div>
+                        <div class="nome-do-artista">New Jeans</div>
+                        <div class="inscritos">
+                            <div class="inscritos2">5,4 mi de inscritos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção "Seus Amigos Estão Ouvindo" -->
+            <div class="secao">
+                <div class="secao-header">
+                    <h2 class="secao-titulo">Seus Amigos Estão Ouvindo</h2>
+                    <button class="mais-btn">
+                        <span>Mais</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="grid-cards">
+                    <!-- Card de Música: Hype Boy -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_newjeans.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Hype Boy</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">New Jeans</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card de Música: Earfquake -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_tyler.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Earfquake</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">Tyler, The Creator</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card de Álbum: ANTI -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/playlist_capa_lana.jpg" alt="Capa do álbum" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">ANTI</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Álbum</div>
+                                <div class="artista-nome">Rihanna</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card de Álbum: Blond -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/playlist_capa_michael.jpg" alt="Capa do álbum" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Blond</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Álbum</div>
+                                <div class="artista-nome">Frank Ocean</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Seção "Lançamentos da Semana" -->
+            <div class="secao">
+                <div class="secao-header">
+                    <div>
+                        <h2 class="secao-titulo">Lançamentos da Semana</h2>
+                        <p class="secao-subtitulo">Novidades que você não pode perder</p>
+                    </div>
+                    <button class="mais-btn">
+                        <span>Mais</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="grid-cards">
+                    <!-- Card de Música: One Of The Girls -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_doliver.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">One Of The Girls</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">The Weeknd, JENNIE</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Música: Timeless -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/playlist_capa_weenknd.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Timeless</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">The Weeknd, Playboi Carti</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Música: Supernatural -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_newjeans.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Supernatural</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">New jeans</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Música: Too Many Nights -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_doliver.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Too Many Nights</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">Metro Boomin, Don Toliver</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Música: Cherish (My Love) -->
+                    <div class="musica grid-cards-item">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="IMG/capa_newjeans.jpg" alt="Capa da música" class="foto">
+                        </div>
+                        <div class="textos">
+                            <div class="titulo-da-musica">Cherish (My Love)</div>
+                            <div class="detalhes">
+                                <div class="tipo-item">Música</div>
+                                <div class="artista-nome">ILLIT</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Player de Música -->
+        <div class="player">
+            <div class="player-timeline">
+                <div class="player-progress"></div>
+            </div>
+            <div class="player-song-info">
+                <img src="IMG/playlist_capa_weenknd.jpg" alt="Capa da música">
+                <div class="player-song-details">
+                    <div class="player-song-name">Timeless</div>
+                    <div class="player-artist-name">The Weeknd e Playboi Carti</div>
+                </div>
+            </div>
+            <div class="player-controls">
+                <div class="player-time">0:27 / 2:57</div>
+                <div class="player-controls-buttons">
+                    <button class="player-button"><i class="fas fa-step-backward"></i></button>
+                    <button class="player-button player-play-button"><i class="fas fa-play"></i></button>
+                    <button class="player-button"><i class="fas fa-step-forward"></i></button>
+                </div>
+                <div class="player-time"></div>
+            </div>
+            <div class="player-actions">
+                <button class="player-button"><i class="fas fa-thumbs-down"></i></button>
+                <button class="player-button"><i class="fas fa-thumbs-up"></i></button>
+                <button class="player-button"><i class="fas fa-random"></i></button>
+                <button class="player-button"><i class="fas fa-redo"></i></button>
+                <div class="player-volume">
+                    <button class="player-button"><i class="fas fa-volume-up"></i></button>
+                    <div class="player-volume-bar">
+                        <div class="player-volume-level"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/feed.js"></script>
 </body>
-</html>
+</html> 

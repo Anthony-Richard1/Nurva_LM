@@ -1,0 +1,219 @@
+/* Estilos de layout principal */
+
+/* Container principal */
+.content {
+  margin-left: 25%;
+  margin-top: 75px;
+  padding: 30px 30px 100px 30px;
+  min-height: calc(100vh - 155px);
+  background-color: #121212;
+  position: relative;
+  background-image: url('../../IMG/Background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+/* Área de perfil e pesquisa */
+.header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.usuario-area {
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.usuario-area:hover img {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.usuario-area img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 20px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.info-usuario {
+  display: flex;
+  flex-direction: column;
+}
+
+.nome-usuario {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.vibe-atual {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.barra-pesquisa {
+  width: 480px;
+  position: relative;
+}
+
+.barra-pesquisa input {
+  width: 100%;
+  padding: 14px 15px 14px 45px;
+  border-radius: 28px;
+  background-color: rgba(30, 30, 30, 0.5);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 16px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.barra-pesquisa input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(40, 40, 40, 0.6);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.barra-pesquisa::before {
+  content: '\f002';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.barra-pesquisa input:focus + .barra-pesquisa::before {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.barra-pesquisa input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Seções de conteúdo */
+.secao {
+  margin-bottom: 40px;
+}
+
+.secao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.secao-titulo {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.mais-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(52, 52, 52, 0.4);
+  border: 2px solid #1e1e1e;
+  border-radius: 44px;
+  padding: 8px 20px;
+  color: #f1f1f1;
+  text-decoration: none;
+}
+
+.mais-btn:hover {
+  background: rgba(52, 52, 52, 0.6);
+}
+
+.mais-btn span {
+  font-size: 14px;
+}
+
+.mais-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Grid de cards */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  justify-items: center;
+  position: relative;
+}
+
+/* Adaptação para dispositivos móveis */
+@media (max-width: 1200px) {
+  .content {
+    padding: 25px 25px 100px 25px;
+    margin-left: 30%;
+  }
+  
+  .barra-pesquisa {
+    width: 380px;
+  }
+}
+
+@media (max-width: 992px) {
+  .content {
+    margin-left: 0;
+    padding: 20px 20px 100px 20px;
+  }
+  
+  .barra-pesquisa {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .header-area {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .barra-pesquisa {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .usuario-area {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin-top: 60px;
+    padding: 15px 15px 100px 15px;
+  }
+  
+  .nome-usuario {
+    font-size: 16px;
+  }
+  
+  .vibe-atual {
+    font-size: 24px;
+  }
+} 

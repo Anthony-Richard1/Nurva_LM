@@ -1,0 +1,218 @@
+/* Estilos para o feed principal da Nurva */
+
+/* Variáveis de espaçamento */
+:root {
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+}
+
+/* Seções do feed */
+.secao {
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.secao-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Separador sutil entre seções */
+.secao:not(:last-child)::after {
+  content: "";
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+  width: 100%;
+  position: absolute;
+  bottom: calc(-1 * var(--spacing-lg));
+  left: 0;
+}
+
+/* Cabeçalho da seção */
+.secao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding: 0 var(--spacing-sm);
+}
+
+/* Título da seção */
+.secao-titulo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+/* Subtítulo da seção */
+.secao-subtitulo {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+/* Botão "Mais" */
+.mais-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 8px 16px;
+  border: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.mais-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mais-btn i {
+  font-size: 12px;
+}
+
+/* Grid de cards */
+.grid-cards {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: var(--spacing-sm) 0;
+  gap: var(--spacing-sm);
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  margin: 0 -8px;
+  padding: 0 8px;
+  position: relative;
+}
+
+.grid-cards::-webkit-scrollbar {
+  display: none;
+}
+
+/* Item do grid */
+.grid-cards-item {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* Navegação do carrossel */
+.navigation-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.3s ease;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+.navigation-indicator:hover {
+  background: rgba(40, 40, 40, 0.9);
+}
+
+.nav-prev {
+  left: -15px;
+}
+
+.nav-next {
+  right: -15px;
+}
+
+/* Seção destacada */
+.secao-destacada {
+  position: relative;
+  padding: var(--spacing-lg) 0;
+}
+
+.secao-destacada::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0));
+  pointer-events: none;
+}
+
+/* Personalização da área do usuário */
+.usuario-area {
+  margin-bottom: var(--spacing-xl);
+}
+
+.vibe-atual {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 8px;
+  background: linear-gradient(90deg, #fff, #ccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Área de conteúdo principal */
+.content {
+  padding-top: var(--spacing-lg);
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .secao-titulo {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+  }
+  
+  .secao-titulo {
+    font-size: 22px;
+  }
+  
+  .secao-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .mais-btn {
+    margin-top: 8px;
+    align-self: flex-end;
+  }
+  
+  .navigation-indicator {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-cards-featured {
+    width: 180px;
+    height: 230px;
+  }
+} 
