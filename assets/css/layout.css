@@ -114,57 +114,6 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* Seções de conteúdo */
-.secao {
-  margin-bottom: 40px;
-}
-
-.secao-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.secao-titulo {
-  font-size: 32px;
-  font-weight: 700;
-}
-
-.mais-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(52, 52, 52, 0.4);
-  border: 2px solid #1e1e1e;
-  border-radius: 44px;
-  padding: 8px 20px;
-  color: #f1f1f1;
-  text-decoration: none;
-}
-
-.mais-btn:hover {
-  background: rgba(52, 52, 52, 0.6);
-}
-
-.mais-btn span {
-  font-size: 14px;
-}
-
-.mais-btn svg {
-  width: 12px;
-  height: 12px;
-}
-
-/* Grid de cards */
-.grid-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 10px;
-  justify-items: center;
-  position: relative;
-}
-
 /* Adaptação para dispositivos móveis */
 @media (max-width: 1200px) {
   .content {

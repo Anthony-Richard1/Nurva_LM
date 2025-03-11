@@ -13,14 +13,14 @@
 .secao {
   margin-bottom: var(--spacing-xl);
   position: relative;
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .secao-visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* Separador sutil entre seções */
@@ -105,6 +105,7 @@
 .grid-cards-item {
   scroll-snap-align: start;
   flex-shrink: 0;
+  opacity: 1;
 }
 
 /* Navegação do carrossel */
@@ -167,6 +168,7 @@
   font-weight: 700;
   margin-top: 8px;
   background: linear-gradient(90deg, #fff, #ccc);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -174,6 +176,20 @@
 /* Área de conteúdo principal */
 .content {
   padding-top: var(--spacing-lg);
+}
+
+/* Garantir que elementos sejam visíveis após animação */
+.secao-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Estilos específicos para o carrossel */
+.grid-cards .musica,
+.grid-cards .artista {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 0.4s ease, transform 0.4s ease !important;
 }
 
 /* Responsividade */

@@ -60,34 +60,38 @@ function initializeCarousels() {
 function initializeFeedAnimations() {
   const sections = document.querySelectorAll('.secao');
   
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('secao-visible');
-        observer.unobserve(entry.target);
-        
-        // Animar os cards dentro da seção
-        const cards = entry.target.querySelectorAll('.musica, .artista');
-        cards.forEach((card, index) => {
-          setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, index * 100);
-        });
-      }
-    });
-  }, { threshold: 0.1 });
-  
-  sections.forEach(section => {
-    observer.observe(section);
-  });
-  
-  // Configurar os cards para animação
+  // Garantir que todos os cards estejam visíveis desde o início
   const allCards = document.querySelectorAll('.musica, .artista');
   allCards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(15px)';
+    card.style.opacity = '1';
+    card.style.transform = 'translateY(0)';
     card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  });
+  
+  // Garantir que todas as seções sejam visíveis
+  sections.forEach(section => {
+    section.classList.add('secao-visible');
+    section.style.opacity = '1';
+    section.style.transform = 'translateY(0)';
+  });
+  
+  // Aplicar efeitos de hover e clique
+  allCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-5px)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0)';
+    });
+    
+    card.addEventListener('mousedown', () => {
+      card.style.transform = 'scale(0.98)';
+    });
+    
+    card.addEventListener('mouseup', () => {
+      card.style.transform = 'translateY(0)';
+    });
   });
 }
 
@@ -101,10 +105,8 @@ function initializeLazyLoading() {
 
 // Inicializar todas as funcionalidades do feed
 document.addEventListener('DOMContentLoaded', function() {
-  // Pequeno atraso para garantir que outros scripts foram carregados
-  setTimeout(() => {
-    initializeCarousels();
-    initializeFeedAnimations();
-    initializeLazyLoading();
-  }, 100);
+  // Inicializar imediatamente para evitar atrasos visíveis
+  initializeCarousels();
+  initializeFeedAnimations();
+  initializeLazyLoading();
 }); 
