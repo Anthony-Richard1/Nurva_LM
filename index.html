@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nurva - Sua Plataforma de Música</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="src/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
 </head>
 <body>
     <!-- Barra de Navegação -->
@@ -21,14 +22,14 @@
             </div>
             <ul class="menu">
                 <li><a href="index.html" class="ativa">Início</a></li>
-                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="pages/explorar.html">Explorar</a></li>
                 <li><a href="biblioteca.html">Biblioteca</a></li>
-                <li><a href="comunidade.html">Comunidade</a></li>
+                <li><a href="pages/comunidade.html">Comunidade</a></li>
                 <li><a href="conexoes.html">Conexões</a></li>
-                <li><a href="perfil.html">Perfil</a></li>
+                <li><a href="pages/perfil.html">Perfil</a></li>
             </ul>
             <div class="perfil">
-                <img src="IMG/usuario_anthony.jpg" alt="Foto de perfil do usuário">
+                <img src="public/assets/images/usuario_anthony.jpg" alt="Foto de perfil do usuário">
             </div>
         </div>
     </nav>
@@ -39,33 +40,33 @@
         <aside class="lateral">
             <h2>Conexões Ativas</h2>
             <ul class="connections-list">
-                <li class="connections" style="background-image: url('IMG/capa_Matue.png');">
+                <li class="connections" style="background-image: url('public/assets/images/capa_Matue.png');">
                     <div class="camada_escurecimento"></div>
-                    <img src="IMG/usuario_bernardo.png" alt="Foto de Bernardo">
+                    <img src="public/assets/images/usuario_bernardo.png" alt="Foto de Bernardo">
                     <div class="connection-info">
                         <strong>Bernardo</strong>
                         <span>Ouvindo: Matuê - 777-666</span>
                     </div>
                 </li>
-                <li class="connections" style="background-image: url('IMG/capa_newjeans.jpg');">
+                <li class="connections" style="background-image: url('public/assets/images/capa_newjeans.jpg');">
                     <div class="camada_escurecimento"></div>
-                    <img src="IMG/usuario_livia.jpg" alt="Foto de Lívia">
+                    <img src="public/assets/images/usuario_livia.jpg" alt="Foto de Lívia">
                     <div class="connection-info">
                         <strong>Lívia</strong>
                         <span>Ouvindo: New Jeans - Hype Boy</span>
                     </div>
                 </li>
-                <li class="connections" style="background-image: url('IMG/capa_tyler.jpg');">
+                <li class="connections" style="background-image: url('public/assets/images/capa_tyler.jpg');">
                     <div class="camada_escurecimento"></div>
-                    <img src="IMG/usuario_gustavo.jpg" alt="Foto de Gustavo">
+                    <img src="public/assets/images/usuario_gustavo.jpg" alt="Foto de Gustavo">
                     <div class="connection-info">
                         <strong>Gustavo</strong>
                         <span>Ouvindo: Tyler, The Creator - Earfquake</span>
                     </div>
                 </li>
-                <li class="connections" style="background-image: url('IMG/capa_doliver.jpg');">
+                <li class="connections" style="background-image: url('public/assets/images/capa_doliver.jpg');">
                     <div class="camada_escurecimento"></div>
-                    <img src="IMG/usuario_bruna.png" alt="Foto de Bruna">
+                    <img src="public/assets/images/usuario_bruna.png" alt="Foto de Bruna">
                     <div class="connection-info">
                         <strong>Bruna</strong>
                         <span>Ouvindo: Don Toliver - No Pole</span>
@@ -77,10 +78,10 @@
             <ul class="playlists">
                 <li>
                     <div class="playlist-images">
-                        <img src="IMG/playlist_capa_matue.jpg" alt="Playlist 1">
-                        <img src="IMG/playlist_capa_djonga.jpg" alt="Playlist 2">
-                        <img src="IMG/playlist_capa_racionais.jpg" alt="Playlist 3">
-                        <img src="IMG/playlist_capa_yago.jpg" alt="Playlist 4">
+                        <img src="public/assets/images/playlist_capa_matue.jpg" alt="Playlist 1">
+                        <img src="public/assets/images/playlist_capa_djonga.jpg" alt="Playlist 2">
+                        <img src="public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 3">
+                        <img src="public/assets/images/playlist_capa_yago.jpg" alt="Playlist 4">
                     </div>
                     <div class="playlist-info">
                         <strong>Playlist para se animar pro vôlei</strong>
@@ -89,10 +90,10 @@
                 </li>
                 <li>
                     <div class="playlist-images">
-                        <img src="IMG/playlist_capa_billie.jpg" alt="Playlist 5">
-                        <img src="IMG/playlist_capa_lana.jpg" alt="Playlist 6">
-                        <img src="IMG/playlist_capa_tyler.jpg" alt="Playlist 7">
-                        <img src="IMG/playlist_capa_cazuza.jpg" alt="Playlist 8">
+                        <img src="public/assets/images/playlist_capa_billie.jpg" alt="Playlist 5">
+                        <img src="public/assets/images/playlist_capa_lana.jpg" alt="Playlist 6">
+                        <img src="public/assets/images/playlist_capa_tyler.jpg" alt="Playlist 7">
+                        <img src="public/assets/images/playlist_capa_cazuza.jpg" alt="Playlist 8">
                     </div>
                     <div class="playlist-info">
                         <strong>Playlist para chorar no banho</strong>
@@ -101,10 +102,10 @@
                 </li>
                 <li>
                     <div class="playlist-images">
-                        <img src="IMG/playlist_capa_michael.jpg" alt="Playlist 9">
-                        <img src="IMG/playlist_capa_beatles.jpg" alt="Playlist 10">
-                        <img src="IMG/playlist_capa_racionais.jpg" alt="Playlist 11">
-                        <img src="IMG/playlist_capa_amy.jpg" alt="Playlist 12">
+                        <img src="public/assets/images/playlist_capa_michael.jpg" alt="Playlist 9">
+                        <img src="public/assets/images/playlist_capa_beatles.jpg" alt="Playlist 10">
+                        <img src="public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 11">
+                        <img src="public/assets/images/playlist_capa_amy.jpg" alt="Playlist 12">
                     </div>
                     <div class="playlist-info">
                         <strong>Playlist para estudar</strong>
@@ -113,10 +114,10 @@
                 </li>
                 <li>
                     <div class="playlist-images">
-                        <img src="IMG/playlist_capa_adele.jpg" alt="Playlist 13">
-                        <img src="IMG/playlist_capa_weenknd.jpg" alt="Playlist 14">
-                        <img src="IMG/playlist_capa_amy.jpg" alt="Playlist 15">
-                        <img src="IMG/playlist_capa_tyler.jpg" alt="Playlist 16">
+                        <img src="public/assets/images/playlist_capa_adele.jpg" alt="Playlist 13">
+                        <img src="public/assets/images/playlist_capa_weenknd.jpg" alt="Playlist 14">
+                        <img src="public/assets/images/playlist_capa_amy.jpg" alt="Playlist 15">
+                        <img src="public/assets/images/playlist_capa_tyler.jpg" alt="Playlist 16">
                     </div>
                     <div class="playlist-info">
                         <strong>Rap Nacional</strong>
@@ -132,7 +133,7 @@
             <!-- Área do Usuário e Pesquisa -->
             <div class="header-area">
                 <div class="usuario-area">
-                    <img src="IMG/usuario_anthony.jpg" alt="Foto de perfil">
+                    <img src="public/assets/images/usuario_anthony.jpg" alt="Foto de perfil">
                     <div class="info-usuario">
                         <p class="nome-usuario">ANTHONY RICHARD</p>
                         <h2 class="vibe-atual">Sua Vibe Atual</h2>
@@ -160,7 +161,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_doliver.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_doliver.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">One Of The Girls</div>
@@ -175,7 +176,7 @@
                     <div class="artista grid-cards-item">
                         <div class="ellipse-1"></div>
                         <div class="circulo">
-                            <img src="IMG/capa_doliver.jpg" alt="Foto do artista" class="foto-artista">
+                            <img src="public/assets/images/capa_doliver.jpg" alt="Foto do artista" class="foto-artista">
                         </div>
                         <div class="nome-do-artista">Metro Boomin</div>
                         <div class="inscritos">
@@ -187,7 +188,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_newjeans.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_newjeans.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Supernatural</div>
@@ -202,7 +203,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_doliver.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_doliver.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Too Many Nights</div>
@@ -217,7 +218,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_newjeans.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_newjeans.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Cherish (My Love)</div>
@@ -232,7 +233,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_tyler.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_tyler.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Earfquake</div>
@@ -259,7 +260,7 @@
                     <div class="artista grid-cards-item">
                         <div class="ellipse-1"></div>
                         <div class="circulo">
-                            <img src="IMG/playlist_capa_weenknd.jpg" alt="Foto do artista" class="foto-artista">
+                            <img src="public/assets/images/playlist_capa_weenknd.jpg" alt="Foto do artista" class="foto-artista">
                         </div>
                         <div class="nome-do-artista">The Weeknd</div>
                         <div class="inscritos">
@@ -271,7 +272,7 @@
                     <div class="artista grid-cards-item">
                         <div class="ellipse-1"></div>
                         <div class="circulo">
-                            <img src="IMG/capa_doliver.jpg" alt="Foto do artista" class="foto-artista">
+                            <img src="public/assets/images/capa_doliver.jpg" alt="Foto do artista" class="foto-artista">
                         </div>
                         <div class="nome-do-artista">Metro Boomin</div>
                         <div class="inscritos">
@@ -283,7 +284,7 @@
                     <div class="artista grid-cards-item">
                         <div class="ellipse-1"></div>
                         <div class="circulo">
-                            <img src="IMG/capa_tyler.jpg" alt="Foto do artista" class="foto-artista">
+                            <img src="public/assets/images/capa_tyler.jpg" alt="Foto do artista" class="foto-artista">
                         </div>
                         <div class="nome-do-artista">Tyler, The Creator</div>
                         <div class="inscritos">
@@ -295,7 +296,7 @@
                     <div class="artista grid-cards-item">
                         <div class="ellipse-1"></div>
                         <div class="circulo">
-                            <img src="IMG/capa_newjeans.jpg" alt="Foto do artista" class="foto-artista">
+                            <img src="public/assets/images/capa_newjeans.jpg" alt="Foto do artista" class="foto-artista">
                         </div>
                         <div class="nome-do-artista">New Jeans</div>
                         <div class="inscritos">
@@ -307,7 +308,7 @@
                     <div class="artista grid-cards-item">
                         <div class="ellipse-1"></div>
                         <div class="circulo">
-                            <img src="IMG/playlist_capa_billie.jpg" alt="Foto do artista" class="foto-artista">
+                            <img src="public/assets/images/playlist_capa_billie.jpg" alt="Foto do artista" class="foto-artista">
                         </div>
                         <div class="nome-do-artista">Billie Eilish</div>
                         <div class="inscritos">
@@ -319,7 +320,7 @@
                     <div class="artista grid-cards-item">
                         <div class="ellipse-1"></div>
                         <div class="circulo">
-                            <img src="IMG/playlist_capa_racionais.jpg" alt="Foto do artista" class="foto-artista">
+                            <img src="public/assets/images/playlist_capa_racionais.jpg" alt="Foto do artista" class="foto-artista">
                         </div>
                         <div class="nome-do-artista">Racionais MC's</div>
                         <div class="inscritos">
@@ -331,7 +332,7 @@
                     <div class="artista grid-cards-item">
                         <div class="ellipse-1"></div>
                         <div class="circulo">
-                            <img src="IMG/playlist_capa_lana.jpg" alt="Foto do artista" class="foto-artista">
+                            <img src="public/assets/images/playlist_capa_lana.jpg" alt="Foto do artista" class="foto-artista">
                         </div>
                         <div class="nome-do-artista">Lana Del Rey</div>
                         <div class="inscritos">
@@ -343,7 +344,7 @@
                     <div class="artista grid-cards-item">
                         <div class="ellipse-1"></div>
                         <div class="circulo">
-                            <img src="IMG/playlist_capa_amy.jpg" alt="Foto do artista" class="foto-artista">
+                            <img src="public/assets/images/playlist_capa_amy.jpg" alt="Foto do artista" class="foto-artista">
                         </div>
                         <div class="nome-do-artista">Amy Winehouse</div>
                         <div class="inscritos">
@@ -367,7 +368,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_newjeans.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_newjeans.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Hype Boy</div>
@@ -382,7 +383,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_tyler.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_tyler.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Earfquake</div>
@@ -397,7 +398,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/playlist_capa_lana.jpg" alt="Capa do álbum" class="foto">
+                            <img src="public/assets/images/playlist_capa_lana.jpg" alt="Capa do álbum" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">ANTI</div>
@@ -412,7 +413,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/playlist_capa_michael.jpg" alt="Capa do álbum" class="foto">
+                            <img src="public/assets/images/playlist_capa_michael.jpg" alt="Capa do álbum" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Blond</div>
@@ -442,7 +443,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_doliver.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_doliver.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">One Of The Girls</div>
@@ -457,7 +458,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/playlist_capa_weenknd.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/playlist_capa_weenknd.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Timeless</div>
@@ -472,7 +473,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_newjeans.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_newjeans.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Supernatural</div>
@@ -487,7 +488,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_doliver.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_doliver.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Too Many Nights</div>
@@ -502,7 +503,7 @@
                     <div class="musica grid-cards-item">
                         <div class="blur"></div>
                         <div class="image-container">
-                            <img src="IMG/capa_newjeans.jpg" alt="Capa da música" class="foto">
+                            <img src="public/assets/images/capa_newjeans.jpg" alt="Capa da música" class="foto">
                         </div>
                         <div class="textos">
                             <div class="titulo-da-musica">Cherish (My Love)</div>
@@ -519,23 +520,24 @@
         <!-- Player de Música -->
         <div class="player">
             <div class="player-timeline">
-                <div class="player-progress"></div>
+                <div class="player-progress-container">
+                    <div class="player-progress"></div>
+                </div>
             </div>
             <div class="player-song-info">
-                <img src="IMG/playlist_capa_weenknd.jpg" alt="Capa da música">
+                <img src="public/assets/images/playlist_capa_weenknd.jpg" alt="Capa da música">
                 <div class="player-song-details">
-                    <div class="player-song-name">Timeless</div>
-                    <div class="player-artist-name">The Weeknd e Playboi Carti</div>
+                    <div class="player-song-name">Selecione uma música</div>
+                    <div class="player-artist-name">Nurva Music</div>
                 </div>
             </div>
             <div class="player-controls">
-                <div class="player-time">0:27 / 2:57</div>
+                <div class="player-time">0:00 / 0:00</div>
                 <div class="player-controls-buttons">
                     <button class="player-button"><i class="fas fa-step-backward"></i></button>
                     <button class="player-button player-play-button"><i class="fas fa-play"></i></button>
                     <button class="player-button"><i class="fas fa-step-forward"></i></button>
                 </div>
-                <div class="player-time"></div>
             </div>
             <div class="player-actions">
                 <button class="player-button"><i class="fas fa-thumbs-down"></i></button>
@@ -552,7 +554,10 @@
         </div>
     </main>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/feed.js"></script>
+    <script src="src/js/musicdata.js"></script>
+    <script src="src/js/musicManager.js"></script>
+    <script src="src/js/player.js"></script>
+    <script src="src/js/main.js"></script>
+    <script src="src/js/feed.js"></script>
 </body>
 </html> 

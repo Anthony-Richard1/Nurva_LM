@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurva - Perfil</title>
+    <link rel="stylesheet" href="../src/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navegacao"> 
+        <div class="container">
+            <button class="menu-icon" aria-label="Abrir menu"> 
+                <svg viewbox="0 0 24 24">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                </svg>
+            </button>
+            <div class="logo">
+                <a href="../index.html">Nurva</a>
+            </div>
+            <ul class="menu"> 
+                <li><a href="../index.html">Início</a></li>
+                <li><a href="Explorar.html">Explorar</a></li>
+                <li><a href="biblioteca.html">Biblioteca</a></li>
+                <li><a href="comunidade.html">Comunidade</a></li>
+                <li><a href="conexoes.html">Conexões</a></li>
+                <li><a href="#" class="ativa">Perfil</a></li>
+            </ul>
+            <div class="perfil">
+                <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil">
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="content">
+            <div class="header-area">
+                <div class="usuario-area">
+                    <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil">
+                    <div class="info-usuario">
+                        <p class="nome-usuario">ANTHONY RICHARD</p>
+                        <h2>Meu Perfil</h2>
+                    </div>
+                </div>
+                <div class="barra-pesquisa">
+                    <input type="text" placeholder="Pesquise em suas músicas e playlists">
+                </div>
+            </div>
+
+            <div class="perfil-stats">
+                <div class="stat-item">
+                    <span class="stat-number">127</span>
+                    <span class="stat-label">Playlists</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1.2K</span>
+                    <span class="stat-label">Seguidores</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">892</span>
+                    <span class="stat-label">Seguindo</span>
+                </div>
+            </div>
+
+            <div class="grid-cards">
+                <!-- Os cards serão inseridos dinamicamente pelo JavaScript -->
+            </div>
+        </section>
+
+        <!-- Player de Música -->
+        <div class="player">
+            <div class="player-timeline">
+                <div class="player-progress-container">
+                    <div class="player-progress"></div>
+                </div>
+            </div>
+            <div class="player-song-info">
+                <img src="../public/assets/images/thumbnails/default.jpg" alt="Capa da música">
+                <div class="player-song-details">
+                    <div class="player-song-name">Selecione uma música</div>
+                    <div class="player-artist-name">Nurva Music</div>
+                </div>
+            </div>
+            <div class="player-controls">
+                <div class="player-time">0:00 / 0:00</div>
+                <div class="player-controls-buttons">
+                    <button class="player-button"><i class="fas fa-step-backward"></i></button>
+                    <button class="player-button player-play-button"><i class="fas fa-play"></i></button>
+                    <button class="player-button"><i class="fas fa-step-forward"></i></button>
+                </div>
+            </div>
+            <div class="player-actions">
+                <button class="player-button"><i class="fas fa-thumbs-down"></i></button>
+                <button class="player-button"><i class="fas fa-thumbs-up"></i></button>
+                <button class="player-button"><i class="fas fa-random"></i></button>
+                <button class="player-button"><i class="fas fa-redo"></i></button>
+                <div class="player-volume">
+                    <button class="player-button"><i class="fas fa-volume-up"></i></button>
+                    <div class="player-volume-bar">
+                        <div class="player-volume-level"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../src/js/musicdata.js"></script>
+    <script src="../src/js/musicManager.js"></script>
+    <script src="../src/js/player.js"></script>
+    <script src="../src/js/main.js"></script>
+    <script src="../src/js/feed.js"></script>
+</body>
+</html>

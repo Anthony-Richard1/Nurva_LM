@@ -1,0 +1,274 @@
+@media only screen and (min-width: 320px) and (max-width: 480px){
+  
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px){
+  
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1200px){
+  
+}
+
+.navegacao {
+  background-color: #333;
+  color: #fff;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color:#fff;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-right: 1em;
+}
+
+.menu-icon {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+.menu-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.menu li {
+  margin-right: 1em;
+}
+
+.menu a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.menu a.ativa {
+  color: #ccc;
+}
+
+.perfil {
+  margin-left: 1em;
+}
+
+.perfil img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Estilos específicos para a página de Comunidade */
+
+/* Cabeçalho da comunidade */
+.comunidade-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.comunidade-title {
+    font-size: 32px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.comunidade-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Grid de usuários */
+.usuarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.usuario-card {
+    background: rgba(25, 25, 25, 0.8);
+    border-radius: 12px;
+    padding: 20px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.usuario-card:hover {
+    transform: translateY(-5px);
+}
+
+.usuario-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.usuario-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.usuario-detalhes {
+    flex: 1;
+}
+
+.usuario-nome {
+    color: white;
+    font-size: 18px;
+    margin: 0 0 5px 0;
+}
+
+.usuario-username {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin: 0;
+}
+
+.usuario-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.usuario-stat {
+    text-align: center;
+}
+
+.stat-value {
+    color: var(--color-accent);
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+}
+
+.seguir-btn {
+    width: 100%;
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.seguir-btn:hover {
+    background: var(--color-accent-hover);
+    transform: scale(1.02);
+}
+
+.seguindo .seguir-btn {
+    background: transparent;
+    border: 1px solid var(--color-accent);
+}
+
+/* Seção de atividades */
+.atividades-feed {
+    background: rgba(25, 25, 25, 0.8);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.atividade-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.atividade-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.atividade-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.atividade-conteudo {
+    flex: 1;
+}
+
+.atividade-texto {
+    color: white;
+    font-size: 14px;
+    margin: 0 0 8px 0;
+}
+
+.atividade-texto a {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.atividade-tempo {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .comunidade-header {
+        margin-bottom: 30px;
+    }
+
+    .comunidade-title {
+        font-size: 24px;
+    }
+
+    .usuarios-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .usuario-card {
+        padding: 15px;
+    }
+
+    .usuario-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .usuario-nome {
+        font-size: 16px;
+    }
+
+    .stat-value {
+        font-size: 16px;
+    }
+}

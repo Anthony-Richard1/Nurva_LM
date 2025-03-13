@@ -1,0 +1,7 @@
+# Assets directory and its contents
+public/assets/images/
+public/assets/thumbnails/
+public/assets/music/
+
+# Ignore all files in assets directory
+public/assets/* 

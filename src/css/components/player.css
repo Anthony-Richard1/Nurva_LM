@@ -1,0 +1,211 @@
+/* Estilos para o player de música */
+
+.player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  background: #000000;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+  padding: 0 15px;
+  box-shadow: 0px -4px 15px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(30, 30, 30, 0.7));
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.player-song-info {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  padding-right: 12px;
+}
+
+.player-song-info img {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  margin-right: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  object-fit: cover;
+}
+
+.player-song-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-song-name {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+.player-artist-name {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+.player-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+}
+
+.player-controls-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.player-button {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+  margin: 0 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-button:hover {
+  color: #ffffff;
+}
+
+/* Estilos para botões ativos */
+.player-button.active {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.player-button.repeat-all::after {
+  content: "all";
+  position: absolute;
+  font-size: 8px;
+  bottom: -5px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.player-button.repeat-one i::after {
+  content: "1";
+  position: absolute;
+  font-size: 10px;
+  font-style: normal;
+  margin-left: 2px;
+  margin-top: -5px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.player-play-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.player-play-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.player-play-button.playing {
+  background: rgba(100, 100, 255, 0.2);
+}
+
+.player-timeline {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  height: 20px;
+  cursor: pointer;
+}
+
+.player-progress {
+  width: 0%; /* Será atualizado via JavaScript */
+  height: 4px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  position: relative;
+  transition: width 0.1s linear;
+}
+
+.player-progress-container {
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.player-time {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 12px;
+  min-width: 70px;
+  text-align: center;
+}
+
+.player-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 280px;
+  justify-content: flex-end;
+}
+
+.player-volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100px;
+}
+
+.player-volume-bar {
+  flex: 1;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+.player-volume-level {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: white;
+  border-radius: 2px;
+  width: 70%; /* Placeholder, controlado via JS */
+} 
