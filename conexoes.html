@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/conexoes.css">
+    <title>Nurva</title>
+</head>
+<body>
+
+    <nav class="navegacao"> 
+        <div class="container"><button class="menu-icon" aria-label="Abrir menu"> 
+            <svg viewbox="0 0 24 24"> <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" /> 
+            </svg> </button> 
+        <div class="logo"> <a href="#">Nurva</a> 
+        </div> 
+            <ul class="menu"> 
+                <li><a href="/inicio.html">Início</a></li> 
+                <li><a href="/explorer.html">Explorar</a></li> 
+                <li><a href="/biblioteca.html">Biblioteca</a></li> 
+                <li><a href="/comunidade.html">Comunidade</a></li> 
+                <li><a href="/conexoes.html" class="ativa">Conexões</a></li> 
+                <li><a href="/perfil.html">Perfil</a></li> 
+            </ul> 
+        <div class="perfil"> 
+            <img src="/perfil_nurva.jpg" alt="Foto de perfil do usuário"> 
+        </div> 
+        </div> 
+    </nav>
+
+    <main>
+        <aside class="lateral">
+            <h2>Conexões Ativas</h2>
+        
+            <ul class="connections-list">
+                <li class="connections" style="background-image: url('IMG/capa_Matue.png');">
+                    <div class="camada_escurecimento"></div> 
+                    <img src="IMG/usuario_bernardo.png" alt="Foto de Bernardo">
+                    <div class="connection-info">
+                        <strong>Bernardo</strong>
+                        <span>Ouvindo: Matuê</span>
+                    </div>
+                </li>
+            
+                <li class="connections" style="background-image: url('IMG/capa_newjeans.jpg');">
+                    <div class="camada_escurecimento"></div> 
+                    <img src="IMG/usuario_livia.jpg" alt="Foto de Lívia">
+                    <div class="connection-info">
+                        <strong>Lívia</strong>
+                        <span>Ouvindo: New Jeans</span>
+                    </div>
+                </li>
+            
+                <li class="connections" style="background-image: url('IMG/capa_tyler.jpg');">
+                    <div class="camada_escurecimento"></div> 
+                    <img src="IMG/usuario_gustavo.jpg" alt="Foto de Gustavo">
+                    <div class="connection-info">
+                        <strong>Gustavo</strong>
+                        <span>Ouvindo: Tyler, The Creator</span>
+                    </div>
+                </li>
+            
+                <li class="connections" style="background-image: url('IMG/capa_doliver.jpg');">
+                    <div class="camada_escurecimento"></div> 
+                    <img src="IMG/usuario_bruna.png" alt="Foto de Bruna">
+                    <div class="connection-info">
+                        <strong>Bruna</strong>
+                        <span>Ouvindo: Don Toliver</span>
+                    </div>
+                </li>
+            </ul>
+        
+            <h2>Playlists</h2>
+            <ul class="playlists">
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_matue.jpg" alt="Playlist 1">
+                        <img src="IMG/playlist_capa_djonga.jpg" alt="Playlist 2">
+                        <img src="IMG/playlist_capa_racionais.jpg" alt="Playlist 3">
+                        <img src="IMG/playlist_capa_yago.jpg" alt="Playlist 4">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Para animar pro vôlei</strong>
+                        <span>Criado por: Bernardo</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_billie.jpg" alt="Playlist 5">
+                        <img src="IMG/playlist_capa_lana.jpg" alt="Playlist 6">
+                        <img src="IMG/playlist_capa_tyler.jpg" alt="Playlist 7">
+                        <img src="IMG/playlist_capa_cazuza.jpg" alt="Playlist 8">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Para chorar no banho</strong>
+                        <span>Criado por: Lívia</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_michael.jpg" alt="Playlist 9">
+                        <img src="IMG/playlist_capa_beatles.jpg" alt="Playlist 10">
+                        <img src="IMG/playlist_capa_racionais.jpg" alt="Playlist 11">
+                        <img src="IMG/playlist_capa_amy.jpg" alt="Playlist 12">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Para estudar</strong>
+                        <span>Criado por: Gustavo</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="playlist-images">
+                        <img src="IMG/playlist_capa_adele.jpg" alt="Playlist 13">
+                        <img src="IMG/playlist_capa_weenknd.jpg" alt="Playlist 14">
+                        <img src="IMG/playlist_capa_amy.jpg" alt="Playlist 15">
+                        <img src="IMG/playlist_capa_tyler.jpg" alt="Playlist 16">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Rap Nacional</strong>
+                        <span>Criado por: Bruna</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="barra-criar-playlist">+ Criar Nova Playlist</div>
+        </aside>
+        
+        <section class="content">
+ 
+        <div class="search-container">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray">
+                <path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 0 0 1.48-4.23C15.91 5.92 12.99 3 9.46 3S3 5.92 3 9.46s2.92 6.46 6.46 6.46a6.47 6.47 0 0 0 4.23-1.48l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.46 14C6.94 14 5 12.06 5 9.46S6.94 5 9.46 5s4.46 1.94 4.46 4.46S11.98 14 9.46 14z"/>
+            </svg>
+            <input type="text" placeholder="pesquise músicas,álbuns,arttistas,podcasts">
+        </div>
+    
+            <h2>Lista de Conexões</h2>
+            <section class="connections-suggestions">
+                <div class="container">
+                    <div class="background"></div>
+                    <div class="grid"></div>
+                <div class="connections-box-large">
+                    <div class="grid-users">
+                        <div class="column">
+                            <div class="user-item" style="margin-bottom: 20px;"></style> <img src="IMG/close-up-smiley-woman-taking-selfie.jpg" alt="Usuário 1"><span>Connie</span></div>
+                            <div class="user-item" style="margin-bottom: 20px;"><img src="IMG/portrait-modern-man.jpg" alt="Usuário 2"><span>Ronald</span></div>
+                            <div class="user-item" style="margin-bottom: 20px;"><img src="IMG/front-view-smiley-man-taking-selfie.jpg" alt="Usuário 3"><span>Darrell</span></div>
+                            <div class="user-item" style="margin-bottom: 20px;"><img src="IMG/smiley-woman-adventure-nature.jpg" alt="Usuário 4"><span>Aubrey</span></div>
+                        </div>
+                        <div class="column">
+                            <div class="user-item" style="margin-bottom: 20px;"><img src="IMG/portrait-father-his-backyard.jpg" alt="Usuário 5"><span>Mitchiell</span></div>
+                            <div class="user-item" style="margin-bottom: 20px;"><img src="IMG/portrait-young-woman-looking-camera.jpg" alt="Usuário 6"><span>Claire</span></div>
+                            <div class="user-item" style="margin-bottom: 20px;"><img src="IMG/person-indian-origin-having-fun.jpg" alt="Usuário 7"><span>Cody</span></div>
+                            <div class="user-item" style="margin-bottom: 20px;"><img src="IMG/medium-shot-smiley-woman-taking-selfie-outdoors.jpg" alt="Usuário 8"><span>jenny</span></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+           <section class="suggestion">
+            <h2>Sugestões</h2>
+            <div class="suggestions-grid">
+                <div class="suggestion-item">
+                    <img src="IMG/portrait-handsome-young-man-looking-camera.jpg" alt="Sugestão 1">
+                    <span>Eduardo</span>
+                </div>
+                <div class="suggestion-item">
+                    <img src="IMG/selfie-portrait-videocall.jpg" alt="Sugestão 2">
+                    <span>Julia</span>
+                </div>
+                <div class="suggestion-item">
+                    <img src="IMG/happy-young-woman-taking-selfie-photo-outdoors.jpg" alt="Sugestão 3">
+                    <span>Anny</span>
+                </div>
+                <div class="suggestion-item">
+                    <img src="IMG/portrait-employee-happy-be-back-work.jpg" alt="Sugestão 4">
+                    <span>Neudjanio</span>
+                </div>
+            </div>
+            </section>
+            
+        </section>
+        
+    </main>
+    
+</body>
+</html>
