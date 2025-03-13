@@ -1,0 +1,178 @@
+/* Estilos de layout principal */
+
+/* Container principal */
+.content {
+  margin-left: 22%;
+  margin-top: 75px;
+  padding: 20px 20px 80px 20px;
+  min-height: calc(100vh - 155px);
+  position: relative;
+  background-color: transparent;
+  color: white;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../public/assets/images/Background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: -1;
+}
+
+/* Área de perfil e pesquisa */
+.header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.usuario-area {
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.usuario-area:hover img {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.usuario-area img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.info-usuario {
+  display: flex;
+  flex-direction: column;
+}
+
+.nome-usuario {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.vibe-atual {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.barra-pesquisa {
+  width: 450px;
+  position: relative;
+}
+
+.barra-pesquisa input {
+  width: 100%;
+  padding: 12px 15px 12px 42px;
+  border-radius: 25px;
+  background-color: rgba(30, 30, 30, 0.5);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 15px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.barra-pesquisa input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(40, 40, 40, 0.6);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.barra-pesquisa::before {
+  content: '\f002';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.barra-pesquisa input:focus + .barra-pesquisa::before {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.barra-pesquisa input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Adaptação para dispositivos móveis */
+@media (max-width: 1200px) {
+  .content {
+    padding: 20px 20px 80px 20px;
+    margin-left: 25%;
+  }
+  
+  .barra-pesquisa {
+    width: 350px;
+  }
+}
+
+@media (max-width: 992px) {
+  .content {
+    margin-left: 0;
+    padding: 15px 15px 80px 15px;
+  }
+  
+  .barra-pesquisa {
+    width: 100%;
+    max-width: 380px;
+  }
+  
+  .header-area {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .barra-pesquisa {
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .usuario-area {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin-top: 60px;
+    padding: 12px 12px 80px 12px;
+  }
+  
+  .nome-usuario {
+    font-size: 15px;
+  }
+  
+  .vibe-atual {
+    font-size: 22px;
+  }
+} 
