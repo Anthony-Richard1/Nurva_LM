@@ -40,64 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function setupPlayer() {
     console.log("Configurando controles do player...");
     
-    // Configurar os eventos dos botões do player
-    const playBtn = document.querySelector('.player-play-button');
-    const prevBtn = document.querySelector('.player-button[title="Música anterior"]');
-    const nextBtn = document.querySelector('.player-button[title="Próxima música"]');
-    const shuffleBtn = document.querySelector('.player-button[title="Modo aleatório"]');
-    const repeatBtn = document.querySelector('.player-button[title="Repetir"]');
-    const volumeContainer = document.querySelector('.player-volume-bar');
-    const progressContainer = document.querySelector('.player-progress-container');
-    
-    if (playBtn) {
-        playBtn.addEventListener('click', togglePlay);
-        console.log("Botão de play configurado");
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', playNextSong);
-        console.log("Botão de próxima música configurado");
-    }
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', playPrevSong);
-        console.log("Botão de música anterior configurado");
-    }
-    
-    if (shuffleBtn) {
-        shuffleBtn.addEventListener('click', toggleShuffle);
-        console.log("Botão de modo aleatório configurado");
-    }
-    
-    if (repeatBtn) {
-        repeatBtn.addEventListener('click', toggleRepeat);
-        console.log("Botão de repetição configurado");
-    }
-    
-    if (volumeContainer) {
-        // Configurar o controle de volume
-        volumeContainer.addEventListener('click', function(e) {
-            const volumeBar = this.getBoundingClientRect();
-            const volumePercent = (e.clientX - volumeBar.left) / volumeBar.width;
-            setVolume(volumePercent);
-        });
-        console.log("Controle de volume configurado");
-    }
-    
-    if (progressContainer) {
-        // Permitir clique na barra de progresso para avançar/retroceder
-        progressContainer.addEventListener('click', function(e) {
-            if (!currentSong) return;
-            
-            const timeline = this.getBoundingClientRect();
-            const seekPercent = (e.clientX - timeline.left) / timeline.width;
-            
-            if (audioPlayer.duration) {
-                audioPlayer.currentTime = audioPlayer.duration * seekPercent;
-            }
-        });
-        console.log("Barra de progresso configurada");
-    }
+    // Configurar todos os botões de uma vez, garantindo consistência
+    setupPlayerButtons();
     
     // Inicialmente o player está oculto
     const player = document.querySelector('.player');
@@ -110,15 +54,20 @@ function setupPlayer() {
 function setupAudioEvents() {
     console.log("Configurando eventos do áudio...");
     
-    // Atualizar barra de progresso
-    audioPlayer.addEventListener('timeupdate', updateProgress);
+    // Atualizar barra de progresso apenas quando a música estiver tocando
+    audioPlayer.addEventListener('timeupdate', function() {
+        // Verificação rigorosa para evitar que a barra se mova sem música tocando
+        if (isPlaying && currentSong && audioPlayer.duration > 0 && !audioPlayer.paused) {
+            updateProgress();
+        }
+    });
     
     // Ao terminar a música, tocar a próxima apenas se não estiver no modo de repetição
     audioPlayer.addEventListener('ended', function() {
         if (repeatMode === 2) {
             // Repetir a música atual
             audioPlayer.currentTime = 0;
-            audioPlayer.play();
+            audioPlayer.play().catch(e => console.error("Erro ao repetir música:", e));
         } else if (repeatMode === 1) {
             // Repetir playlist
             playNextSong();
@@ -131,7 +80,9 @@ function setupAudioEvents() {
     
     // Atualizar informações do player quando a música é carregada
     audioPlayer.addEventListener('loadedmetadata', function() {
-        updateProgress(); // Atualizar tempo e barra de progresso
+        if (isPlaying) {
+            updateProgress(); // Atualizar tempo e barra de progresso apenas se estiver tocando
+        }
         errorRetries = 0; // Resetar contador de tentativas quando a música carrega com sucesso
     });
     
@@ -158,7 +109,7 @@ function setupAudioEvents() {
     });
 }
 
-// Tocar uma música pelo ID
+// Tocar uma música pelo ID - versão robusta
 function playSong(id) {
     console.log(`Tentando reproduzir música com ID: ${id}`);
     
@@ -175,17 +126,18 @@ function playSong(id) {
         return;
     }
     
-    // Se já estiver tocando esta música, apenas continuar
+    // Se já estiver tocando esta música, apenas alternar play/pause
     if (currentSong && currentSong.id === song.id) {
-        if (!isPlaying) {
-            audioPlayer.play();
-            isPlaying = true;
-            updatePlayerUI();
-        }
+        togglePlay();
         return;
     }
     
     console.log(`Reproduzindo: ${song.title} - ${song.artist}`);
+    
+    // Primeiro pause qualquer música atual
+    if (isPlaying) {
+        audioPlayer.pause();
+    }
     
     // Atualizar a música atual e índice
     currentSong = song;
@@ -194,32 +146,104 @@ function playSong(id) {
     // Resetar contador de tentativas
     errorRetries = 0;
     
-    // Atualizar o src do player
-    audioPlayer.src = song.audioPath;
+    // Atualizar o src do player - garantir que o caminho esteja correto
+    let audioPath = song.audioPath;
     
-    // Adicionar à lista de reprodução recente
+    // Verificar se o caminho está correto
+    if (audioPath && !audioPath.startsWith('http')) {
+        // Ajustar caminho se necessário
+        const isInSubdirectory = window.location.pathname.includes('/pages/');
+        if (isInSubdirectory && audioPath.startsWith('public/')) {
+            audioPath = '../' + audioPath;
+        }
+    }
+    
+    // Definir src e carregar áudio
+    audioPlayer.src = audioPath;
+    audioPlayer.load();
+    
+    // Primeira atualização da UI para mostrar qual música está carregando
+    isPlaying = false; // Ainda não está tocando
+    updatePlayerUI();
+    
+    // Adicionar à lista de reprodução recente (se a função existir)
     if (typeof addToRecentlyPlayed === 'function') {
         addToRecentlyPlayed(song.id);
     }
     
-    // Tocar a música
-    audioPlayer.play()
-        .then(() => {
-            isPlaying = true;
+    // Adicionar evento de carregamento único para tocar quando estiver pronto
+    const canPlayHandler = function() {
+        // Remover o handler para não executar múltiplas vezes
+        audioPlayer.removeEventListener('canplaythrough', canPlayHandler);
+        
+        // Tocar a música
+        const playPromise = audioPlayer.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                isPlaying = true;
+                updatePlayerUI();
+                
+                // Se o documento tiver título, atualizá-lo com a música atual
+                if (document.title) {
+                    document.title = `${song.title} - ${song.artist} | Nurva Music`;
+                }
+            }).catch(err => {
+                console.error("Erro ao iniciar reprodução:", err);
+                isPlaying = false;
+                updatePlayerUI();
+                
+                if (err.name === 'NotAllowedError') {
+                    alert("A reprodução automática foi bloqueada pelo navegador. Clique no botão play para começar.");
+                }
+            });
+        } else {
+            // Fallback para navegadores que não suportam a Promise de play()
+            try {
+                isPlaying = true;
+                updatePlayerUI();
+            } catch (error) {
+                console.error("Erro ao iniciar reprodução:", error);
+                isPlaying = false;
+                updatePlayerUI();
+            }
+        }
+    };
+    
+    // Adicionar handler para carregar e tocar
+    audioPlayer.addEventListener('canplaythrough', canPlayHandler, { once: true });
+    
+    // Definir um tempo limite para iniciar a reprodução caso o evento canplaythrough não seja disparado
+    const timeout = setTimeout(() => {
+        audioPlayer.removeEventListener('canplaythrough', canPlayHandler);
+        
+        // Tentar reproduzir mesmo assim
+        try {
+            const playPromise = audioPlayer.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    updatePlayerUI();
+                }).catch(err => {
+                    console.error("Erro ao iniciar reprodução (timeout):", err);
+                    isPlaying = false;
+                    updatePlayerUI();
+                });
+            } else {
+                isPlaying = true;
+                updatePlayerUI();
+            }
+        } catch (error) {
+            console.error("Erro ao iniciar reprodução (timeout):", error);
+            isPlaying = false;
             updatePlayerUI();
-            
-            // Se o documento tiver título, atualizá-lo com a música atual
-            if (document.title) {
-                document.title = `${song.title} - ${song.artist} | Nurva Music`;
-            }
-        })
-        .catch(err => {
-            console.error("Erro ao iniciar reprodução:", err);
-            
-            if (err.name === 'NotAllowedError') {
-                alert("A reprodução automática foi bloqueada pelo navegador. Clique no botão play para começar.");
-            }
-        });
+        }
+    }, 3000); // 3 segundos de timeout
+    
+    // Limpar o timeout se o evento for disparado
+    audioPlayer.addEventListener('canplaythrough', () => {
+        clearTimeout(timeout);
+    }, { once: true });
 }
 
 // Atualizar a interface do player com as informações da música atual
@@ -228,7 +252,7 @@ function updatePlayerUI() {
     
     console.log("Atualizando interface do player");
     
-    // Ativar o player (torná-lo visível)
+    // Ativar o player (torná-lo visível) apenas se houver uma música selecionada
     const player = document.querySelector('.player');
     if (player) {
         player.classList.add('active');
@@ -286,16 +310,27 @@ function updatePlayerUI() {
     // Atualizar o botão de repetição
     const repeatBtn = document.querySelector('.player-button[title="Repetir"]');
     if (repeatBtn) {
-        if (repeatMode > 0) {
+        // Limpar classes anteriores
+        repeatBtn.classList.remove('active', 'repeat-one');
+        
+        if (repeatMode === 0) {
+            // Sem repetição - cor normal
+            repeatBtn.style.color = 'rgba(255, 255, 255, 0.7)';
+        } else if (repeatMode === 1) {
+            // Repetir playlist - ativar
             repeatBtn.classList.add('active');
             repeatBtn.style.color = '#FFFFFF';
-        } else {
-            repeatBtn.classList.remove('active');
-            repeatBtn.style.color = 'rgba(255, 255, 255, 0.7)';
+        } else if (repeatMode === 2) {
+            // Repetir música - ativar e adicionar classe especial
+            repeatBtn.classList.add('active', 'repeat-one');
+            repeatBtn.style.color = '#FFFFFF';
         }
     }
     
-    // Atualizar a minutagem
+    // Atualizar os botões de like/dislike
+    updateLikeDislikeButtons();
+    
+    // Atualizar a minutagem e barra de progresso
     updateProgress();
     
     // Destacar a música atual na lista
@@ -314,21 +349,38 @@ function updatePlayerUI() {
 function togglePlay() {
     if (!currentSong) {
         // Se não houver música selecionada, tocar a primeira da playlist
-        if (currentPlaylist.length > 0) {
+        if (currentPlaylist && currentPlaylist.length > 0) {
             playSong(currentPlaylist[0].id);
         }
         return;
     }
     
-    if (isPlaying) {
-        audioPlayer.pause();
-        isPlaying = false;
-    } else {
-        audioPlayer.play();
-        isPlaying = true;
+    try {
+        if (isPlaying) {
+            audioPlayer.pause();
+            isPlaying = false;
+        } else {
+            const playPromise = audioPlayer.play();
+            
+            // Lidar com a Promise retornada por play()
+            if (playPromise !== undefined) {
+                playPromise
+                    .then(() => {
+                        isPlaying = true;
+                    })
+                    .catch(error => {
+                        console.error("Erro ao iniciar reprodução:", error);
+                        isPlaying = false;
+                    });
+            } else {
+                isPlaying = true;
+            }
+        }
+        
+        updatePlayerUI();
+    } catch (error) {
+        console.error("Erro ao alternar reprodução:", error);
     }
-    
-    updatePlayerUI();
 }
 
 // Tocar a próxima música
@@ -373,14 +425,47 @@ function playPrevSong() {
 function toggleShuffle() {
     shuffleMode = !shuffleMode;
     console.log(`Modo aleatório: ${shuffleMode ? 'Ativado' : 'Desativado'}`);
-    updatePlayerUI();
+    
+    // Atualizar o botão visualmente
+    const shuffleBtn = document.querySelector('.player-button[title="Modo aleatório"]');
+    if (shuffleBtn) {
+        if (shuffleMode) {
+            shuffleBtn.classList.add('active');
+            shuffleBtn.style.color = '#FFFFFF';
+        } else {
+            shuffleBtn.classList.remove('active');
+            shuffleBtn.style.color = 'rgba(255, 255, 255, 0.7)';
+        }
+    }
 }
 
-// Ciclar entre os modos de repetição: 0 (não repetir), 1 (repetir playlist), 2 (repetir música)
+// Ciclar entre os modos de repetição
 function toggleRepeat() {
     repeatMode = (repeatMode + 1) % 3;
-    console.log(`Modo de repetição: ${repeatMode}`);
-    updatePlayerUI();
+    
+    // Mensagens de log mais descritivas
+    const modos = ['Desativado', 'Repetir playlist', 'Repetir música atual'];
+    console.log(`Modo de repetição: ${modos[repeatMode]}`);
+    
+    // Atualizar o botão visualmente
+    const repeatBtn = document.querySelector('.player-button[title="Repetir"]');
+    if (repeatBtn) {
+        // Limpar classes anteriores
+        repeatBtn.classList.remove('active', 'repeat-one');
+        
+        if (repeatMode === 0) {
+            // Sem repetição - cor normal
+            repeatBtn.style.color = 'rgba(255, 255, 255, 0.7)';
+        } else if (repeatMode === 1) {
+            // Repetir playlist - ativar
+            repeatBtn.classList.add('active');
+            repeatBtn.style.color = '#FFFFFF';
+        } else if (repeatMode === 2) {
+            // Repetir música - ativar e adicionar classe especial
+            repeatBtn.classList.add('active', 'repeat-one');
+            repeatBtn.style.color = '#FFFFFF';
+        }
+    }
 }
 
 // Ajustar o volume (0-1)
@@ -397,16 +482,35 @@ function setVolume(volumeLevel) {
 
 // Atualizar a barra de progresso
 function updateProgress() {
-    if (!currentSong || !audioPlayer.duration) return;
+    // Verificações rigorosas para garantir que a barra só se move quando apropriado
+    if (!currentSong || !audioPlayer.duration || audioPlayer.duration === Infinity || audioPlayer.paused || !isPlaying) {
+        return;
+    }
     
-    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-    const progressBar = document.querySelector('.player-progress');
-    if (progressBar) progressBar.style.width = `${progress}%`;
-    
-    // Atualizar o tempo no formato "atual / total"
-    const timeDisplay = document.querySelector('.player-time');
-    if (timeDisplay) {
-        timeDisplay.textContent = `${formatTime(audioPlayer.currentTime)} / ${formatTime(audioPlayer.duration)}`;
+    try {
+        // Use valores absolutos para evitar flutuações
+        const currentTime = Math.max(0, audioPlayer.currentTime);
+        const duration = Math.max(1, audioPlayer.duration); // Evitar divisão por zero
+        
+        // Limitar o progresso entre 0 e 100%
+        const progress = Math.min(100, Math.max(0, (currentTime / duration) * 100));
+        
+        // Arredondar para evitar mudanças mínimas que causam flickering
+        const roundedProgress = Math.floor(progress * 10) / 10;
+        
+        // Atualizar a barra de progresso
+        const progressBar = document.querySelector('.player-progress');
+        if (progressBar) {
+            progressBar.style.width = `${roundedProgress}%`;
+        }
+        
+        // Atualizar o tempo no formato "atual / total"
+        const timeDisplay = document.querySelector('.player-time');
+        if (timeDisplay) {
+            timeDisplay.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+        }
+    } catch (error) {
+        console.error("Erro ao atualizar progresso:", error);
     }
 }
 
@@ -426,30 +530,206 @@ function getSongById(id) {
 
 // Adicionar à playlist de favoritos
 function addToFavorites(songId) {
-    // Implementação futura
-    console.log(`Adicionando música ${songId} aos favoritos`);
+    if (!songId || !currentSong) return;
+    
+    // Verificar se já existe uma lista de favoritos no localStorage
+    let favorites = JSON.parse(localStorage.getItem('nurvaFavorites')) || [];
+    
+    // Verificar se a música já está nos favoritos
+    const isAlreadyFavorite = favorites.includes(songId);
+    
+    if (isAlreadyFavorite) {
+        // Se já for favorita, remover dos favoritos
+        favorites = favorites.filter(id => id !== songId);
+        console.log(`Música ${songId} removida dos favoritos`);
+    } else {
+        // Se não for favorita, adicionar aos favoritos
+        favorites.push(songId);
+        console.log(`Música ${songId} adicionada aos favoritos`);
+    }
+    
+    // Salvar no localStorage
+    localStorage.setItem('nurvaFavorites', JSON.stringify(favorites));
+    
+    // Atualizar visual do botão de like
+    updateLikeDislikeButtons();
 }
 
-// Adicionar configuração dos botões do player após carregamento
+// Adicionar à playlist de "não gostei"
+function addToDisliked(songId) {
+    if (!songId || !currentSong) return;
+    
+    // Verificar se já existe uma lista de "não gostei" no localStorage
+    let disliked = JSON.parse(localStorage.getItem('nurvaDisliked')) || [];
+    
+    // Verificar se a música já está na lista de "não gostei"
+    const isAlreadyDisliked = disliked.includes(songId);
+    
+    if (isAlreadyDisliked) {
+        // Se já estiver na lista, remover
+        disliked = disliked.filter(id => id !== songId);
+        console.log(`Música ${songId} removida da lista de "não gostei"`);
+    } else {
+        // Se não estiver na lista, adicionar
+        disliked.push(songId);
+        console.log(`Música ${songId} adicionada à lista de "não gostei"`);
+        
+        // Remover dos favoritos se estiver lá
+        let favorites = JSON.parse(localStorage.getItem('nurvaFavorites')) || [];
+        favorites = favorites.filter(id => id !== songId);
+        localStorage.setItem('nurvaFavorites', JSON.stringify(favorites));
+    }
+    
+    // Salvar no localStorage
+    localStorage.setItem('nurvaDisliked', JSON.stringify(disliked));
+    
+    // Atualizar visual dos botões
+    updateLikeDislikeButtons();
+    
+    // Se não gostou, pular para a próxima música
+    playNextSong();
+}
+
+// Atualizar o visual dos botões de like/dislike
+function updateLikeDislikeButtons() {
+    if (!currentSong) return;
+    
+    const songId = currentSong.id;
+    const favorites = JSON.parse(localStorage.getItem('nurvaFavorites')) || [];
+    const disliked = JSON.parse(localStorage.getItem('nurvaDisliked')) || [];
+    
+    const likeButton = document.querySelector('.player-button[title="Gostei"]');
+    const dislikeButton = document.querySelector('.player-button[title="Não gostei"]');
+    
+    if (likeButton) {
+        if (favorites.includes(songId)) {
+            likeButton.classList.add('active');
+            likeButton.style.color = '#FFFFFF';
+        } else {
+            likeButton.classList.remove('active');
+            likeButton.style.color = 'rgba(255, 255, 255, 0.7)';
+        }
+    }
+    
+    if (dislikeButton) {
+        if (disliked.includes(songId)) {
+            dislikeButton.classList.add('active');
+            dislikeButton.style.color = '#FFFFFF';
+        } else {
+            dislikeButton.classList.remove('active');
+            dislikeButton.style.color = 'rgba(255, 255, 255, 0.7)';
+        }
+    }
+}
+
+// Centralizar a configuração de eventos dos botões - nova função para melhor organização
+function setupPlayerButtons() {
+    const allButtons = {
+        play: document.querySelector('.player-play-button'),
+        prev: document.querySelector('.player-button[title="Música anterior"]'),
+        next: document.querySelector('.player-button[title="Próxima música"]'),
+        shuffle: document.querySelector('.player-button[title="Modo aleatório"]'),
+        repeat: document.querySelector('.player-button[title="Repetir"]'),
+        like: document.querySelector('.player-button[title="Gostei"]'),
+        dislike: document.querySelector('.player-button[title="Não gostei"]'),
+        volume: document.querySelector('.player-volume-bar'),
+        progress: document.querySelector('.player-progress-container')
+    };
+    
+    // Limpar listeners anteriores para evitar duplicação
+    const cloneButtons = {};
+    
+    // Clonar e substituir cada botão para remover qualquer event listener antigo
+    Object.keys(allButtons).forEach(key => {
+        if (allButtons[key]) {
+            cloneButtons[key] = allButtons[key].cloneNode(true);
+            if (allButtons[key].parentNode) {
+                allButtons[key].parentNode.replaceChild(cloneButtons[key], allButtons[key]);
+            }
+            allButtons[key] = cloneButtons[key];
+        }
+    });
+    
+    // Adicionar os event listeners nos botões clonados
+    if (allButtons.play) {
+        allButtons.play.addEventListener('click', togglePlay);
+        console.log("Botão de play configurado");
+    }
+    
+    if (allButtons.next) {
+        allButtons.next.addEventListener('click', playNextSong);
+        console.log("Botão de próxima música configurado");
+    }
+    
+    if (allButtons.prev) {
+        allButtons.prev.addEventListener('click', playPrevSong);
+        console.log("Botão de música anterior configurado");
+    }
+    
+    if (allButtons.shuffle) {
+        allButtons.shuffle.addEventListener('click', toggleShuffle);
+        console.log("Botão de modo aleatório configurado");
+    }
+    
+    if (allButtons.repeat) {
+        allButtons.repeat.addEventListener('click', toggleRepeat);
+        console.log("Botão de repetição configurado");
+    }
+    
+    if (allButtons.like) {
+        allButtons.like.addEventListener('click', function() {
+            if (currentSong) {
+                addToFavorites(currentSong.id);
+            }
+        });
+        console.log("Botão de like configurado");
+    }
+    
+    if (allButtons.dislike) {
+        allButtons.dislike.addEventListener('click', function() {
+            if (currentSong) {
+                addToDisliked(currentSong.id);
+            }
+        });
+        console.log("Botão de dislike configurado");
+    }
+    
+    if (allButtons.volume) {
+        allButtons.volume.addEventListener('click', function(e) {
+            const volumeBar = this.getBoundingClientRect();
+            const volumePercent = (e.clientX - volumeBar.left) / volumeBar.width;
+            setVolume(volumePercent);
+        });
+        console.log("Controle de volume configurado");
+    }
+    
+    if (allButtons.progress) {
+        allButtons.progress.addEventListener('click', function(e) {
+            if (!currentSong || !audioPlayer.duration) return;
+            
+            const timeline = this.getBoundingClientRect();
+            const seekPercent = (e.clientX - timeline.left) / timeline.width;
+            
+            audioPlayer.currentTime = audioPlayer.duration * seekPercent;
+            updateProgress(); // Atualizar imediatamente após o clique
+        });
+        console.log("Barra de progresso configurada");
+    }
+}
+
+// Adicionar configuração dos botões do player após carregamento - versão revisada
 window.addEventListener('load', function() {
-    // Configurar botões adicionais
-    const shuffleButton = document.querySelector('button:has(.fa-random)');
-    const repeatButton = document.querySelector('button:has(.fa-redo)');
-    const likeButton = document.querySelector('button:has(.fa-thumbs-up)');
-    const dislikeButton = document.querySelector('button:has(.fa-thumbs-down)');
-    
-    if (shuffleButton) {
-        shuffleButton.addEventListener('click', toggleShuffle);
-    }
-    
-    if (repeatButton) {
-        repeatButton.addEventListener('click', toggleRepeat);
-    }
-    
-    if (likeButton && currentSong) {
-        likeButton.addEventListener('click', () => addToFavorites(currentSong.id));
-    }
+    // Usar a função centralizada para configurar os botões
+    setupPlayerButtons();
     
     // Iniciar com volume em 70%
     setVolume(0.7);
+    
+    // Verificar se a música está tocando quando a janela ganha foco (para sincronizar a UI)
+    window.addEventListener('focus', function() {
+        if (currentSong) {
+            isPlaying = !audioPlayer.paused;
+            updatePlayerUI();
+        }
+    });
 }); 
