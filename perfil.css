@@ -1,5 +1,22 @@
+/* Cabeçalho */
+/* Tornando a .navegacao fixa */
 .navegacao {
-  background-color: #333;
+  position: fixed; /* Fixando o cabeçalho */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa toda a largura da tela */
+  background-color: #000000;
+  color: #ffffff;
+  padding: 1em;
+  border: 0.20px solid #ffffffa0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000; /* Garante que a navegação fique sobre outros elementos */
+}
+
+.navegacao {
+  background-color: #000000;
   color: #fff;
   padding: 1em;
   display: flex;
@@ -8,7 +25,6 @@
 }
 
 .container {
-  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -16,6 +32,7 @@
 }
 
 .logo {
+  color:#fff;
   font-size: 1.5em;
   font-weight: bold;
   margin-right: 1em;
@@ -62,4 +79,60 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+
+
+body {
+  background-color: #121212;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+.perfil-container {
+  background: linear-gradient(to bottom, #333, #222);
+  border-radius: 15px;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+h2 {
+  margin: 10px 0;
+}
+
+p {
+  font-size: 14px;
+  color: #bbb;
+}
+
+.artistas, .musicas {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.artista, .musica {
+  background: linear-gradient(to bottom, #444, #222);
+  border-radius: 10px;
+  padding: 10px;
+  width: 120px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.artista img, .musica img {
+  width: 100%;
+  border-radius: 10px;
 }
