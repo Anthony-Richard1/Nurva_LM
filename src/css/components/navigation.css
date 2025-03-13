@@ -143,19 +143,25 @@
   background-position: center;
   position: relative;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.connections:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
 }
 
 .camada_escurecimento {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
-  z-index: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
   border-radius: 20px;
+  z-index: 0;
 }
 
 .connections img {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
   z-index: 1;
@@ -165,6 +171,8 @@
 
 .connection-info {
   z-index: 1;
+  flex: 1;
+  min-width: 0; /* Importante para o texto não vazar */
 }
 
 .connection-info strong {
@@ -174,15 +182,18 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .connection-info span {
   display: block;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.7);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
+  margin-top: 2px;
 }
 
 /* Playlists */

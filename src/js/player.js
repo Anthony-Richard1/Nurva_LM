@@ -175,26 +175,26 @@ function playSong(id) {
     const canPlayHandler = function() {
         // Remover o handler para não executar múltiplas vezes
         audioPlayer.removeEventListener('canplaythrough', canPlayHandler);
-        
-        // Tocar a música
+    
+    // Tocar a música
         const playPromise = audioPlayer.play();
         
         if (playPromise !== undefined) {
             playPromise.then(() => {
-                isPlaying = true;
-                updatePlayerUI();
+            isPlaying = true;
+            updatePlayerUI();
                 
                 // Se o documento tiver título, atualizá-lo com a música atual
                 if (document.title) {
                     document.title = `${song.title} - ${song.artist} | Nurva Music`;
                 }
             }).catch(err => {
-                console.error("Erro ao iniciar reprodução:", err);
+            console.error("Erro ao iniciar reprodução:", err);
                 isPlaying = false;
                 updatePlayerUI();
-                
-                if (err.name === 'NotAllowedError') {
-                    alert("A reprodução automática foi bloqueada pelo navegador. Clique no botão play para começar.");
+            
+            if (err.name === 'NotAllowedError') {
+                alert("A reprodução automática foi bloqueada pelo navegador. Clique no botão play para começar.");
                 }
             });
         } else {
@@ -356,10 +356,10 @@ function togglePlay() {
     }
     
     try {
-        if (isPlaying) {
-            audioPlayer.pause();
-            isPlaying = false;
-        } else {
+    if (isPlaying) {
+        audioPlayer.pause();
+        isPlaying = false;
+    } else {
             const playPromise = audioPlayer.play();
             
             // Lidar com a Promise retornada por play()
@@ -373,11 +373,11 @@ function togglePlay() {
                         isPlaying = false;
                     });
             } else {
-                isPlaying = true;
+        isPlaying = true;
             }
-        }
-        
-        updatePlayerUI();
+    }
+    
+    updatePlayerUI();
     } catch (error) {
         console.error("Erro ao alternar reprodução:", error);
     }
@@ -632,6 +632,7 @@ function setupPlayerButtons() {
         repeat: document.querySelector('.player-button[title="Repetir"]'),
         like: document.querySelector('.player-button[title="Gostei"]'),
         dislike: document.querySelector('.player-button[title="Não gostei"]'),
+        addToPlaylist: document.querySelector('.player-button[title="Adicionar à playlist"]'),
         volume: document.querySelector('.player-volume-bar'),
         progress: document.querySelector('.player-progress-container')
     };
@@ -714,6 +715,18 @@ function setupPlayerButtons() {
             updateProgress(); // Atualizar imediatamente após o clique
         });
         console.log("Barra de progresso configurada");
+    }
+    
+    // Configurar o botão de adicionar à playlist (já existente no HTML)
+    if (allButtons.addToPlaylist) {
+        allButtons.addToPlaylist.addEventListener('click', function() {
+            if (currentSong && typeof addCurrentSongToPlaylist === 'function') {
+                addCurrentSongToPlaylist();
+            } else {
+                console.error("Função addCurrentSongToPlaylist não está disponível");
+            }
+        });
+        console.log("Botão de adicionar à playlist configurado");
     }
 }
 
