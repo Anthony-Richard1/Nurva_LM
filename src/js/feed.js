@@ -7,56 +7,141 @@ const SECTION_TYPE = {
   MIXED: 'mixed'
 };
 
-// Configuração das seções
-const FEED_SECTIONS = [
-  {
-    id: 'para-voce',
-    title: 'Para Você',
-    subtitle: 'Recomendações baseadas no seu gosto musical',
-    type: SECTION_TYPE.MIXED,
-    cssSelector: '.secao-destacada .grid-cards, [data-section="para-voce"] .grid-cards',
-    musicRange: [0, 8],
-    artistCount: 3,
-    position: 1
-  },
-  {
-    id: 'artistas-recomendados',
-    title: 'Artistas Recomendados',
-    subtitle: 'Artistas que combinam com seu gosto',
-    type: SECTION_TYPE.ARTIST_ONLY,
-    cssSelector: '.secao:has(.secao-titulo:contains("Artistas Recomendados")) .grid-cards, [data-section="artistas-recomendados"] .grid-cards',
-    artistCount: 6,
-    position: 2
-  },
-  {
-    id: 'amigos-ouvindo',
-    title: 'Seus Amigos Estão Ouvindo',
-    subtitle: 'Músicas populares na sua rede',
-    type: SECTION_TYPE.MUSIC_ONLY,
-    cssSelector: '.secao:has(.secao-titulo:contains("Seus Amigos Estão Ouvindo")) .grid-cards, [data-section="amigos-ouvindo"] .grid-cards',
-    musicRange: [15, 25],
-    position: 3
-  },
-  {
-    id: 'lancamentos',
-    title: 'Lançamentos da Semana',
-    subtitle: 'As novidades mais recentes',
-    type: SECTION_TYPE.MUSIC_ONLY,
-    cssSelector: '.secao:has(.secao-titulo:contains("Lançamentos da Semana")) .grid-cards, [data-section="lancamentos"] .grid-cards',
-    musicRange: [25, 35],
-    position: 4,
-    filter: song => song.thumbnail && song.thumbnail !== 'public/assets/images/thumbnails/default.jpg'
-  },
-  {
-    id: 'mais-ouvidas',
-    title: 'Mais Ouvidas',
-    subtitle: 'As músicas mais tocadas para você',
-    type: SECTION_TYPE.MUSIC_ONLY,
-    musicRange: [35, 45],
-    position: 5,
-    isDynamic: true
+// Funções auxiliares
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
-];
+  return array;
+}
+
+function getRandomItems(array, count) {
+  return shuffleArray([...array]).slice(0, count);
+}
+
+function getUniqueGenres() {
+  if (!musicDatabase) return [];
+  const genres = new Set();
+  musicDatabase.forEach(song => {
+    if (song.genre) genres.add(song.genre);
+  });
+  return Array.from(genres);
+}
+
+function getSongsByGenre(genre) {
+  if (!musicDatabase) return [];
+  return musicDatabase.filter(song => song.genre === genre);
+}
+
+function getArtistsByGenre(genre) {
+  if (!musicDatabase) return [];
+  const artists = new Set();
+  musicDatabase.forEach(song => {
+    if (song.genre === genre && song.artist) {
+      song.artist.split(',').forEach(artist => artists.add(artist.trim()));
+    }
+  });
+  return Array.from(artists);
+}
+
+function getSongsByYear(year) {
+  if (!musicDatabase) return [];
+  return musicDatabase.filter(song => song.year === year);
+}
+
+function getRecentYears() {
+  if (!musicDatabase) return [];
+  const years = new Set();
+  musicDatabase.forEach(song => {
+    if (song.year) years.add(song.year);
+  });
+  return Array.from(years).sort((a, b) => b - a);
+}
+
+// Configuração dinâmica das seções
+function generateFeedSections() {
+  const baseSections = [
+    {
+      id: 'para-voce',
+      title: 'Para Você',
+      subtitle: 'Recomendações baseadas no seu gosto musical',
+      type: SECTION_TYPE.MIXED,
+      getContent: () => {
+        const totalItems = 15;
+        const allContent = [
+          ...getTopArtists(totalItems).map(a => ({ type: 'artist', data: a })),
+          ...musicDatabase.map(s => ({ type: 'music', data: s }))
+        ];
+        return getRandomItems(allContent, totalItems);
+      }
+    },
+    {
+      id: 'artistas-recomendados',
+      title: 'Artistas Recomendados',
+      subtitle: 'Artistas que combinam com seu gosto',
+      type: SECTION_TYPE.ARTIST_ONLY,
+      getContent: () => getRandomItems(getTopArtists(15), 15).map(artist => ({ type: 'artist', data: artist }))
+    },
+    {
+      id: 'mais-ouvidas',
+      title: 'Mais Ouvidas',
+      subtitle: 'As músicas mais populares do momento',
+      type: SECTION_TYPE.MUSIC_ONLY,
+      getContent: () => getRandomItems(musicDatabase, 15).map(song => ({ type: 'music', data: song }))
+    }
+  ];
+
+  // Adicionar seções de gênero
+  const genres = getUniqueGenres();
+  const genreSections = genres.map(genre => ({
+    id: `genre-${genre.toLowerCase().replace(/\s+/g, '-')}`,
+    title: genre,
+    subtitle: `As melhores de ${genre}`,
+    type: SECTION_TYPE.MIXED,
+    getContent: () => {
+      const genreSongs = getSongsByGenre(genre);
+      const genreArtists = getArtistsByGenre(genre).map(name => ({
+        name,
+        thumbnail: genreSongs.find(s => s.artist.includes(name))?.thumbnail || 'public/assets/images/thumbnails/default.jpg',
+        subscribers: `${Math.floor(Math.random() * 35) + 1}M`
+      }));
+      
+      const content = [
+        ...genreArtists.map(a => ({ type: 'artist', data: a })),
+        ...genreSongs.map(s => ({ type: 'music', data: s }))
+      ];
+      
+      return getRandomItems(content, 15);
+    }
+  }));
+
+  // Adicionar seções por ano
+  const recentYears = getRecentYears().slice(0, 5);
+  const yearSections = recentYears.map(year => ({
+    id: `year-${year}`,
+    title: `Hits de ${year}`,
+    subtitle: `As músicas que marcaram ${year}`,
+    type: SECTION_TYPE.MUSIC_ONLY,
+    getContent: () => {
+      const yearSongs = getSongsByYear(year);
+      return getRandomItems(yearSongs, 15).map(song => ({ type: 'music', data: song }));
+    }
+  }));
+
+  // Combinar e embaralhar as seções (mantendo "Para Você" sempre primeiro)
+  const firstSection = baseSections.shift();
+  const allSections = [
+    firstSection,
+    ...shuffleArray([
+      ...baseSections,
+      ...getRandomItems(genreSections, Math.min(6, genreSections.length)),
+      ...getRandomItems(yearSections, Math.min(3, yearSections.length))
+    ])
+  ];
+
+  return allSections;
+}
 
 // Funções principais
 const isMusicDatabaseAvailable = () => 
@@ -64,15 +149,15 @@ const isMusicDatabaseAvailable = () =>
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
-  if (isMusicDatabaseAvailable()) {
-    initializeFeed();
+  if (!isMusicDatabaseAvailable()) {
+    setTimeout(() => {
+      isMusicDatabaseAvailable() ? initializeFeed() : 
+        showErrorMessage('Não foi possível carregar o conteúdo. Tente novamente mais tarde.');
+    }, 1000);
     return;
   }
   
-  setTimeout(() => {
-    isMusicDatabaseAvailable() ? initializeFeed() : 
-      showErrorMessage('Não foi possível carregar o conteúdo. Tente novamente mais tarde.');
-  }, 1000);
+  initializeFeed();
 });
 
 // Sistema de feed
@@ -80,35 +165,50 @@ function initializeFeed() {
   if (!isMusicDatabaseAvailable()) 
     return showErrorMessage('Banco de dados de música não disponível');
 
-  analyzeFeedStructure();
-  createDynamicSections();
-  loadAllSections();
-  initializeCarousels();
-  
-  // Garantir que todas as seções sejam visíveis
-  document.querySelectorAll('.secao, .secao-destacada').forEach(section => {
-    section.classList.add('secao-visible');
+  const mainContent = document.querySelector('.content');
+  if (!mainContent) return;
+
+  // Limpar conteúdo existente
+  const gridCards = mainContent.querySelectorAll('.grid-cards');
+  gridCards.forEach(grid => grid.innerHTML = '');
+
+  // Gerar e renderizar seções
+  const sections = generateFeedSections();
+  sections.forEach((section, index) => {
+    const sectionElement = createSectionElement(section);
+    const content = section.getContent();
+    
+    if (content && content.length > 0) {
+      const gridCards = sectionElement.querySelector('.grid-cards');
+      renderItems(content, gridCards);
+      mainContent.appendChild(sectionElement);
+    }
   });
+
+  initializeCarousels();
 }
 
-// Analisar e preparar estrutura da página
-function analyzeFeedStructure() {
-  document.querySelectorAll('.secao, .secao-destacada').forEach((section, index) => {
-    const titleElement = section.querySelector('.secao-titulo');
-    if (!titleElement) return;
-    
-    const title = titleElement.textContent.trim();
-    const sectionId = title.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-');
-    section.setAttribute('data-section', sectionId);
-    
-    // Atualizar seletores e posições
-    FEED_SECTIONS.forEach(config => {
-      if (config.title === title) {
-        config.cssSelector = `[data-section="${sectionId}"] .grid-cards`;
-        config.position = index + 1;
-      }
-    });
-  });
+// Criar elemento de seção
+function createSectionElement(section) {
+  const sectionElement = document.createElement('div');
+  sectionElement.className = section.id === 'para-voce' ? 'secao-destacada' : 'secao';
+  sectionElement.setAttribute('data-section', section.id);
+  
+  sectionElement.innerHTML = `
+    <div class="secao-header">
+      <div>
+        <h2 class="secao-titulo">${section.title}</h2>
+        <p class="secao-subtitulo">${section.subtitle}</p>
+      </div>
+      <button class="mais-btn">
+        <span>Mais</span>
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    <div class="grid-cards"></div>
+  `;
+
+  return sectionElement;
 }
 
 // Exibir mensagem de erro
@@ -124,62 +224,6 @@ function showErrorMessage(message, sectionElement) {
     document.querySelectorAll('.secao .grid-cards, .secao-destacada .grid-cards')
       .forEach(section => section.appendChild(errorElement.cloneNode(true)));
   }
-}
-
-// Criar seções dinâmicas
-function createDynamicSections() {
-  FEED_SECTIONS
-    .filter(section => section.isDynamic)
-    .sort((a, b) => a.position - b.position)
-    .forEach(section => {
-      // Verificar se a seção já existe
-      const existingSection = findSectionByTitle(section.title);
-      if (existingSection) {
-        section.cssSelector = `[data-section="${existingSection.getAttribute('data-section')}"] .grid-cards`;
-        return;
-      }
-      
-      // Encontrar ponto de referência
-      let referenceSection = document.querySelector(`.secao:nth-of-type(${section.position - 1})`) ||
-                           document.querySelector('.secao');
-      if (!referenceSection) return;
-      
-      // Criar nova seção
-      const sectionId = section.title.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-');
-      const newSection = document.createElement('div');
-      newSection.className = 'secao';
-      newSection.id = section.id;
-      newSection.setAttribute('data-section', sectionId);
-      
-      newSection.innerHTML = `
-        <div class="secao-header">
-          <div>
-            <h2 class="secao-titulo">${section.title}</h2>
-            <p class="secao-subtitulo">${section.subtitle}</p>
-          </div>
-          <button class="mais-btn">
-            <span>Mais</span>
-            <i class="fas fa-chevron-right"></i>
-          </button>
-        </div>
-        <div class="grid-cards"></div>
-      `;
-      
-      referenceSection.parentNode.insertBefore(newSection, referenceSection.nextSibling);
-      section.cssSelector = `[data-section="${sectionId}"] .grid-cards`;
-    });
-}
-
-// Encontrar seção pelo título
-function findSectionByTitle(title) {
-  let result = null;
-  document.querySelectorAll('.secao, .secao-destacada').forEach(section => {
-    const titleElement = section.querySelector('.secao-titulo');
-    if (titleElement && titleElement.textContent.trim() === title) {
-      result = section;
-    }
-  });
-  return result;
 }
 
 // Carregar conteúdo para todas as seções

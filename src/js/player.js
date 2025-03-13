@@ -6,8 +6,9 @@ let isPlaying = false;
 let audioPlayer = new Audio();
 let currentPlaylist = [];
 let currentIndex = 0;
-let shuffleMode = false;
+let shuffleMode = false; // Inicializa como falso
 let repeatMode = 0; // 0: sem repetição, 1: repetir playlist, 2: repetir música
+let errorRetries = 0; // Contador de tentativas de reprodução
 
 // Inicializar o player
 document.addEventListener('DOMContentLoaded', function() {
@@ -93,27 +94,49 @@ function setupAudioEvents() {
     // Atualizar barra de progresso
     audioPlayer.addEventListener('timeupdate', updateProgress);
     
-    // Ao terminar a música, tocar a próxima
+    // Ao terminar a música, tocar a próxima apenas se não estiver no modo de repetição
     audioPlayer.addEventListener('ended', function() {
         if (repeatMode === 2) {
             // Repetir a música atual
             audioPlayer.currentTime = 0;
             audioPlayer.play();
-        } else {
+        } else if (repeatMode === 1) {
+            // Repetir playlist
             playNextSong();
+        } else {
+            // Parar ao final se não estiver em modo de repetição
+            isPlaying = false;
+            updatePlayerUI();
         }
     });
     
     // Atualizar informações do player quando a música é carregada
     audioPlayer.addEventListener('loadedmetadata', function() {
         updateDurationDisplay();
+        errorRetries = 0; // Resetar contador de tentativas quando a música carrega com sucesso
     });
     
     // Lidar com erros
     audioPlayer.addEventListener('error', function(e) {
         console.error("Erro ao reproduzir áudio:", e);
-        // Tentar próxima música em caso de erro
-        setTimeout(playNextSong, 2000);
+        
+        // Tentar reproduzir novamente a mesma música até 3 vezes
+        if (errorRetries < 3 && currentSong) {
+            errorRetries++;
+            console.log(`Tentativa ${errorRetries} de reproduzir a música`);
+            
+            setTimeout(() => {
+                audioPlayer.src = currentSong.audioPath;
+                audioPlayer.load();
+                audioPlayer.play().catch(err => {
+                    console.error("Erro na tentativa de reprodução:", err);
+                });
+            }, 1000);
+        } else {
+            // Após 3 tentativas, mostrar mensagem de erro
+            alert("Não foi possível reproduzir esta música. Por favor, tente outra.");
+            errorRetries = 0;
+        }
     });
 }
 
@@ -134,11 +157,24 @@ function playSong(id) {
         return;
     }
     
+    // Se já estiver tocando esta música, apenas continuar
+    if (currentSong && currentSong.id === song.id) {
+        if (!isPlaying) {
+            audioPlayer.play();
+            isPlaying = true;
+            updatePlayerUI();
+        }
+        return;
+    }
+    
     console.log(`Reproduzindo: ${song.title} - ${song.artist}`);
     
     // Atualizar a música atual e índice
     currentSong = song;
     currentIndex = currentPlaylist.findIndex(s => s.id === song.id);
+    
+    // Resetar contador de tentativas
+    errorRetries = 0;
     
     // Atualizar o src do player
     audioPlayer.src = song.audioPath;
@@ -152,12 +188,8 @@ function playSong(id) {
         .catch(err => {
             console.error("Erro ao iniciar reprodução:", err);
             
-            // Verificar se é um problema de CORS ou permissões
             if (err.name === 'NotAllowedError') {
                 alert("A reprodução automática foi bloqueada pelo navegador. Clique no botão play para começar.");
-            } else {
-                // Tentar próxima música
-                setTimeout(playNextSong, 2000);
             }
         });
 }
