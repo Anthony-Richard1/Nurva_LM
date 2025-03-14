@@ -6,11 +6,13 @@
     <title>Nurva - Explorar</title>
     <link rel="stylesheet" href="../src/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
 </head>
 <body>
-    <nav class="navegacao"> 
+    <!-- Barra de Navegação -->
+    <nav class="navegacao">
         <div class="container">
-            <button class="menu-icon" aria-label="Abrir menu"> 
+            <button class="menu-icon" aria-label="Abrir menu">
                 <svg viewbox="0 0 24 24">
                     <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
                 </svg>
@@ -18,16 +20,16 @@
             <div class="logo">
                 <a href="../index.html">Nurva</a>
             </div>
-            <ul class="menu"> 
+            <ul class="menu">
                 <li><a href="../index.html">Início</a></li>
-                <li><a href="#" class="ativa">Explorar</a></li>
+                <li><a href="Explorar.html" class="ativa">Explorar</a></li>
                 <li><a href="biblioteca.html">Biblioteca</a></li>
                 <li><a href="comunidade.html">Comunidade</a></li>
                 <li><a href="conexoes.html">Conexões</a></li>
                 <li><a href="perfil.html">Perfil</a></li>
             </ul>
             <div class="perfil">
-                <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil">
+                <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil do usuário">
             </div>
         </div>
     </nav>
@@ -81,8 +83,8 @@
                         <img src="../public/assets/images/playlist_capa_yago.jpg" alt="Playlist 4">
                     </div>
                     <div class="playlist-info">
-                        <strong>Para animar pro vôlei</strong>
-                        <span>Criado por: Bernardo</span>
+                        <strong>Playlist para se animar pro vôlei</strong>
+                        <span>Criada por: Anthony Richard</span>
                     </div>
                 </li>
                 <li>
@@ -93,32 +95,32 @@
                         <img src="../public/assets/images/playlist_capa_cazuza.jpg" alt="Playlist 8">
                     </div>
                     <div class="playlist-info">
-                        <strong>Para chorar no banho</strong>
-                        <span>Criado por: Lívia</span>
+                        <strong>Playlist para chorar no banho</strong>
+                        <span>Criada por: Anthony Richard</span>
                     </div>
                 </li>
                 <li>
                     <div class="playlist-images">
-                        <img src="../public/assets/images/playlist_capa_michael.jpg" alt="Playlist 9">
-                        <img src="../public/assets/images/playlist_capa_beatles.jpg" alt="Playlist 10">
-                        <img src="../public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 11">
-                        <img src="../public/assets/images/playlist_capa_amy.jpg" alt="Playlist 12">
+                        <img src="../public/assets/images/playlist_capa_billie.jpg" alt="Playlist 5">
+                        <img src="../public/assets/images/playlist_capa_tyler.jpg" alt="Playlist 6">
+                        <img src="../public/assets/images/playlist_capa_cazuza.jpg" alt="Playlist 7">
+                        <img src="../public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 8">
                     </div>
                     <div class="playlist-info">
-                        <strong>Para estudar</strong>
-                        <span>Criado por: Gustavo</span>
+                        <strong>Playlist para estudar</strong>
+                        <span>Criada por: Anthony Richard</span>
                     </div>
                 </li>
                 <li>
                     <div class="playlist-images">
-                        <img src="../public/assets/images/playlist_capa_adele.jpg" alt="Playlist 13">
-                        <img src="../public/assets/images/playlist_capa_weenknd.jpg" alt="Playlist 14">
-                        <img src="../public/assets/images/playlist_capa_amy.jpg" alt="Playlist 15">
-                        <img src="../public/assets/images/playlist_capa_tyler.jpg" alt="Playlist 16">
+                        <img src="../public/assets/images/playlist_capa_matue.jpg" alt="Playlist 9">
+                        <img src="../public/assets/images/playlist_capa_djonga.jpg" alt="Playlist 10">
+                        <img src="../public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 11">
+                        <img src="../public/assets/images/playlist_capa_yago.jpg" alt="Playlist 12">
                     </div>
                     <div class="playlist-info">
                         <strong>Rap Nacional</strong>
-                        <span>Criado por: Bruna</span>
+                        <span>Criada por: Bernardo</span>
                     </div>
                 </li>
             </ul>
@@ -126,20 +128,14 @@
         </aside>
 
         <section class="content">
-            <div class="header-area">
-                <div class="usuario-area">
-                    <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil">
-                    <div class="info-usuario">
-                        <p class="nome-usuario">ANTHONY RICHARD</p>
-                        <h2>Navegue novos mares</h2>
-                    </div>
-                </div>
-                <div class="barra-pesquisa">
-                    <input type="text" placeholder="Pesquise músicas, álbuns, artistas, podcasts">
-                </div>
+            <!-- Barra de Pesquisa -->
+            <div class="barra-pesquisa barra-pesquisa-explorar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Pesquise músicas, álbuns, artistas, podcasts">
             </div>
 
-            <div class="filtros">
+            <!-- Filtros por Gênero -->
+            <div class="filtros-genero">
                 <button class="filtro-btn ativo">Para Você</button>
                 <button class="filtro-btn">Rock</button>
                 <button class="filtro-btn">Hip-Hop</button>
@@ -150,8 +146,32 @@
                 <button class="filtro-btn">Phonk</button>
             </div>
 
-            <div class="grid-cards">
-                <!-- Os cards serão inseridos dinamicamente pelo JavaScript -->
+            <!-- Seção "Explore novos mares" -->
+            <div class="secao-explorar">
+                <div class="secao-header">
+                    <div class="usuario-area">
+                        <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil">
+                        <div class="info-usuario">
+                            <p class="nome-usuario">ANTHONY RICHARD</p>
+                            <h2>Explore novos mares</h2>
+                        </div>
+                    </div>
+                    <button class="mais-btn">
+                        <span>Mais</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="grid-cards" id="explore-novos-mares">
+                    <!-- Conteúdo será preenchido dinamicamente pelo JavaScript -->
+                </div>
+            </div>
+
+            <!-- Seção "Em alta no momento" -->
+            <div class="secao-em-alta">
+                <h2 class="secao-titulo">Em alta no momento</h2>
+                <div class="grid-cards grid-cards-grandes" id="em-alta-no-momento">
+                    <!-- Conteúdo será preenchido dinamicamente pelo JavaScript -->
+                </div>
             </div>
         </section>
 
@@ -198,6 +218,6 @@
     <script src="../src/js/playlist.js"></script>
     <script src="../src/js/player.js"></script>
     <script src="../src/js/main.js"></script>
-    <script src="../src/js/feed.js"></script>
+    <script src="../src/js/explorar.js"></script>
 </body>
-</html>
+</html> 
