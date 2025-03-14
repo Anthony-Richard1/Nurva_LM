@@ -73,6 +73,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Inicializar a barra de pesquisa
     initSearchBar();
+
+    // Encontrar links para a biblioteca
+    const bibliotecaLinks = document.querySelectorAll('a[href*="biblioteca.html"]');
+    
+    bibliotecaLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Armazenar um marcador de tempo no sessionStorage
+            // para que a página da biblioteca saiba que precisa recarregar os dados
+            sessionStorage.setItem('nurvaLibraryRefresh', Date.now().toString());
+        });
+    });
 });
 
 // Inicialização do player de música

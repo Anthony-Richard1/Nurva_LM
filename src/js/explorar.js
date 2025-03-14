@@ -53,6 +53,9 @@ function initExplorarPage() {
     loadExploreSection();
     loadTrendingSection();
     
+    // Inicializar seção de listas
+    loadRecentlyPlayedSection();
+    
     // Inicializar os filtros de gênero
     initGenreFilters();
     
@@ -773,4 +776,204 @@ function normalizePath(path) {
     }
     
     return 'public/' + path;
+}
+
+// Função para criar seção de lista de músicas
+function createMusicListSection(title, songs, containerId) {
+    if (!songs || songs.length === 0) return null;
+    
+    // Criação do container da lista com cabeçalho
+    const listSection = document.createElement('div');
+    listSection.className = 'list-container';
+    
+    // Cabeçalho com título e link "ver todos"
+    const header = document.createElement('div');
+    header.className = 'list-header';
+    
+    const titleElement = document.createElement('h3');
+    titleElement.className = 'list-title';
+    titleElement.textContent = title;
+    
+    const seeAll = document.createElement('a');
+    seeAll.className = 'list-see-all';
+    seeAll.href = '#';
+    seeAll.textContent = 'Ver todos';
+    
+    header.appendChild(titleElement);
+    header.appendChild(seeAll);
+    
+    // Lista de músicas
+    const musicList = document.createElement('div');
+    musicList.className = 'music-list';
+    musicList.id = containerId;
+    
+    // Adicionar itens à lista
+    const fragment = document.createDocumentFragment();
+    songs.slice(0, 5).forEach((song, index) => { // Limitar a 5 itens por lista
+        const listItem = createMusicListItem(song, index);
+        if (listItem) fragment.appendChild(listItem);
+    });
+    
+    musicList.appendChild(fragment);
+    listSection.appendChild(header);
+    listSection.appendChild(musicList);
+    
+    return listSection;
+}
+
+// Função para criar item da lista de música
+function createMusicListItem(song, index) {
+    // Verificar se é um objeto com propriedade data
+    if (song.type === 'music' && song.data) {
+        song = song.data;
+    }
+    
+    if (!song || !song.title) return null;
+    
+    // Placeholder que será ajustado pela função normalizePath
+    let thumbnailPath = normalizePath('assets/thumbnails/default.jpg');
+    
+    const item = document.createElement('div');
+    item.className = 'music-list-item';
+    item.setAttribute('data-id', song.id);
+    item.setAttribute('data-index', index);
+    
+    // Thumbnail com overlay de play
+    const thumbnail = document.createElement('div');
+    thumbnail.className = 'music-list-thumbnail';
+    
+    const img = document.createElement('img');
+    img.src = thumbnailPath;
+    img.alt = song.title;
+    img.setAttribute('data-id', song.id);
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'music-list-overlay';
+    
+    const playBtn = document.createElement('div');
+    playBtn.className = 'music-list-play';
+    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+    
+    overlay.appendChild(playBtn);
+    thumbnail.appendChild(img);
+    thumbnail.appendChild(overlay);
+    
+    // Informações da música
+    const info = document.createElement('div');
+    info.className = 'music-list-info';
+    
+    const title = document.createElement('p');
+    title.className = 'music-list-title';
+    title.textContent = song.title;
+    
+    const artist = document.createElement('p');
+    artist.className = 'music-list-artist';
+    
+    // Nome do artista
+    const artistName = document.createElement('span');
+    artistName.textContent = song.artist || 'Artista Desconhecido';
+    
+    // Ponto separador
+    const dot = document.createElement('span');
+    dot.className = 'music-list-dot';
+    dot.textContent = '•';
+    
+    // Gênero ou álbum
+    const genre = document.createElement('span');
+    genre.textContent = song.genre || song.album || 'Single';
+    
+    artist.appendChild(artistName);
+    artist.appendChild(dot);
+    artist.appendChild(genre);
+    
+    info.appendChild(title);
+    info.appendChild(artist);
+    
+    // Informações adicionais (duração, etc)
+    const additional = document.createElement('div');
+    additional.className = 'music-list-additional';
+    
+    const duration = document.createElement('div');
+    duration.className = 'music-list-duration';
+    duration.textContent = song.duration || '3:00';
+    
+    additional.appendChild(duration);
+    
+    // Montar o item completo
+    item.appendChild(thumbnail);
+    item.appendChild(info);
+    item.appendChild(additional);
+    
+    // Adicionar evento de clique para reproduzir a música
+    item.addEventListener('click', () => {
+        if (typeof playSong === 'function') {
+            playSong(song.id);
+        } else {
+            console.warn('Função playSong não disponível');
+        }
+    });
+    
+    // Carregar a thumbnail real de maneira assíncrona
+    if (typeof window.musicManager !== 'undefined' && typeof window.musicManager.getThumbnail === 'function') {
+        window.musicManager.getThumbnail(song).then(thumbnail => {
+            const img = item.querySelector(`img[data-id="${song.id}"]`);
+            if (img) img.src = thumbnail;
+        }).catch(error => {
+            console.warn('Erro ao carregar thumbnail:', error);
+        });
+    } else if (song.thumbnail) {
+        // Fallback se musicManager não estiver disponível
+        const img = item.querySelector(`img[data-id="${song.id}"]`);
+        if (img) img.src = normalizePath(song.thumbnail);
+    }
+    
+    return item;
+}
+
+// Função para carregar listas de músicas recentes
+function loadRecentlyPlayedSection() {
+    const recentlyPlayedContainer = document.getElementById('recently-played-container');
+    if (!recentlyPlayedContainer) return;
+    
+    // Limpar conteúdo existente
+    recentlyPlayedContainer.innerHTML = '';
+    
+    // Obtém músicas recentemente reproduzidas
+    const recentSongs = getRecentlyPlayedSongs();
+    if (!recentSongs || recentSongs.length === 0) {
+        console.log('Nenhuma música reproduzida recentemente');
+        return;
+    }
+    
+    // Criar seção de listas
+    const listGrid = document.createElement('div');
+    listGrid.className = 'list-grid';
+    
+    // Seção de tocadas recentemente
+    const recentList = createMusicListSection('Tocadas recentemente', 
+        recentSongs.map(song => ({ type: 'music', data: song })), 
+        'recently-played-list');
+        
+    if (recentList) listGrid.appendChild(recentList);
+    
+    // Seção de músicas para você
+    const forYouSongs = getPersonalizedRecommendations().slice(0, 5);
+    const forYouList = createMusicListSection('Para você', 
+        forYouSongs, 
+        'for-you-list');
+        
+    if (forYouList) listGrid.appendChild(forYouList);
+    
+    // Adicionar grid ao container
+    recentlyPlayedContainer.appendChild(listGrid);
+}
+
+// Obter músicas recentemente reproduzidas
+function getRecentlyPlayedSongs() {
+    // Em uma implementação real, isso viria do histórico do usuário
+    // Aqui vamos simular com músicas aleatórias
+    return getPopularSongs(5).map(song => ({
+        type: 'music',
+        data: song
+    }));
 } 

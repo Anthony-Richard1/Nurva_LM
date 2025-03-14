@@ -553,6 +553,18 @@ function addToFavorites(songId) {
     
     // Atualizar visual do botão de like
     updateLikeDislikeButtons();
+    
+    // Disparar evento personalizado para sincronização entre páginas
+    try {
+        // Criar e disparar evento personalizado para notificar outras partes da aplicação
+        const likesUpdatedEvent = new CustomEvent('nurvaLikesUpdated', {
+            detail: { favorites: favorites }
+        });
+        document.dispatchEvent(likesUpdatedEvent);
+        console.log('Evento nurvaLikesUpdated disparado após atualização de favoritos');
+    } catch (e) {
+        console.error('Erro ao disparar evento de atualização de favoritos:', e);
+    }
 }
 
 // Adicionar à playlist de "não gostei"
@@ -576,8 +588,25 @@ function addToDisliked(songId) {
         
         // Remover dos favoritos se estiver lá
         let favorites = JSON.parse(localStorage.getItem('nurvaFavorites')) || [];
-        favorites = favorites.filter(id => id !== songId);
-        localStorage.setItem('nurvaFavorites', JSON.stringify(favorites));
+        const wasInFavorites = favorites.includes(songId);
+        
+        if (wasInFavorites) {
+            favorites = favorites.filter(id => id !== songId);
+            localStorage.setItem('nurvaFavorites', JSON.stringify(favorites));
+            
+            // Se removeu dos favoritos, disparar evento
+            if (wasInFavorites) {
+                try {
+                    const likesUpdatedEvent = new CustomEvent('nurvaLikesUpdated', {
+                        detail: { favorites: favorites }
+                    });
+                    document.dispatchEvent(likesUpdatedEvent);
+                    console.log('Evento nurvaLikesUpdated disparado após remoção de favoritos via dislike');
+                } catch (e) {
+                    console.error('Erro ao disparar evento de atualização de favoritos:', e);
+                }
+            }
+        }
     }
     
     // Salvar no localStorage
