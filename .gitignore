@@ -1,0 +1,62 @@
+# Assets directory and its contents
+public/assets/images/
+public/assets/thumbnails/
+public/assets/music/
+
+# Ignore all files in assets directory
+public/assets/* 
+
+# Add specific files to ignore
+perfil.png
+Nurva v5.png
+perfil_nurva.jpg
+explorar.png
+Conexoes.png
+comunidade.png
+biblioteca.png
+pages.css
+
+# Exception: Don't ignore the selected music and thumbnail files
+# Music files
+!public/assets/music/The Weeknd, Playboi Carti - Timeless.mp3
+!public/assets/music/Metro Boomin, Gunna - Space Cadet.mp3
+!public/assets/music/NewJeans - Hype Boy.mp3
+!public/assets/music/NewJeans - Super Shy.mp3
+!public/assets/music/NewJeans - Attention.mp3
+!public/assets/music/Don Toliver - No Idea.mp3
+!public/assets/music/Mac DeMarco - Chamber Of Reflection.mp3
+!public/assets/music/Juice WRLD - Lucid Dreams.mp3
+!public/assets/music/Tame Impala - Borderline.mp3
+!public/assets/music/ILLIT - Cherish (My Love).mp3
+!public/assets/music/The Weeknd - Die For You.mp3
+!public/assets/music/Playboi Carti - Playboi Carti - Sky [Official Video].mp3
+!public/assets/music/Mustard - Mustard - Ballin' ft. Roddy Ricch.mp3
+!public/assets/music/XXXTENTACION - SAD!.mp3
+!public/assets/music/Travis Scott - sdp interlude.mp3
+!public/assets/music/Future, Metro Boomin, Kendrick Lamar - Like That.mp3
+!public/assets/music/The Neighbourhood - The Neighbourhood - Sweater Weather (Official Video).mp3
+!public/assets/music/AURORA - AURORA - Cure For Me (Audio).mp3
+!public/assets/music/Post Malone, Swae Lee - Sunflower (Spider-Man_ Into the Spider-Verse).mp3
+!public/assets/music/Travis Scott - Travis Scott - SICKO MODE (Audio).mp3
+
+# Thumbnail files
+!public/assets/thumbnails/The Weeknd, Playboi Carti - Timeless.jpg
+!public/assets/thumbnails/Metro Boomin, Gunna - Space Cadet.jpg
+!public/assets/thumbnails/NewJeans - Hype Boy.jpg
+!public/assets/thumbnails/NewJeans - Super Shy.jpg
+!public/assets/thumbnails/NewJeans - Attention.jpg
+!public/assets/thumbnails/Don Toliver - No Idea.jpg
+!public/assets/thumbnails/Mac DeMarco - Chamber Of Reflection.jpg
+!public/assets/thumbnails/Juice WRLD - Lucid Dreams.jpg
+!public/assets/thumbnails/Tame Impala - Borderline.jpg
+!public/assets/thumbnails/ILLIT - Cherish (My Love).jpg
+!public/assets/thumbnails/The Weeknd - Die For You.jpg
+!public/assets/thumbnails/Playboi Carti - Playboi Carti - Sky [Official Video].jpg
+!public/assets/thumbnails/Mustard - Mustard - Ballin' ft. Roddy Ricch.jpg
+!public/assets/thumbnails/XXXTENTACION - SAD!.jpg
+!public/assets/thumbnails/Travis Scott - sdp interlude.jpg
+!public/assets/thumbnails/Future, Metro Boomin, Kendrick Lamar - Like That.jpg
+!public/assets/thumbnails/The Neighbourhood - The Neighbourhood - Sweater Weather (Official Video).jpg
+!public/assets/thumbnails/AURORA - AURORA - Cure For Me (Audio).jpg
+!public/assets/thumbnails/Post Malone, Swae Lee - Sunflower (Spider-Man_ Into the Spider-Verse).jpg
+!public/assets/thumbnails/Travis Scott - Travis Scott - SICKO MODE (Audio).jpg 

@@ -1,0 +1,452 @@
+/* Estilos para o player de música - Design exato conforme especificações */
+
+.player,
+.player * {
+  box-sizing: border-box;
+}
+
+.player {
+  display: none; /* Inicialmente oculto, será mostrado via JavaScript quando uma música for selecionada */
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--player-width);
+  max-width: 95%;
+  height: var(--player-height);
+  z-index: 1000;
+}
+
+.player.active {
+  display: block;
+}
+
+.player::before {
+  content: "";
+  background: #000000;
+  border-radius: 40px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  box-shadow: 0px 4px 7px 4px rgba(0, 0, 0, 0.5);
+  z-index: -2;
+}
+
+.player::after {
+  content: "";
+  background: rgba(30, 30, 30, 0.1);
+  border-radius: 40px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  box-shadow: inset -38.77px 38.77px 38.77px 0px rgba(255, 255, 255, 0.1),
+    inset 38.77px -38.77px 38.77px 0px rgba(165, 165, 165, 0.1);
+  backdrop-filter: blur(38.77px);
+  z-index: -1;
+}
+
+/* Barra de Progresso */
+.player-timeline {
+  position: absolute;
+  top: 14px;
+  left: 39px;
+  width: calc(100% - 78px);
+  height: 3px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.player-progress-container {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 1.5px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.player-progress {
+  width: 0%; /* Será atualizado via JavaScript */
+  height: 100%;
+  background: #FFFFFF; /* Cor branca conforme solicitado */
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: width 0.15s linear; /* Transição mais consistente */
+  will-change: width; /* Melhora o desempenho da animação */
+  transform: translateZ(0); /* Ativa a aceleração de hardware */
+  backface-visibility: hidden; /* Melhora renderização */
+}
+
+/* Lado Esquerdo - Informações da música */
+.player-song-info {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 39px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 40px;
+  width: 335px;
+  max-width: 30%;
+}
+
+.player-song-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.player-song-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+  width: calc(100% - 52px);
+}
+
+.player-song-name {
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 19.2px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.player-artist-name {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 19.2px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.player-time {
+  position: absolute;
+  left: 316px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaaaaa;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  line-height: 14.4px;
+  font-weight: 400;
+  width: 80px;
+}
+
+/* Botões centrais */
+.player-controls {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 122px;
+}
+
+.player-controls-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Botões de controle */
+.player-button {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.player-button:hover {
+  color: #ffffff;
+}
+
+/* Botão de play */
+.player-play-button {
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.player-play-button:hover {
+  transform: scale(1.05);
+}
+
+.player-play-button.playing i {
+  padding-left: 0;
+}
+
+/* Lado direito - Ações */
+.player-actions {
+  position: absolute;
+  right: 8.1%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+  width: 27.59%;
+}
+
+.player-volume {
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+.player-volume-bar {
+  width: 60px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 1.5px;
+  position: relative;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.player-volume-level {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 1.5px;
+  width: 70%; /* Placeholder, controlado via JS */
+}
+
+/* Botões que serão escondidos em telas pequenas */
+.hide-on-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Adaptação para dispositivos móveis */
+@media (max-width: 1200px) {
+  .player {
+    max-width: 95%;
+  }
+  
+  .player-song-info {
+    width: 25%;
+    left: 30px;
+  }
+  
+  .player-song-name,
+  .player-artist-name {
+    font-size: 14px;
+    line-height: 17px;
+  }
+  
+  .player-time {
+    left: auto;
+    right: 15%;
+  }
+  
+  .player-actions {
+    gap: 10px;
+    width: 20%;
+  }
+  
+  .player-volume-bar {
+    width: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .player {
+    height: auto;
+    bottom: 15px;
+    border-radius: 30px;
+  }
+  
+  .player::before,
+  .player::after {
+    border-radius: 30px;
+  }
+  
+  .player-song-info {
+    left: 20px;
+    width: 30%;
+  }
+  
+  .player-song-name,
+  .player-artist-name {
+    font-size: 13px;
+    line-height: 16px;
+  }
+  
+  .player-time {
+    display: none;
+  }
+  
+  .player-controls {
+    left: 50%;
+    width: 110px;
+  }
+  
+  .player-actions {
+    right: 20px;
+    width: auto;
+    gap: 8px;
+  }
+  
+  .player-button {
+    font-size: 14px;
+  }
+  
+  /* Esconder alguns botões em telas menores */
+  .hide-on-medium {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .player {
+    max-width: 92%;
+    height: var(--player-height);
+    bottom: 10px;
+  }
+  
+  .player::before,
+  .player::after {
+    height: var(--player-height);
+    border-radius: 25px;
+  }
+  
+  .player-song-info {
+    left: 15px;
+    width: 35%;
+  }
+  
+  .player-song-info img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-song-name,
+  .player-artist-name {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  
+  .player-play-button {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+  
+  .player-button {
+    font-size: 12px;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .player-actions {
+    right: 15px;
+    gap: 5px;
+  }
+  
+  /* Esconder ainda mais botões em telas muito pequenas */
+  .hide-on-small {
+    display: none;
+  }
+  
+  .player-timeline {
+    top: 12px;
+    left: 15px;
+    width: calc(100% - 30px);
+    height: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .player {
+    bottom: 8px;
+    height: 55px;
+  }
+  
+  .player::before,
+  .player::after {
+    height: 55px;
+    border-radius: 20px;
+  }
+  
+  .player-controls {
+    width: 90px;
+  }
+  
+  .player-song-info {
+    width: 40%;
+  }
+  
+  .player-song-details {
+    margin-left: 8px;
+  }
+}
+
+/* Layout alternativo para mobile - Player compacto */
+@media (max-width: 374px) {
+  .player {
+    height: 50px;
+  }
+  
+  .player::before,
+  .player::after {
+    height: 50px;
+    border-radius: 18px;
+  }
+  
+  .player-song-info {
+    width: 38%;
+  }
+  
+  .player-timeline {
+    top: 10px;
+    height: 2px;
+  }
+  
+  .player-controls {
+    width: 80px;
+  }
+  
+  .player-actions {
+    right: 10px;
+  }
+} 
