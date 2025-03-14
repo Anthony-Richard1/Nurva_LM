@@ -54,6 +54,16 @@ Nurva_LM/
 - Feed de músicas e artistas
 - Reprodução de músicas a partir do banco de dados local
 
+## Biblioteca de Músicas
+
+O projeto inclui uma seleção cuidadosa de 20 músicas populares em diversos gêneros, incluindo:
+- Hip-hop/Rap (The Weeknd, Playboi Carti, Metro Boomin)
+- K-pop (NewJeans)
+- Pop Alternativo (Tame Impala, Mac DeMarco)
+- E mais...
+
+Cada música possui sua thumbnail correspondente para uma experiência visual atraente.
+
 ## Tecnologias Utilizadas
 
 - HTML5
@@ -74,6 +84,10 @@ Nurva_LM/
 - Melhorar a experiência mobile
 - Adicionar recursos de personalização
 - Implementar recursos de upload de músicas e playlists personalizadas
+
+## Controle de Versão
+
+O repositório inclui 20 arquivos de música e suas thumbnails correspondentes. Outros arquivos de mídia não são rastreados para manter o repositório com um tamanho gerenciável.
 
 ## Autores
 
