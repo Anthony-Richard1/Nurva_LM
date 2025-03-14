@@ -625,14 +625,19 @@ function initializeCarousel(sectionElement) {
     if (!carousel || carousel.children.length === 0) return;
     
     // Verificar se já existem botões de navegação
-    if (sectionElement.querySelector('.navigation-indicator')) return;
+    let prevButton = sectionElement.querySelector('.navigation-indicator.nav-prev');
+    let nextButton = sectionElement.querySelector('.navigation-indicator.nav-next');
+    
+    // Se os botões já existem, vamos removê-los para recriá-los (para evitar duplicação)
+    if (prevButton) prevButton.remove();
+    if (nextButton) nextButton.remove();
     
     // Criar botões de navegação
-    const prevButton = document.createElement('div');
+    prevButton = document.createElement('div');
     prevButton.className = 'navigation-indicator nav-prev';
     prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
     
-    const nextButton = document.createElement('div');
+    nextButton = document.createElement('div');
     nextButton.className = 'navigation-indicator nav-next';
     nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
     
@@ -640,18 +645,34 @@ function initializeCarousel(sectionElement) {
     sectionElement.appendChild(prevButton);
     sectionElement.appendChild(nextButton);
     
-    // Definir visibilidade inicial
-    const needsScroll = carousel.scrollWidth > carousel.offsetWidth;
-    prevButton.style.opacity = '0';
-    nextButton.style.opacity = needsScroll ? '1' : '0';
+    // Definir posicionamento responsivo para os botões
+    sectionElement.style.position = 'relative'; // Garante que a posição absoluta dos botões seja relativa à seção
+    
+    // Verificar se o carrossel precisa de rolagem
+    setTimeout(() => {
+        // Esperamos um momento para garantir que o layout esteja pronto
+        const needsScroll = carousel.scrollWidth > carousel.offsetWidth;
+        prevButton.style.opacity = '0';
+        nextButton.style.opacity = needsScroll ? '1' : '0';
+        
+        console.log('Inicialização do carrossel:', {
+            scrollWidth: carousel.scrollWidth,
+            offsetWidth: carousel.offsetWidth,
+            needsScroll: needsScroll
+        });
+    }, 300);
     
     // Adicionar eventos de clique
     nextButton.addEventListener('click', () => {
-        carousel.scrollBy({ left: carousel.offsetWidth * 0.8, behavior: 'smooth' });
+        const scrollAmount = carousel.offsetWidth * 0.8;
+        carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        console.log('Clique no botão próximo:', { scrollAmount });
     });
     
     prevButton.addEventListener('click', () => {
-        carousel.scrollBy({ left: -carousel.offsetWidth * 0.8, behavior: 'smooth' });
+        const scrollAmount = carousel.offsetWidth * 0.8;
+        carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        console.log('Clique no botão anterior:', { scrollAmount });
     });
     
     // Atualizar visibilidade dos botões ao rolar
@@ -661,6 +682,14 @@ function initializeCarousel(sectionElement) {
         
         prevButton.style.opacity = isAtStart ? '0.3' : '1';
         nextButton.style.opacity = isAtEnd ? '0.3' : '1';
+        
+        console.log('Evento de rolagem:', {
+            scrollLeft: carousel.scrollLeft,
+            scrollWidth: carousel.scrollWidth,
+            offsetWidth: carousel.offsetWidth,
+            isAtStart: isAtStart,
+            isAtEnd: isAtEnd
+        });
     });
     
     // Mostrar/esconder botões ao passar o mouse
@@ -676,6 +705,57 @@ function initializeCarousel(sectionElement) {
         prevButton.style.opacity = '0';
         nextButton.style.opacity = '0';
     });
+    
+    // Adicionar suporte a eventos de toque para o carrossel
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let startScrollLeft = 0;
+    
+    carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        startScrollLeft = carousel.scrollLeft;
+    }, { passive: true });
+    
+    carousel.addEventListener('touchmove', (e) => {
+        const touchX = e.touches[0].clientX;
+        const touchY = e.touches[0].clientY;
+        
+        // Calcular a distância percorrida
+        const diffX = touchStartX - touchX;
+        const diffY = touchStartY - touchY;
+        
+        // Se o movimento vertical for maior que o horizontal, permitir rolagem da página
+        if (Math.abs(diffY) > Math.abs(diffX)) return;
+        
+        // Caso contrário, rolar o carrossel e prevenir rolagem da página
+        carousel.scrollLeft = startScrollLeft + diffX;
+        
+        // Prevenir comportamento padrão apenas se o movimento for principalmente horizontal
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    // Detectar orientação da tela e ajustar a visibilidade dos botões
+    const updateOnOrientationChange = () => {
+        setTimeout(() => {
+            const needsScroll = carousel.scrollWidth > carousel.offsetWidth;
+            nextButton.style.opacity = needsScroll ? '1' : '0';
+            
+            // Resetar a posição de rolagem
+            carousel.scrollLeft = 0;
+            prevButton.style.opacity = '0';
+        }, 300);
+    };
+    
+    window.addEventListener('resize', updateOnOrientationChange);
+    window.addEventListener('orientationchange', updateOnOrientationChange);
+    
+    // Inicialização inicial após todos os cards serem renderizados
+    setTimeout(updateOnOrientationChange, 500);
+    
+    return { prevButton, nextButton, carousel };
 }
 
 // Animar os cards após a renderização

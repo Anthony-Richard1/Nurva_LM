@@ -427,14 +427,16 @@ img {
     transition: all 0.3s ease;
     z-index: 10;
     opacity: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-prev {
-    left: -15px;
+    left: 10px;
 }
 
 .nav-next {
-    right: -15px;
+    right: 10px;
 }
 
 .navigation-indicator:hover {
@@ -443,6 +445,7 @@ img {
 
 .navigation-indicator i {
     color: white;
+    font-size: 16px;
 }
 
 /* Estilos para resultados de pesquisa */
@@ -586,6 +589,19 @@ img {
     padding: 6px 16px;
     font-size: 13px;
   }
+  
+  .navigation-indicator {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .nav-prev {
+    left: 5px;
+  }
+  
+  .nav-next {
+    right: 5px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -617,6 +633,15 @@ img {
   
   .vibe-atual {
     font-size: 20px;
+  }
+  
+  .navigation-indicator {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .navigation-indicator i {
+    font-size: 14px;
   }
 }
 
