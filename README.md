@@ -35,11 +35,6 @@ Nurva_LM/
 │   ├── explorar.html          (página explorar)
 │   ├── comunidade.html        (página comunidade)
 │   ├── perfil.html            (página perfil)
-├── scripts/
-│   ├── process_music_files.py (processamento de arquivos de música)
-│   ├── process_thumbnails.py  (processamento de thumbnails)
-│   ├── update_thumbnails.py   (atualização de thumbnails)
-│   ├── processMusic.js        (processamento de músicas em JS)
 ├── index.html                 (página home)
 ```
 
