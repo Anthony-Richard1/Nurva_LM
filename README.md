@@ -2,6 +2,42 @@
 
 Projeto da disciplina de Linguagem de Marcação. Nurva é uma plataforma web de música que permite aos usuários ouvir músicas, criar playlists e conectar-se com amigos.
 
+## Estrutura do Projeto
+
+```
+Nurva_LM/
+├── public/
+│   ├── assets/
+│   │   ├── images/        (imagens do site)
+│   │   ├── music/         (arquivos de música)
+│   │   ├── thumbnails/    (miniaturas de músicas)
+├── src/
+│   ├── js/
+│   │   ├── feed.js        (gerenciamento do feed)
+│   │   ├── main.js        (funcionalidades principais)
+│   │   ├── musicdata.js   (banco de dados de músicas)
+│   │   ├── musicManager.js (gerenciamento de músicas)
+│   │   ├── player.js      (reprodutor de música)
+│   ├── css/
+│   │   ├── components/
+│   │   │   ├── cards.css      (estilos dos cards de música, artista, album)
+│   │   │   ├── player.css     (estilos do player)
+│   │   │   ├── navigation.css (barra de navegação)
+│   │   │   ├── feed.css       (estilos do feed)
+│   │   ├── pages/
+│   │   │   ├── explorar.css   (estilos da página explorar)
+│   │   │   ├── perfil.css     (estilos da página de perfil)
+│   │   │   ├── comunidade.css (estilos da página de comunidade)
+│   │   ├── layout.css         (layout geral)
+│   │   ├── styles.css         (estilos gerais e importações)
+│   ├── components/            (componentes reutilizáveis)
+├── pages/
+│   ├── explorar.html          (página explorar)
+│   ├── comunidade.html        (página comunidade)
+│   ├── perfil.html            (página perfil)
+├── index.html                 (página home)
+```
+
 ## Funcionalidades Implementadas
 
 - Layout responsivo que funciona em diferentes tamanhos de tela
@@ -11,17 +47,6 @@ Projeto da disciplina de Linguagem de Marcação. Nurva é uma plataforma web de
 - Área de pesquisa
 - Menu de navegação
 - Feed de músicas e artistas
-- Reprodução de músicas a partir do banco de dados local
-
-## Biblioteca de Músicas
-
-O projeto inclui uma seleção cuidadosa de 20 músicas populares em diversos gêneros, incluindo:
-- Hip-hop/Rap (The Weeknd, Playboi Carti, Metro Boomin)
-- K-pop (NewJeans)
-- Pop Alternativo (Tame Impala, Mac DeMarco)
-- E mais...
-
-Cada música possui sua thumbnail correspondente para uma experiência visual atraente.
 
 ## Tecnologias Utilizadas
 
@@ -37,17 +62,6 @@ Cada música possui sua thumbnail correspondente para uma experiência visual at
 2. Abra o arquivo `index.html` no navegador
 3. Para processar novos arquivos de música, use os scripts na pasta `scripts/`
 
-## Próximos Passos
-
-- Implementar funcionalidades de interação social
-- Melhorar a experiência mobile
-- Adicionar recursos de personalização
-- Implementar recursos de upload de músicas e playlists personalizadas
-
 ## Controle de Versão
 
 O repositório inclui 20 arquivos de música e suas thumbnails correspondentes. Outros arquivos de mídia não são rastreados para manter o repositório com um tamanho gerenciável.
-
-## Autores
-
-- Anthony Richard 
