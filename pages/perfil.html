@@ -6,11 +6,330 @@
     <title>Nurva - Perfil</title>
     <link rel="stylesheet" href="../src/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+    <style>
+        /* Estilos específicos para a página de perfil */
+        /* Header do perfil */
+        .perfil-header {
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .perfil-container {
+            background: rgba(20, 20, 20, 0.6);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            overflow: hidden;
+        }
+        
+        .perfil-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(135deg, rgba(80, 50, 120, 0.7), rgba(40, 40, 80, 0.4));
+            z-index: 0;
+        }
+        
+        .perfil-top {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .perfil-foto-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .perfil-foto {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .perfil-foto-badge {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: #1DB954;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            border: 2px solid #fff;
+        }
+        
+        .perfil-info {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .perfil-nome {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        
+        .perfil-bio {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .perfil-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+        
+        .perfil-stat-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .perfil-stat-item i {
+            margin-right: 10px;
+            font-size: 16px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .perfil-stat-value {
+            font-weight: 600;
+            color: #fff;
+            margin-right: 5px;
+        }
+        
+        /* Barra de pesquisa (clonada do Explorar.html) */
+        .barra-pesquisa-perfil {
+            position: relative;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .barra-pesquisa-perfil input {
+            width: 100%;
+            background-color: rgba(30, 30, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 12px 45px 12px 45px;
+            color: white;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        .barra-pesquisa-perfil .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            z-index: 1;
+        }
+        
+        /* Seção Artistas em Destaque */
+        .secao-artistas {
+            margin-bottom: 50px;
+            padding: 0 30px;
+            position: relative;
+        }
+        
+        .secao-titulo {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        
+        /* Seção Músicas do Momento */
+        .secao-musicas {
+            margin-bottom: 50px;
+            padding: 0 30px;
+            position: relative;
+        }
+        
+        /* Estilos para o grid de cards como carrossel */
+        .grid-cards {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding: 10px 0;
+            gap: 15px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            scroll-behavior: smooth;
+        }
+        
+        .grid-cards::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
+        /* Ajuste para os cards de artistas no grid */
+        .secao-artistas .grid-cards {
+            padding-top: 20px;
+            padding-bottom: 30px;
+        }
+        
+        /* Alerta estilizado */
+        .nurva-alert {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(50, 50, 50, 0.9);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        /* Navegação de seções/carrossel */
+        .navigation-indicator {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, background-color 0.3s;
+            z-index: 10;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-prev {
+            left: 10px;
+        }
+        
+        .nav-next {
+            right: 10px;
+        }
+        
+        .navigation-indicator:hover {
+            background-color: rgba(50, 50, 50, 0.8);
+        }
+        
+        .secao:hover .navigation-indicator,
+        .secao-artistas:hover .navigation-indicator,
+        .secao-musicas:hover .navigation-indicator {
+            opacity: 0.8;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .perfil-header {
+                padding: 15px;
+            }
+            
+            .perfil-container {
+                padding: 25px 20px;
+            }
+            
+            .perfil-top {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .perfil-foto {
+                width: 120px;
+                height: 120px;
+                margin-bottom: 5px;
+            }
+            
+            .perfil-foto-badge {
+                bottom: 5px;
+                right: 5px;
+            }
+            
+            .perfil-nome {
+                font-size: 26px;
+            }
+            
+            .perfil-bio {
+                font-size: 14px;
+            }
+            
+            .perfil-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .secao-artistas, .secao-musicas {
+                padding: 0 15px;
+            }
+            
+            .grid-cards {
+                justify-content: flex-start;
+                padding-left: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .perfil-nome {
+                font-size: 22px;
+            }
+            
+            .perfil-container {
+                padding: 20px 15px;
+            }
+            
+            .perfil-stats {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navegacao"> 
+    <!-- Barra de Navegação -->
+    <nav class="navegacao">
         <div class="container">
-            <button class="menu-icon" aria-label="Abrir menu"> 
+            <button class="menu-icon" aria-label="Abrir menu">
                 <svg viewbox="0 0 24 24">
                     <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
                 </svg>
@@ -18,52 +337,316 @@
             <div class="logo">
                 <a href="../index.html">Nurva</a>
             </div>
-            <ul class="menu"> 
+            <ul class="menu">
                 <li><a href="../index.html">Início</a></li>
                 <li><a href="Explorar.html">Explorar</a></li>
                 <li><a href="biblioteca.html">Biblioteca</a></li>
                 <li><a href="comunidade.html">Comunidade</a></li>
                 <li><a href="conexoes.html">Conexões</a></li>
-                <li><a href="#" class="ativa">Perfil</a></li>
+                <li><a href="perfil.html" class="ativa">Perfil</a></li>
             </ul>
             <div class="perfil">
-                <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil">
+                <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil do usuário">
             </div>
         </div>
     </nav>
 
     <main>
+        <!-- Sidebar (Barra Lateral) -->
+        <aside class="lateral">
+            <h2>Conexões Ativas</h2>
+            <ul class="connections-list">
+                <li class="connections" style="background-image: url('../public/assets/images/capa_Matue.png');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="../public/assets/images/usuario_bernardo.png" alt="Foto de Bernardo">
+                    <div class="connection-info">
+                        <strong>Bernardo</strong>
+                        <span>Ouvindo: Matuê - 777-666</span>
+                    </div>
+                </li>
+                <li class="connections" style="background-image: url('../public/assets/images/capa_newjeans.jpg');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="../public/assets/images/usuario_livia.jpg" alt="Foto de Lívia">
+                    <div class="connection-info">
+                        <strong>Lívia</strong>
+                        <span>Ouvindo: New Jeans - Hype Boy</span>
+                    </div>
+                </li>
+                <li class="connections" style="background-image: url('../public/assets/images/capa_tyler.jpg');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="../public/assets/images/usuario_gustavo.jpg" alt="Foto de Gustavo">
+                    <div class="connection-info">
+                        <strong>Gustavo</strong>
+                        <span>Ouvindo: Tyler, The Creator - EARFQUAKE</span>
+                    </div>
+                </li>
+                <li class="connections" style="background-image: url('../public/assets/images/capa_doliver.jpg');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="../public/assets/images/usuario_bruna.png" alt="Foto de Bruna">
+                    <div class="connection-info">
+                        <strong>Bruna</strong>
+                        <span>Ouvindo: Don Toliver - No Pole</span>
+                    </div>
+                </li>
+            </ul>
+
+            <h2>Playlists</h2>
+            <ul class="playlists">
+                <li>
+                    <div class="playlist-images">
+                        <img src="../public/assets/images/playlist_capa_matue.jpg" alt="Playlist 1">
+                        <img src="../public/assets/images/playlist_capa_djonga.jpg" alt="Playlist 2">
+                        <img src="../public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 3">
+                        <img src="../public/assets/images/playlist_capa_yago.jpg" alt="Playlist 4">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Playlist para se animar pro vôlei</strong>
+                        <span>Criada por: Anthony Richard</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="playlist-images">
+                        <img src="../public/assets/images/playlist_capa_billie.jpg" alt="Playlist 5">
+                        <img src="../public/assets/images/playlist_capa_lana.jpg" alt="Playlist 6">
+                        <img src="../public/assets/images/playlist_capa_tyler.jpg" alt="Playlist 7">
+                        <img src="../public/assets/images/playlist_capa_cazuza.jpg" alt="Playlist 8">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Playlist para chorar no banho</strong>
+                        <span>Criada por: Anthony Richard</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="playlist-images">
+                        <img src="../public/assets/images/playlist_capa_billie.jpg" alt="Playlist 5">
+                        <img src="../public/assets/images/playlist_capa_tyler.jpg" alt="Playlist 6">
+                        <img src="../public/assets/images/playlist_capa_cazuza.jpg" alt="Playlist 7">
+                        <img src="../public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 8">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Playlist para estudar</strong>
+                        <span>Criada por: Anthony Richard</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="playlist-images">
+                        <img src="../public/assets/images/playlist_capa_matue.jpg" alt="Playlist 9">
+                        <img src="../public/assets/images/playlist_capa_djonga.jpg" alt="Playlist 10">
+                        <img src="../public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 11">
+                        <img src="../public/assets/images/playlist_capa_yago.jpg" alt="Playlist 12">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Rap Nacional</strong>
+                        <span>Criada por: Bernardo</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="barra-criar-playlist">+ Criar Nova Playlist</div>
+        </aside>
+
         <section class="content">
-            <div class="header-area">
-                <div class="usuario-area">
-                    <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil">
-                    <div class="info-usuario">
-                        <p class="nome-usuario">ANTHONY RICHARD</p>
-                        <h2>Meu Perfil</h2>
+            <!-- Barra de Pesquisa (igual à do Explorar.html) -->
+            <div class="barra-pesquisa barra-pesquisa-perfil">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Pesquise músicas, álbuns, artistas, podcasts">
+            </div>
+
+            <!-- Header do Perfil -->
+            <div class="perfil-header">
+                <div class="perfil-container">
+                    <div class="perfil-top">
+                        <div class="perfil-foto-container">
+                            <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil" class="perfil-foto">
+                            <div class="perfil-foto-badge">
+                                <i class="fas fa-music"></i>
+                            </div>
+                        </div>
+                        <div class="perfil-info">
+                            <h1 class="perfil-nome">ANTHONY RICHARD</h1>
+                            <p class="perfil-bio">Estudante de ADS no IFPB. Apaixonado por música, especialmente Trap, Rap e Lofi. Sempre em busca de novas experiências musicais.</p>
+                        </div>
+                    </div>
+                    <div class="perfil-stats">
+                        <div class="perfil-stat-item">
+                            <i class="fas fa-user-friends"></i>
+                            <span class="perfil-stat-value">32</span> Conexões
+                        </div>
+                        <div class="perfil-stat-item">
+                            <i class="fas fa-headphones"></i>
+                            <span class="perfil-stat-value">1.324</span> Min. Escutados
+                        </div>
+                        <div class="perfil-stat-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span class="perfil-stat-value">ADS</span> IFPB
+                        </div>
+                        <div class="perfil-stat-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="perfil-stat-value">18</span> Anos
+                        </div>
                     </div>
                 </div>
-                <div class="barra-pesquisa">
-                    <input type="text" placeholder="Pesquise em suas músicas e playlists">
+            </div>
+
+            <!-- Seção Artistas em Destaque -->
+            <div class="secao-artistas">
+                <h2 class="secao-titulo">Artistas em Destaque</h2>
+                <div class="grid-cards">
+                    <!-- Metro Boomin -->
+                    <div class="artista grid-cards-item">
+                        <div class="ellipse-1"></div>
+                        <div class="circulo">
+                            <img src="../public/assets/thumbnails/Metro Boomin, Gunna - Space Cadet.jpg" alt="Metro Boomin" class="foto-artista">
+                        </div>
+                        <h3 class="nome-do-artista">Metro Boomin</h3>
+                        <div class="inscritos">
+                            <div class="inscritos2">3,08 mi de inscritos</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Don Toliver -->
+                    <div class="artista grid-cards-item">
+                        <div class="ellipse-1"></div>
+                        <div class="circulo">
+                            <img src="../public/assets/thumbnails/Don Toliver - No Pole.jpg" alt="Don Toliver" class="foto-artista">
+                        </div>
+                        <h3 class="nome-do-artista">Don Toliver</h3>
+                        <div class="inscritos">
+                            <div class="inscritos2">2,15 mi de inscritos</div>
+                        </div>
+                    </div>
+                    
+                    <!-- The Weeknd -->
+                    <div class="artista grid-cards-item">
+                        <div class="ellipse-1"></div>
+                        <div class="circulo">
+                            <img src="../public/assets/thumbnails/The Weeknd, Playboi Carti - Timeless.jpg" alt="The Weeknd" class="foto-artista">
+                        </div>
+                        <h3 class="nome-do-artista">The Weeknd</h3>
+                        <div class="inscritos">
+                            <div class="inscritos2">36,5 mi de inscritos</div>
+                        </div>
+                    </div>
+                    
+                    <!-- New Jeans -->
+                    <div class="artista grid-cards-item">
+                        <div class="ellipse-1"></div>
+                        <div class="circulo">
+                            <img src="../public/assets/thumbnails/NewJeans - Hype Boy.jpg" alt="New Jeans" class="foto-artista">
+                        </div>
+                        <h3 class="nome-do-artista">New Jeans</h3>
+                        <div class="inscritos">
+                            <div class="inscritos2">7,91 mi de inscritos</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Playboi Carti -->
+                    <div class="artista grid-cards-item">
+                        <div class="ellipse-1"></div>
+                        <div class="circulo">
+                            <img src="../public/assets/thumbnails/Playboi Carti - Playboi Carti - Sky [Official Video].jpg" alt="Playboi Carti" class="foto-artista">
+                        </div>
+                        <h3 class="nome-do-artista">Playboi Carti</h3>
+                        <div class="inscritos">
+                            <div class="inscritos2">4,03 mi de inscritos</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="perfil-stats">
-                <div class="stat-item">
-                    <span class="stat-number">127</span>
-                    <span class="stat-label">Playlists</span>
+            <!-- Seção Músicas do Momento -->
+            <div class="secao-musicas">
+                <h2 class="secao-titulo">Músicas do Momento</h2>
+                <div class="grid-cards">
+                    <!-- Too Many Nights -->
+                    <div class="musica grid-cards-item" data-id="too-many-nights">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="../public/assets/thumbnails/Metro Boomin, Don Toliver, Future - Too Many Nights.jpg" alt="Too Many Nights" class="foto">
+                        </div>
+                        <div class="textos">
+                            <h3 class="titulo-da-musica">Too Many Nights</h3>
+                            <div class="detalhes">
+                                <span class="tipo-item">Música</span>
+                                <span class="artista-nome">Metro Boomin, Don Toliver, Future</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Supernatural -->
+                    <div class="musica grid-cards-item" data-id="supernatural">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="../public/assets/thumbnails/NewJeans - Supernatural.jpg" alt="Supernatural" class="foto">
+                        </div>
+                        <div class="textos">
+                            <h3 class="titulo-da-musica">Supernatural</h3>
+                            <div class="detalhes">
+                                <span class="tipo-item">Música</span>
+                                <span class="artista-nome">NewJeans</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cherish (My Love) -->
+                    <div class="musica grid-cards-item" data-id="cherish-my-love">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="../public/assets/thumbnails/ILLIT - Cherish (My Love).jpg" alt="Cherish (My Love)" class="foto">
+                        </div>
+                        <div class="textos">
+                            <h3 class="titulo-da-musica">Cherish (My Love)</h3>
+                            <div class="detalhes">
+                                <span class="tipo-item">Música</span>
+                                <span class="artista-nome">ILLIT</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Balling -->
+                    <div class="musica grid-cards-item" data-id="balling">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="../public/assets/thumbnails/Mustard - Mustard - Ballin' ft. Roddy Ricch.jpg" alt="Balling" class="foto">
+                        </div>
+                        <div class="textos">
+                            <h3 class="titulo-da-musica">Balling</h3>
+                            <div class="detalhes">
+                                <span class="tipo-item">Música</span>
+                                <span class="artista-nome">Mustard, Roddy Ricch</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Die For You -->
+                    <div class="musica grid-cards-item" data-id="die-for-you">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="../public/assets/thumbnails/The Weeknd, Daft Punk - Starboy.jpg" alt="Die For You" class="foto">
+                        </div>
+                        <div class="textos">
+                            <h3 class="titulo-da-musica">Die For You</h3>
+                            <div class="detalhes">
+                                <span class="tipo-item">Música</span>
+                                <span class="artista-nome">The Weeknd</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Space Cadet -->
+                    <div class="musica grid-cards-item" data-id="space-cadet">
+                        <div class="blur"></div>
+                        <div class="image-container">
+                            <img src="../public/assets/thumbnails/Metro Boomin, Gunna - Space Cadet.jpg" alt="Space Cadet" class="foto">
+                        </div>
+                        <div class="textos">
+                            <h3 class="titulo-da-musica">Space Cadet</h3>
+                            <div class="detalhes">
+                                <span class="tipo-item">Música</span>
+                                <span class="artista-nome">Metro Boomin, Gunna</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">1.2K</span>
-                    <span class="stat-label">Seguidores</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">892</span>
-                    <span class="stat-label">Seguindo</span>
-                </div>
-            </div>
-
-            <div class="grid-cards">
-                <!-- Os cards serão inseridos dinamicamente pelo JavaScript -->
             </div>
         </section>
 
@@ -75,13 +658,13 @@
                 </div>
             </div>
             <div class="player-song-info">
-                <img src="../public/assets/thumbnails/default.jpg" alt="Capa da música">
+                <img src="../public/assets/thumbnails/The Weeknd, Playboi Carti - Timeless.jpg" alt="Capa da música">
                 <div class="player-song-details">
-                    <div class="player-song-name">Selecione uma música</div>
-                    <div class="player-artist-name">Nurva Music</div>
+                    <div class="player-song-name">Timeless</div>
+                    <div class="player-artist-name">The Weeknd e Playboi Carti</div>
                 </div>
             </div>
-            <div class="player-time">0:00 / 0:00</div>
+            <div class="player-time">0:27 / 2:57</div>
             <div class="player-controls">
                 <div class="player-controls-buttons">
                     <button class="player-button" title="Música anterior"><i class="fas fa-step-backward"></i></button>
@@ -110,6 +693,6 @@
     <script src="../src/js/playlist.js"></script>
     <script src="../src/js/player.js"></script>
     <script src="../src/js/main.js"></script>
-    <script src="../src/js/feed.js"></script>
+    <script src="../src/js/perfil.js"></script>
 </body>
-</html>
+</html> 
