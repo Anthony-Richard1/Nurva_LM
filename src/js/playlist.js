@@ -259,7 +259,15 @@ const PlaylistManager = (function() {
       currentIndex = 0;
       
       if (currentPlaylist.length > 0) {
+        // Garantir que o player fique visível
+        const player = document.querySelector('.player');
+        if (player) {
+          player.classList.add('active');
+        }
+        
+        // Reproduzir a primeira música da playlist
         playSong(currentPlaylist[0].id);
+        console.log(`Reproduzindo playlist: ${playlistName} com ${currentPlaylist.length} músicas`);
         return true;
       }
     }

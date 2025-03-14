@@ -256,6 +256,9 @@ function updatePlayerUI() {
     const player = document.querySelector('.player');
     if (player) {
         player.classList.add('active');
+        console.log("Adicionada classe 'active' ao player - ele deve estar visível agora");
+    } else {
+        console.warn("Elemento .player não encontrado no DOM!");
     }
     
     // Determinar o prefixo de caminho com base na página atual

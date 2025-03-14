@@ -507,15 +507,22 @@ function initSpecificSong() {
     // Se encontrarmos a música, definir no player
     if (timelessSong && typeof playSong === 'function') {
         // Apenas atualizar a interface do player sem reproduzir
-        updatePlayerUI(timelessSong);
+        initPlayerUI(timelessSong);
     } else {
         console.log('Música "Timeless" não encontrada ou função playSong não disponível');
     }
 }
 
 // Atualizar a interface do player sem reproduzir a música
-function updatePlayerUI(song) {
+function initPlayerUI(song) {
     if (!song) return;
+    
+    // Tornar o player visível adicionando a classe 'active'
+    const player = document.querySelector('.player');
+    if (player) {
+        player.classList.add('active');
+        console.log("Biblioteca: Adicionada classe 'active' ao player na inicialização");
+    }
     
     // Atualizar elementos da interface do player
     const songNameElement = document.querySelector('.player-song-name');
