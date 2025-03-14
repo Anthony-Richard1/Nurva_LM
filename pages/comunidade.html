@@ -6,11 +6,56 @@
     <title>Nurva - Comunidade</title>
     <link rel="stylesheet" href="../src/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+    <style>
+        /* Estilos específicos para corrigir a barra de pesquisa */
+        .barra-pesquisa-comunidade {
+            position: relative;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .barra-pesquisa-comunidade input {
+            width: 100%;
+            background-color: rgba(30, 30, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 12px 45px 12px 45px;
+            color: white;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        .barra-pesquisa-comunidade .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            z-index: 1;
+        }
+
+        /* Estilos para centralizar os filtros de gênero */
+        .filtros-genero {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 10px;
+            margin: 0 auto 25px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            justify-content: center;
+            max-width: 80%;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navegacao"> 
+    <!-- Barra de Navegação -->
+    <nav class="navegacao">
         <div class="container">
-            <button class="menu-icon" aria-label="Abrir menu"> 
+            <button class="menu-icon" aria-label="Abrir menu">
                 <svg viewbox="0 0 24 24">
                     <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
                 </svg>
@@ -18,37 +63,141 @@
             <div class="logo">
                 <a href="../index.html">Nurva</a>
             </div>
-            <ul class="menu"> 
+            <ul class="menu">
                 <li><a href="../index.html">Início</a></li>
                 <li><a href="Explorar.html">Explorar</a></li>
                 <li><a href="biblioteca.html">Biblioteca</a></li>
-                <li><a href="#" class="ativa">Comunidade</a></li>
+                <li><a href="comunidade.html" class="ativa">Comunidade</a></li>
                 <li><a href="conexoes.html">Conexões</a></li>
                 <li><a href="perfil.html">Perfil</a></li>
             </ul>
             <div class="perfil">
-                <img src="../public/assets/images/perfil_nurva.jpg" alt="Foto de perfil">
+                <img src="../public/assets/images/usuario_anthony.jpg" alt="Foto de perfil do usuário">
             </div>
         </div>
     </nav>
 
     <main>
-        <section class="content">
-            <div class="header-area">
-                <div class="usuario-area">
-                    <img src="../public/assets/images/perfil_nurva.jpg" alt="Foto de perfil">
-                    <div class="info-usuario">
-                        <p class="nome-usuario">ANTHONY RICHARD</p>
-                        <h2>Comunidade Nurva</h2>
+        <!-- Sidebar (Barra Lateral) -->
+        <aside class="lateral">
+            <h2>Conexões Ativas</h2>
+            <ul class="connections-list">
+                <li class="connections" style="background-image: url('../public/assets/images/capa_Matue.png');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="../public/assets/images/usuario_bernardo.png" alt="Foto de Bernardo">
+                    <div class="connection-info">
+                        <strong>Bernardo</strong>
+                        <span>Ouvindo: Matuê - 777-666</span>
                     </div>
-                </div>
-                <div class="barra-pesquisa">
-                    <input type="text" placeholder="Pesquise por pessoas, playlists ou músicas">
-                </div>
+                </li>
+                <li class="connections" style="background-image: url('../public/assets/images/capa_newjeans.jpg');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="../public/assets/images/usuario_livia.jpg" alt="Foto de Lívia">
+                    <div class="connection-info">
+                        <strong>Lívia</strong>
+                        <span>Ouvindo: New Jeans - Hype Boy</span>
+                    </div>
+                </li>
+                <li class="connections" style="background-image: url('../public/assets/images/capa_tyler.jpg');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="../public/assets/images/usuario_gustavo.jpg" alt="Foto de Gustavo">
+                    <div class="connection-info">
+                        <strong>Gustavo</strong>
+                        <span>Ouvindo: Tyler, The Creator - EARFQUAKE</span>
+                    </div>
+                </li>
+                <li class="connections" style="background-image: url('../public/assets/images/capa_doliver.jpg');">
+                    <div class="camada_escurecimento"></div>
+                    <img src="../public/assets/images/usuario_bruna.png" alt="Foto de Bruna">
+                    <div class="connection-info">
+                        <strong>Bruna</strong>
+                        <span>Ouvindo: Don Toliver - No Pole</span>
+                    </div>
+                </li>
+            </ul>
+
+            <h2>Playlists</h2>
+            <ul class="playlists">
+                <li>
+                    <div class="playlist-images">
+                        <img src="../public/assets/images/playlist_capa_matue.jpg" alt="Playlist 1">
+                        <img src="../public/assets/images/playlist_capa_djonga.jpg" alt="Playlist 2">
+                        <img src="../public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 3">
+                        <img src="../public/assets/images/playlist_capa_yago.jpg" alt="Playlist 4">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Playlist para se animar pro vôlei</strong>
+                        <span>Criada por: Anthony Richard</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="playlist-images">
+                        <img src="../public/assets/images/playlist_capa_billie.jpg" alt="Playlist 5">
+                        <img src="../public/assets/images/playlist_capa_lana.jpg" alt="Playlist 6">
+                        <img src="../public/assets/images/playlist_capa_tyler.jpg" alt="Playlist 7">
+                        <img src="../public/assets/images/playlist_capa_cazuza.jpg" alt="Playlist 8">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Playlist para chorar no banho</strong>
+                        <span>Criada por: Anthony Richard</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="playlist-images">
+                        <img src="../public/assets/images/playlist_capa_billie.jpg" alt="Playlist 5">
+                        <img src="../public/assets/images/playlist_capa_tyler.jpg" alt="Playlist 6">
+                        <img src="../public/assets/images/playlist_capa_cazuza.jpg" alt="Playlist 7">
+                        <img src="../public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 8">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Playlist para estudar</strong>
+                        <span>Criada por: Anthony Richard</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="playlist-images">
+                        <img src="../public/assets/images/playlist_capa_matue.jpg" alt="Playlist 9">
+                        <img src="../public/assets/images/playlist_capa_djonga.jpg" alt="Playlist 10">
+                        <img src="../public/assets/images/playlist_capa_racionais.jpg" alt="Playlist 11">
+                        <img src="../public/assets/images/playlist_capa_yago.jpg" alt="Playlist 12">
+                    </div>
+                    <div class="playlist-info">
+                        <strong>Rap Nacional</strong>
+                        <span>Criada por: Bernardo</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="barra-criar-playlist">+ Criar Nova Playlist</div>
+        </aside>
+
+        <section class="content">
+            <!-- Barra de Pesquisa -->
+            <div class="barra-pesquisa barra-pesquisa-comunidade">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Pesquise músicas, álbuns, artistas, podcasts">
             </div>
 
-            <div class="grid-cards">
-                <!-- Os cards serão inseridos dinamicamente pelo JavaScript -->
+            <!-- Filtros por Gênero -->
+            <div class="filtros-genero">
+                <button class="filtro-btn ativo">Para Você</button>
+                <button class="filtro-btn">Rock</button>
+                <button class="filtro-btn">Hip-Hop</button>
+                <button class="filtro-btn">Pop</button>
+                <button class="filtro-btn">Jazz</button>
+                <button class="filtro-btn">Reggae</button>
+                <button class="filtro-btn">Eletrônica</button>
+                <button class="filtro-btn">Phonk</button>
+            </div>
+
+            <!-- Abas de Comunidades -->
+            <div class="abas-comunidades">
+                <button class="aba-comunidade ativo">Encontrar Comunidades</button>
+                <button class="aba-comunidade">Suas Comunidades</button>
+            </div>
+
+            <!-- Grid de Comunidades -->
+            <div class="grid-comunidades" id="comunidades-grid">
+                <!-- Comunidades serão carregadas dinamicamente pelo JavaScript -->
             </div>
         </section>
 
@@ -62,11 +211,11 @@
             <div class="player-song-info">
                 <img src="../public/assets/thumbnails/default.jpg" alt="Capa da música">
                 <div class="player-song-details">
-                    <div class="player-song-name">Selecione uma música</div>
-                    <div class="player-artist-name">Nurva Music</div>
+                    <div class="player-song-name">Timeless</div>
+                    <div class="player-artist-name">The Weeknd e Playboi Carti</div>
                 </div>
             </div>
-            <div class="player-time">0:00 / 0:00</div>
+            <div class="player-time">0:27 / 2:57</div>
             <div class="player-controls">
                 <div class="player-controls-buttons">
                     <button class="player-button" title="Música anterior"><i class="fas fa-step-backward"></i></button>
@@ -95,6 +244,6 @@
     <script src="../src/js/playlist.js"></script>
     <script src="../src/js/player.js"></script>
     <script src="../src/js/main.js"></script>
-    <script src="../src/js/feed.js"></script>
+    <script src="../src/js/comunidade.js"></script>
 </body>
-</html>
+</html> 

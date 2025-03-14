@@ -1,0 +1,459 @@
+/* Estilos para a página de Conexões */
+
+/* Container principal para o conteúdo da página */
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Painel de conteúdo para as seções */
+.painel-conexoes {
+    background: rgba(25, 25, 25, 0.25);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    margin: 20px 15px 40px;
+    padding: 25px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Adiciona um gradiente sutil ao fundo do painel */
+.painel-conexoes::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.1) 0%, rgba(20, 20, 20, 0.1) 100%);
+    z-index: -1;
+}
+
+/* Elemento decorativo no canto do painel */
+.painel-conexoes::after {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(52, 52, 52, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Brilho decorativo no canto esquerdo inferior */
+.secao-conexoes:last-child::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Barra de pesquisa */
+.barra-pesquisa-conexoes {
+    position: relative;
+    margin: 20px auto 30px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.barra-pesquisa-conexoes input {
+    width: 100%;
+    background-color: rgba(30, 30, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    padding: 12px 45px 12px 45px;
+    color: white;
+    font-size: 14px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.barra-pesquisa-conexoes input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(50, 50, 50, 0.6);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+}
+
+.barra-pesquisa-conexoes .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+    pointer-events: none; /* Permite clicar através do ícone */
+}
+
+/* Seções de conexões */
+.secao-conexoes {
+    margin: 40px 0;
+    padding: 0 20px;
+    position: relative;
+}
+
+.secao-titulo {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: inline-block;
+}
+
+/* Decoração sublinhada para o título */
+.secao-titulo::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 40px;
+    height: 3px;
+    background-color: #343434;
+    border-radius: 3px;
+    box-shadow: 0 1px 5px rgba(52, 52, 52, 0.5);
+}
+
+/* Grid de conexões */
+.grid-conexoes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 35px;
+    padding: 10px 0;
+}
+
+/* Cards de conexão - inspirado no design do card de artista */
+.conexao-card {
+    width: 160px;
+    height: 210px;
+    position: relative;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.conexao-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Background do card */
+.conexao-card::before {
+    content: '';
+    background: linear-gradient(180deg, rgba(25, 25, 25, 0.15) 0%, rgba(40, 40, 40, 0.2) 100%);
+    border-radius: 15px;
+    width: 160px;
+    height: 160px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    box-shadow: inset -12px 12px 12px 0px rgba(255, 255, 255, 0.01),
+                inset 12px -12px 12px 0px rgba(165, 165, 165, 0.01),
+                0px 4px 15px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 50%;
+    z-index: -1;
+    transition: all 0.3s ease;
+}
+
+.conexao-card:hover::before {
+    background: linear-gradient(180deg, rgba(35, 35, 35, 0.2) 0%, rgba(50, 50, 50, 0.25) 100%);
+    box-shadow: inset -12px 12px 12px 0px rgba(255, 255, 255, 0.03),
+                inset 12px -12px 12px 0px rgba(165, 165, 165, 0.03),
+                0px 4px 20px 0px rgba(0, 0, 0, 0.35);
+}
+
+.conexao-imagem {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 20px auto 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.conexao-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.conexao-card:hover .conexao-imagem img {
+    transform: scale(1.05);
+}
+
+.conexao-nome {
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 10px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    padding: 0 5px;
+    transition: color 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.btn-conectar {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 7px 22px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+}
+
+.btn-conectar:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-conectar.seguindo {
+    background-color: #343434;
+    box-shadow: 0 2px 10px rgba(52, 52, 52, 0.3);
+}
+
+.btn-conectar.seguindo:hover {
+    background-color: #4a4a4a;
+    box-shadow: 0 4px 12px rgba(52, 52, 52, 0.4);
+}
+
+/* Mensagens para quando não há conexões ou sugestões */
+.sem-conexoes, .sem-sugestoes {
+    text-align: center;
+    padding: 25px;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    font-size: 16px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin: 20px 40px;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.conexao-card {
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: calc(var(--card-index, 0) * 0.1s);
+    opacity: 0;
+}
+
+/* Efeito de brilho sutil em hover */
+.conexao-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    border-radius: 50%;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.conexao-card:hover::after {
+    opacity: 0.8;
+}
+
+/* Separador entre seções */
+.separador {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+    margin: 10px 0 30px;
+    position: relative;
+}
+
+/* Ícone decorativo no separador */
+.separador::after {
+    content: '\f500';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(30, 30, 30, 0.8);
+    color: rgba(255, 255, 255, 0.3);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .grid-conexoes {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .grid-conexoes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .conexao-imagem {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .secao-titulo {
+        font-size: 24px;
+    }
+    
+    .painel-conexoes {
+        margin: 15px 10px 30px;
+        padding: 20px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .grid-conexoes {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 25px;
+    }
+    
+    .secao-conexoes {
+        padding: 0 10px;
+    }
+    
+    .painel-conexoes {
+        margin: 10px 5px 20px;
+        padding: 15px 10px;
+    }
+}
+
+/* Barra de pesquisa dentro do painel */
+.barra-pesquisa-painel {
+    position: relative;
+    margin: 0 auto 30px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.barra-pesquisa-painel input {
+    width: 100%;
+    background-color: rgba(20, 20, 20, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 10px 40px 10px 40px;
+    color: white;
+    font-size: 14px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.barra-pesquisa-painel input:focus {
+    outline: none;
+    border-color: rgba(29, 185, 84, 0.4);
+    background-color: rgba(35, 35, 35, 0.6);
+    box-shadow: 0 4px 15px rgba(29, 185, 84, 0.2);
+}
+
+.barra-pesquisa-painel .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Adiciona um ícone de limpar quando há texto */
+.barra-pesquisa-painel.has-text::after {
+    content: '\f00d';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.barra-pesquisa-painel.has-text:hover::after {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Notificação estilo */
+.conexoes-notificacao {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(52, 52, 52, 0.85);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    min-width: 200px;
+    text-align: center;
+} 

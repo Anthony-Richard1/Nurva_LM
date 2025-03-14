@@ -939,4 +939,129 @@ img {
     .empty-message p {
         font-size: 13px;
     }
+}
+
+/* Estilos para a página de Comunidade */
+
+/* Abas de comunidades */
+.abas-comunidades {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 10px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.aba-comunidade {
+    padding: 12px 20px;
+    margin: 0 5px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    text-align: center;
+}
+
+.aba-comunidade.ativo {
+    background-color: rgba(255, 255, 255, 0.1);
+    font-weight: bold;
+}
+
+.aba-comunidade:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Grid de comunidades */
+.grid-comunidades {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Card de comunidade */
+.comunidade-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.comunidade-card:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+.comunidade-imagem {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.comunidade-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.comunidade-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.comunidade-card p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.btn-entrar {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 35px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-entrar:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-entrar.ativo {
+    background-color: #1DB954;
+}
+
+/* Responsividade para a página de comunidades */
+@media (max-width: 1200px) {
+    .grid-comunidades {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-comunidades {
+        grid-template-columns: 1fr;
+    }
+    
+    .abas-comunidades {
+        width: 90%;
+    }
 } 
