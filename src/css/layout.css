@@ -2,8 +2,8 @@
 
 /* Container principal */
 .content {
-  margin-left: 22%;
-  margin-top: 75px;
+  margin-left: var(--content-margin-left);
+  margin-top: var(--header-height);
   padding: 20px 20px 80px 20px;
   min-height: calc(100vh - 155px);
   position: relative;
@@ -128,7 +128,6 @@
 @media (max-width: 1200px) {
   .content {
     padding: 20px 20px 80px 20px;
-    margin-left: 25%;
   }
   
   .barra-pesquisa {
@@ -138,6 +137,7 @@
 
 @media (max-width: 992px) {
   .content {
+    width: 100%;
     margin-left: 0;
     padding: 15px 15px 80px 15px;
   }
@@ -150,21 +150,21 @@
   .header-area {
     flex-direction: column;
     align-items: flex-start;
-  }
-  
-  .barra-pesquisa {
-    margin-top: 15px;
-    width: 100%;
+    gap: 15px;
   }
   
   .usuario-area {
-    margin-bottom: 10px;
+    margin-bottom: 0;
+  }
+  
+  .content::before {
+    background-attachment: scroll; /* Melhor desempenho em dispositivos móveis */
   }
 }
 
 @media (max-width: 768px) {
   .content {
-    margin-top: 60px;
+    margin-top: var(--header-height);
     padding: 12px 12px 80px 12px;
   }
   
@@ -174,5 +174,39 @@
   
   .vibe-atual {
     font-size: 22px;
+  }
+  
+  .usuario-area img {
+    width: 45px;
+    height: 45px;
+    margin-right: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .content {
+    padding: 10px 10px 70px 10px;
+  }
+  
+  .header-area {
+    margin-bottom: 20px;
+  }
+  
+  .barra-pesquisa {
+    max-width: 100%;
+  }
+  
+  .barra-pesquisa::before {
+    left: 12px;
+    font-size: 14px;
+  }
+  
+  .nome-usuario {
+    font-size: 14px;
+  }
+  
+  .vibe-atual {
+    font-size: 20px;
+    letter-spacing: -0.3px;
   }
 } 

@@ -2,7 +2,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Nurva - Explorar</title>
     <link rel="stylesheet" href="../src/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -55,7 +58,7 @@
     <!-- Barra de Navegação -->
     <nav class="navegacao">
         <div class="container">
-            <button class="menu-icon" aria-label="Abrir menu">
+            <button class="menu-icon" aria-label="Abrir menu lateral">
                 <svg viewbox="0 0 24 24">
                     <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
                 </svg>
@@ -76,6 +79,18 @@
             </div>
         </div>
     </nav>
+    
+    <!-- Menu Touch para Mobile -->
+    <div class="mobile-touch-menu">
+        <ul>
+            <li><a href="../index.html">Início</a></li>
+            <li><a href="Explorar.html" class="ativa">Explorar</a></li>
+            <li><a href="biblioteca.html">Biblioteca</a></li>
+            <li><a href="comunidade.html">Comunidade</a></li>
+            <li><a href="conexoes.html">Conexões</a></li>
+            <li><a href="perfil.html">Perfil</a></li>
+        </ul>
+    </div>
 
     <main>
         <!-- Sidebar (Barra Lateral) -->

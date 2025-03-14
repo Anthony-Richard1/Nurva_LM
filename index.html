@@ -2,7 +2,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Nurva - Sua Plataforma de Música</title>
     <link rel="stylesheet" href="src/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -12,7 +15,7 @@
     <!-- Barra de Navegação -->
     <nav class="navegacao">
         <div class="container">
-            <button class="menu-icon" aria-label="Abrir menu">
+            <button class="menu-icon" aria-label="Abrir menu lateral">
                 <svg viewbox="0 0 24 24">
                     <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
                 </svg>
@@ -33,6 +36,18 @@
             </div>
         </div>
     </nav>
+    
+    <!-- Menu Touch para Mobile -->
+    <div class="mobile-touch-menu">
+        <ul>
+            <li><a href="#" class="ativa">Início</a></li>
+            <li><a href="pages/Explorar.html">Explorar</a></li>
+            <li><a href="pages/biblioteca.html">Biblioteca</a></li>
+            <li><a href="pages/comunidade.html">Comunidade</a></li>
+            <li><a href="pages/conexoes.html">Conexões</a></li>
+            <li><a href="pages/perfil.html">Perfil</a></li>
+        </ul>
+    </div>
 
     <main>
         <!-- Sidebar (Barra Lateral) -->
@@ -109,15 +124,19 @@
                     <img src="public/assets/images/usuario_anthony.jpg" alt="Foto de perfil">
                     <div class="info-usuario">
                         <p class="nome-usuario">ANTHONY RICHARD</p>
-                        <h2>Navegue novos mares</h2>
+                        <h2 class="vibe-atual">Navegue novos mares</h2>
                     </div>
                 </div>
+                
                 <div class="barra-pesquisa">
                     <input type="text" placeholder="Pesquise músicas, álbuns, artistas, podcasts">
                 </div>
             </div>
 
             <!-- O feed será gerado dinamicamente pelo JavaScript -->
+            <div id="feed-container" class="feed-container">
+                <!-- Conteúdo será inserido dinamicamente -->
+            </div>
         </section>
 
         <!-- Player de Música -->
@@ -145,10 +164,10 @@
             <div class="player-actions">
                 <button class="player-button" title="Não gostei"><i class="fas fa-thumbs-down"></i></button>
                 <button class="player-button" title="Gostei"><i class="fas fa-thumbs-up"></i></button>
-                <button class="player-button" title="Modo aleatório"><i class="fas fa-random"></i></button>
-                <button class="player-button" title="Repetir"><i class="fas fa-redo"></i></button>
-                <button class="player-button" title="Adicionar à playlist"><i class="fas fa-plus-circle"></i></button>
-                <div class="player-volume">
+                <button class="player-button hide-on-medium" title="Modo aleatório"><i class="fas fa-random"></i></button>
+                <button class="player-button hide-on-medium" title="Repetir"><i class="fas fa-redo"></i></button>
+                <button class="player-button hide-on-medium" title="Adicionar à playlist"><i class="fas fa-plus-circle"></i></button>
+                <div class="player-volume hide-on-small">
                     <button class="player-button" title="Volume"><i class="fas fa-volume-up"></i></button>
                     <div class="player-volume-bar">
                         <div class="player-volume-level"></div>

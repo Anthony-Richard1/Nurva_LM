@@ -1,22 +1,52 @@
 // Funcionalidades principais do site
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Código para o menu responsivo
+    // Definir a altura do menu mobile como variável CSS para uso em outros componentes
+    const mobileTouchMenu = document.querySelector('.mobile-touch-menu');
+    if (mobileTouchMenu) {
+        // Definir a altura do menu mobile como variável CSS
+        const mobileMenuHeight = mobileTouchMenu.offsetHeight;
+        document.documentElement.style.setProperty('--mobile-menu-height', mobileMenuHeight + 'px');
+    }
+
+    // Código para o menu responsivo - apenas para a sidebar
     const menuIcon = document.querySelector('.menu-icon');
     const sidebar = document.querySelector('.lateral');
     
+    // Adicionar um overlay para quando o menu estiver aberto em dispositivos móveis
+    const overlay = document.createElement('div');
+    overlay.className = 'menu-overlay';
+    document.body.appendChild(overlay);
+    
+    // Lógica para abrir e fechar a sidebar
     if (menuIcon && sidebar) {
         menuIcon.addEventListener('click', function() {
             sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            menuIcon.classList.toggle('active');
         });
     }
 
+    // Fechar o menu ao clicar no overlay
+    overlay.addEventListener('click', function() {
+        if (sidebar && sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            menuIcon.classList.remove('active');
+        }
+    });
+
     // Fechar o menu ao clicar fora dele (em telas menores)
     document.addEventListener('click', function(event) {
-        if (window.innerWidth <= 768) {
-            if (!event.target.closest('.lateral') && !event.target.closest('.menu-icon')) {
+        if (window.innerWidth <= 992) {
+            const isClickInsideMenu = event.target.closest('.lateral') || 
+                                     event.target.closest('.menu-icon');
+            
+            if (!isClickInsideMenu) {
                 if (sidebar && sidebar.classList.contains('active')) {
                     sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuIcon.classList.remove('active');
                 }
             }
         }
@@ -24,16 +54,155 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Marcar o link ativo no menu de navegação
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const menuLinks = document.querySelectorAll('.menu a');
     
-    menuLinks.forEach(link => {
+    // Marcar links ativos nos menus
+    const allMenuLinks = document.querySelectorAll('.menu a, .mobile-touch-menu a');
+    
+    allMenuLinks.forEach(link => {
         const linkPage = link.getAttribute('href');
-        if (linkPage === currentPage) {
+        const linkPageName = linkPage ? linkPage.split('/').pop() : '';
+        
+        if (linkPage === currentPage || 
+            linkPageName === currentPage ||
+            (currentPage === 'index.html' && (linkPage === '#' || linkPage === './' || linkPage === '') || 
+            linkPage.endsWith('/' + currentPage))) {
             link.classList.add('ativa');
         } else {
             link.classList.remove('ativa');
         }
     });
+
+    // Adicionar funcionalidade de rolagem horizontal suave para o menu touch em dispositivos móveis
+    if (mobileTouchMenu) {
+        // Rolagem suave com o mouse/touch
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        mobileTouchMenu.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - mobileTouchMenu.offsetLeft;
+            scrollLeft = mobileTouchMenu.scrollLeft;
+        });
+
+        mobileTouchMenu.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        mobileTouchMenu.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        mobileTouchMenu.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - mobileTouchMenu.offsetLeft;
+            const walk = (x - startX) * 2; // Velocidade de rolagem
+            mobileTouchMenu.scrollLeft = scrollLeft - walk;
+        });
+
+        // Adicionar suporte a eventos de toque para dispositivos móveis
+        mobileTouchMenu.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - mobileTouchMenu.offsetLeft;
+            scrollLeft = mobileTouchMenu.scrollLeft;
+        });
+
+        mobileTouchMenu.addEventListener('touchend', () => {
+            isDown = false;
+        });
+
+        mobileTouchMenu.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - mobileTouchMenu.offsetLeft;
+            const walk = (x - startX) * 2; // Velocidade de rolagem
+            mobileTouchMenu.scrollLeft = scrollLeft - walk;
+        });
+
+        // Centralizar item ativo no menu touch
+        setTimeout(() => {
+            const activeItem = mobileTouchMenu.querySelector('a.ativa');
+            if (activeItem) {
+                const menuWidth = mobileTouchMenu.offsetWidth;
+                const itemLeft = activeItem.offsetLeft;
+                const itemWidth = activeItem.offsetWidth;
+                
+                // Centralizar o item ativo
+                mobileTouchMenu.scrollLeft = itemLeft - (menuWidth / 2) + (itemWidth / 2);
+            }
+        }, 100);
+    }
+
+    // Atualizar classes responsivas quando a janela for redimensionada
+    window.addEventListener('resize', handleResize);
+    
+    // Executa uma vez na inicialização para configurar tudo corretamente
+    handleResize();
+    
+    // Função para manipular o redimensionamento da janela
+    function handleResize() {
+        // Fechar menus quando a largura da janela mudar
+        if (sidebar && sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            menuIcon.classList.remove('active');
+        }
+        
+        // Atualizar altura do menu mobile após redimensionamento
+        if (mobileTouchMenu) {
+            const mobileMenuHeight = mobileTouchMenu.offsetHeight;
+            document.documentElement.style.setProperty('--mobile-menu-height', mobileMenuHeight + 'px');
+        }
+        
+        // Adicionar/remover classes com base no tamanho da tela
+        updateResponsiveClasses();
+        
+        // Ajustar o player para telas menores
+        updatePlayerForScreenSize();
+    }
+    
+    // Função para atualizar classes responsivas
+    function updateResponsiveClasses() {
+        const playerButtons = document.querySelectorAll('.player-button');
+        
+        // Botões que devem ser escondidos em telas médias
+        const mediumHideButtons = ['player-random', 'player-repeat', 'player-add'];
+        
+        // Botões que devem ser escondidos em telas pequenas
+        const smallHideButtons = ['player-thumbs-down', 'player-thumbs-up', 'player-volume'];
+        
+        playerButtons.forEach(button => {
+            // Remover todas as classes responsivas para reconfigurá-las
+            button.classList.remove('hide-on-medium', 'hide-on-small');
+            
+            // Obter o ID ou classe para identificar o botão
+            const buttonId = button.id || Array.from(button.classList).find(cls => cls.startsWith('player-'));
+            
+            if (buttonId) {
+                // Adicionar classes conforme necessário
+                if (mediumHideButtons.includes(buttonId)) {
+                    button.classList.add('hide-on-medium');
+                }
+                
+                if (smallHideButtons.includes(buttonId)) {
+                    button.classList.add('hide-on-small');
+                }
+            }
+        });
+    }
+    
+    // Função para ajustar o player para diferentes tamanhos de tela
+    function updatePlayerForScreenSize() {
+        const player = document.querySelector('.player');
+        if (!player) return;
+        
+        // Ajustar dimensões conforme necessário
+        if (window.innerWidth <= 576) {
+            // Configurações para telas muito pequenas
+            // Estas são apenas configurações adicionais específicas
+            // O resto acontece via CSS com media queries
+        }
+    }
 
     // Animações dos cards
     const musicCards = document.querySelectorAll('.musica');
@@ -96,12 +265,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Adiciona classe "touch" ao body em dispositivos touch
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        document.body.classList.add('touch-device');
+    }
 });
 
 // Inicialização do player de música
 function initMusicPlayer() {
     const playButton = document.querySelector('.player-play-button');
     const progressBar = document.querySelector('.player-progress');
+    const playerButtons = document.querySelectorAll('.player-button');
+    
+    // Adicionar IDs aos botões do player para identificá-los facilmente
+    const buttonTypes = [
+        'player-thumbs-down',
+        'player-thumbs-up',
+        'player-random',
+        'player-repeat',
+        'player-add',
+        'player-volume'
+    ];
+    
+    // Atribuir IDs para cada botão com base na ordem do array acima
+    playerButtons.forEach((button, index) => {
+        if (index < buttonTypes.length) {
+            button.id = buttonTypes[index];
+        }
+    });
     
     if (playButton) {
         playButton.addEventListener('click', function() {
@@ -131,6 +323,42 @@ function initMusicPlayer() {
                 progressBar.style.width = width + '%';
             }
         }, 1000);
+    }
+    
+    // Adicionar suporte a gestos de toque para controles do player em dispositivos móveis
+    const playerArea = document.querySelector('.player');
+    if (playerArea && 'ontouchstart' in window) {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        
+        playerArea.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+        
+        playerArea.addEventListener('touchend', function(e) {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            
+            const diffX = touchStartX - touchEndX;
+            const diffY = touchStartY - touchEndY;
+            
+            // Ignora gestos verticais (para permitir rolagem da página)
+            if (Math.abs(diffY) > Math.abs(diffX)) return;
+            
+            // Se o gesto for suficientemente longo horizontalmente
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    // Deslizar para a esquerda - próxima música
+                    const nextButton = document.querySelector('.player-button[title="Próxima música"]');
+                    if (nextButton) nextButton.click();
+                } else {
+                    // Deslizar para a direita - música anterior
+                    const prevButton = document.querySelector('.player-button[title="Música anterior"]');
+                    if (prevButton) prevButton.click();
+                }
+            }
+        });
     }
 }
 
@@ -248,15 +476,14 @@ function addSearchStyles() {
             top: 100%;
             left: 0;
             width: 100%;
+            background-color: rgba(20, 20, 20, 0.95);
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
             max-height: 300px;
             overflow-y: auto;
-            background: rgba(30, 30, 30, 0.95);
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 5px;
         }
         
         .resultado-item {
@@ -274,9 +501,9 @@ function addSearchStyles() {
         .resultado-item img {
             width: 40px;
             height: 40px;
-            border-radius: 4px;
-            margin-right: 12px;
             object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
         }
         
         .resultado-info {
@@ -287,7 +514,7 @@ function addSearchStyles() {
             color: white;
             font-size: 14px;
             font-weight: 500;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
         
         .resultado-artista {
@@ -296,13 +523,39 @@ function addSearchStyles() {
         }
         
         .sem-resultados {
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
         }
         
-        .barra-pesquisa {
-            position: relative;
+        @media (max-width: 576px) {
+            .resultados-pesquisa {
+                max-height: 250px;
+            }
+            
+            .resultado-item {
+                padding: 8px 12px;
+            }
+            
+            .resultado-item img {
+                width: 32px;
+                height: 32px;
+                margin-right: 10px;
+            }
+            
+            .resultado-titulo {
+                font-size: 13px;
+            }
+            
+            .resultado-artista {
+                font-size: 11px;
+            }
+            
+            .sem-resultados {
+                padding: 15px;
+                font-size: 13px;
+            }
         }
     `;
     
