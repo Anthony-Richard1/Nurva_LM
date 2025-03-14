@@ -16,111 +16,29 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    // Inicializar objeto userPlaylists se não existir
-    if (typeof window.userPlaylists === 'undefined') {
-        initUserPlaylists();
-    }
+    // Registrar listeners para eventos de playlists
+    setupPlaylistListeners();
     
     initBibliotecaPage();
 });
 
-// Inicializar o objeto userPlaylists com playlists padrão
-function initUserPlaylists() {
-    console.log('Inicializando playlists do usuário...');
-    
-    // Verificar se temos playlists salvas no localStorage
-    const savedPlaylists = localStorage.getItem('nurvaUserPlaylists');
-    
-    if (savedPlaylists) {
-        try {
-            window.userPlaylists = JSON.parse(savedPlaylists);
-            console.log('Playlists carregadas do localStorage:', Object.keys(window.userPlaylists));
-        } catch (e) {
-            console.error('Erro ao carregar playlists do localStorage:', e);
-            createDefaultPlaylists();
+// Configurar listeners para eventos de playlists
+function setupPlaylistListeners() {
+    // Ouvir evento quando as playlists são carregadas
+    document.addEventListener('nurvaPlaylistsLoaded', function(event) {
+        console.log('Evento nurvaPlaylistsLoaded recebido na biblioteca');
+        if (document.getElementById('suas-playlists')) {
+            loadUserPlaylistsSection();
         }
-    } else {
-        // Criar playlists padrão
-        createDefaultPlaylists();
-    }
-}
-
-// Criar playlists padrão para o usuário
-function createDefaultPlaylists() {
-    console.log('Criando playlists padrão...');
+    });
     
-    window.userPlaylists = {
-        "Playlist para chorar no banho": {
-            songs: [],
-            createdBy: "Você",
-            createdAt: new Date().toISOString()
-        },
-        "Playlist para animar pro vôlei": {
-            songs: [],
-            createdBy: "Você",
-            createdAt: new Date().toISOString()
-        },
-        "Playlist para estudar": {
-            songs: [],
-            createdBy: "Você",
-            createdAt: new Date().toISOString()
-        },
-        "Rap Nacional": {
-            songs: [],
-            createdBy: "Bernardo",
-            createdAt: new Date().toISOString()
+    // Ouvir evento quando as playlists são atualizadas
+    document.addEventListener('nurvaPlaylistsUpdated', function(event) {
+        console.log('Evento nurvaPlaylistsUpdated recebido na biblioteca');
+        if (document.getElementById('suas-playlists')) {
+            loadUserPlaylistsSection();
         }
-    };
-    
-    // Adicionar algumas músicas às playlists se o banco de dados estiver disponível
-    if (musicDatabase && musicDatabase.length > 0) {
-        // Encontrar algumas músicas para adicionar
-        const cryingSongs = musicDatabase.filter(song => 
-            song.title && (
-                song.title.toLowerCase().includes('love') || 
-                song.title.toLowerCase().includes('sad') ||
-                song.artist && song.artist.toLowerCase().includes('adele')
-            )
-        ).slice(0, 3);
-        
-        const energeticSongs = musicDatabase.filter(song => 
-            song.title && (
-                song.title.toLowerCase().includes('party') || 
-                song.title.toLowerCase().includes('night') ||
-                song.artist && song.artist.toLowerCase().includes('dua lipa')
-            )
-        ).slice(0, 3);
-        
-        const studySongs = musicDatabase.filter(song => 
-            song.title && (
-                song.title.toLowerCase().includes('chill') || 
-                song.title.toLowerCase().includes('calm') ||
-                song.artist && song.artist.toLowerCase().includes('weeknd')
-            )
-        ).slice(0, 3);
-        
-        const rapSongs = musicDatabase.filter(song => 
-            song.artist && (
-                song.artist.toLowerCase().includes('racionais') || 
-                song.artist.toLowerCase().includes('djonga') ||
-                song.artist.toLowerCase().includes('emicida')
-            )
-        ).slice(0, 3);
-        
-        // Adicionar as músicas às playlists
-        window.userPlaylists["Playlist para chorar no banho"].songs = cryingSongs.map(song => song.id);
-        window.userPlaylists["Playlist para animar pro vôlei"].songs = energeticSongs.map(song => song.id);
-        window.userPlaylists["Playlist para estudar"].songs = studySongs.map(song => song.id);
-        window.userPlaylists["Rap Nacional"].songs = rapSongs.map(song => song.id);
-    }
-    
-    // Salvar no localStorage
-    try {
-        localStorage.setItem('nurvaUserPlaylists', JSON.stringify(window.userPlaylists));
-        console.log('Playlists padrão criadas e salvas no localStorage');
-    } catch (e) {
-        console.error('Erro ao salvar playlists no localStorage:', e);
-    }
+    });
 }
 
 // Inicializar a página da biblioteca
@@ -208,7 +126,7 @@ function loadUserPlaylistsSection() {
         return;
     }
     
-    // Carregar playlists dinâmicamente do objeto userPlaylists
+    // Carregar playlists dinamicamente do objeto userPlaylists
     Object.keys(window.userPlaylists).forEach((playlistName, index) => {
         const playlist = window.userPlaylists[playlistName];
         const playlistCard = createPlaylistCard({
@@ -232,7 +150,7 @@ function createPlaylistCard(playlistInfo) {
     const playlist = playlistInfo.data || {
         name: playlistInfo.name,
         songs: [],
-        createdBy: "Anthony Richard"
+        createdBy: "Você"
     };
     
     // Criar o elemento do card
@@ -290,6 +208,14 @@ function createPlaylistCard(playlistInfo) {
             window.playPlaylist(playlistInfo.name);
         } else {
             console.warn('Função playPlaylist não disponível');
+        }
+    });
+    
+    // Adicionar evento de contexto para mostrar opções da playlist
+    card.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        if (typeof window.showPlaylistOptions === 'function') {
+            window.showPlaylistOptions(playlistInfo.name, e);
         }
     });
     

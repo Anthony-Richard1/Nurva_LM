@@ -82,6 +82,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // Armazenar um marcador de tempo no sessionStorage
             // para que a página da biblioteca saiba que precisa recarregar os dados
             sessionStorage.setItem('nurvaLibraryRefresh', Date.now().toString());
+            
+            // Também disparar evento para playlists serem atualizadas
+            if (typeof window.userPlaylists !== 'undefined') {
+                try {
+                    document.dispatchEvent(new CustomEvent('nurvaPlaylistsUpdated', { 
+                        detail: { playlists: window.userPlaylists }
+                    }));
+                    console.log('Evento nurvaPlaylistsUpdated disparado antes de navegar para biblioteca');
+                } catch (err) {
+                    console.error('Erro ao disparar evento de atualização de playlists:', err);
+                }
+            }
         });
     });
 });
