@@ -17,7 +17,6 @@ Projeto da disciplina de Linguagem de Marcação. Nurva é uma plataforma web de
 - HTML5
 - CSS3
 - JavaScript (ES6+)
-- Python (para scripts de processamento)
 - Font Awesome para ícones
 
 ## Como Executar
